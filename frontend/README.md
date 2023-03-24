@@ -8,7 +8,10 @@ Installs dependencies from package.json
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-# Structure of /src
+# Contributing
+
+### Structure of `/src`
+
 `/pages` - all pages of react app
 
 `/components` - all components
@@ -19,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 `/static` - all static data (config, content variables, styles)
 
-# Contributing
+
 ### Git
 Before making changes, run `git pull` to grab most recent project version
 
