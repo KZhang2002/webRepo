@@ -53,7 +53,7 @@ If you don't, I will know. **And I will come for you.**
 To save a dependency on install, add the `-S` flag to `npm i`. 
 
 ### Helpful Resources
-VSCode Extensions for React = https://www.syncfusion.com/blogs/post/7-vs-code-extensions-for-react-developers.aspx
+VSCode Extensions for React - https://www.syncfusion.com/blogs/post/7-vs-code-extensions-for-react-developers.aspx
 
 React Hooks - https://reactjs.org/docs/hooks-intro.html
 
