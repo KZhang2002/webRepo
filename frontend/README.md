@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Get Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
+### `npm i`
+Installs dependencies from package.json
 
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Structure
+`/pages` - all pages of react app
 
-### `npm test`
+`/components` - all components
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`/api` - backend communication
 
-### `npm run build`
+`/helpers` - reusable helper functions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`/static` - all static data (config, content variables, styles)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Contributing
+### Git
+Before making changes, run `git pull` to grab most recent project version
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+If pulling from a new (remote) branch, run `git fetch`. This grabs all new branches from the remote (origin)
 
-### `npm run eject`
+Push all commits to the `front-end` branch
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```git add *
+git checkout frontend`
+git commit -m "your commit message"
+git push origin front-end
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For larger changes, push to another branch and create a pull-request describing the features implemented (best practice)
+```git add *
+git checkout -b new-branch-name
+git commit -m "your commit message"
+git push origin new-branch-name
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Commit often!!!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Dependencies
+Add all dependencies that are used to the `package.json` file. This will install the new dependencies for everyone.
 
-## Learn More
+If you don't, I will know. **And I will come for you.**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+To save a dependency on install, add the `-S` flag to `npm i`. 
