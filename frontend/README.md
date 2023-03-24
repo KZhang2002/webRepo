@@ -28,7 +28,7 @@ If pulling from a new (remote) branch, run `git fetch`. This grabs all new branc
 Push all commits to the `front-end` branch
 
 ```git add *
-git checkout frontend`
+git checkout frontend
 git commit -m "your commit message"
 git push origin front-end
 ```
