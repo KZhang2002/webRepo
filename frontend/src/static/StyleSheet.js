@@ -9,7 +9,6 @@ const styles = {
       justifyContent: "space-around",
       background: "white",
       borderRadius: 25,
-
     },
     loginPage: {
         width: '100%',
@@ -44,6 +43,31 @@ const styles = {
     },
     page: {
       padding: '2rem'
+    },
+    profileHeader: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems:'center',
+      justifyContent:'flex-start',
+      width: '100vmin',
+      height: '10vh',
+      padding: '3vmin',
+      backgroundColor: "#EEEEEE",
+      margin: '4vmin auto',
+    },
+    profileNameSection: {
+      flexDirection: 'column',
+      alignSelf: 'flex-start',
+      margin: '0 2vmax'
+    },
+    profileName: {
+      margin: 0,
+      alignSelf: 'flex-start'
+    },
+    profileEmail: {
+      margin: 0,
+      color: '#555555',
+      alignSelf: 'flex-start'
     }
   };
 
