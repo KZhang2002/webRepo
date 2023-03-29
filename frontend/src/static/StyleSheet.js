@@ -20,7 +20,7 @@ const styles = {
     background: BG_COLOR,
     backgroundImage: BG_URL,
   },
-    loginInput: {
+  loginInput: {
     height: "100%",
     display: "flex",
     flexDirection: "column",
@@ -66,7 +66,7 @@ const styles = {
     padding: "2rem",
     paddingTop: "8rem",
     paddingBottom: "4rem",
-    height: "calc(100%)",
+    minHeight: "100%",
     background: BG_COLOR,
     backgroundImage: BG_URL,
   },
@@ -109,46 +109,41 @@ const styles = {
     height: "4rem",
     justifyContent: "left",
     alignItems: "center",
-    display: "flex", 
+    display: "flex",
     flexDirection: "row",
     marginBottom: "1rem",
   },
   headerToolbar: {
-    display: "flex", 
-    flexDirection: "row", alignItems: "top", 
-    height: 100, 
+    display: "flex",
+    flexDirection: "row", alignItems: "top",
+    height: 100,
     paddingLeft: "2rem"
+  },
+  profileHeader: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    width: '100vmin',
+    height: '10vh',
+    padding: '3vmin',
+    backgroundColor: "#EEEEEE",
+    margin: '4vmin auto',
+  },
+  profileNameSection: {
+    flexDirection: 'column',
+    alignSelf: 'flex-start',
+    margin: '0 2vmax'
+  },
+  profileName: {
+    margin: 0,
+    alignSelf: 'flex-start'
+  },
+  profileEmail: {
+    margin: 0,
+    color: '#555555',
+    alignSelf: 'flex-start'
   }
 };
-
-    page: {
-      padding: '2rem'
-    },
-    profileHeader: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems:'center',
-      justifyContent:'flex-start',
-      width: '100vmin',
-      height: '10vh',
-      padding: '3vmin',
-      backgroundColor: "#EEEEEE",
-      margin: '4vmin auto',
-    },
-    profileNameSection: {
-      flexDirection: 'column',
-      alignSelf: 'flex-start',
-      margin: '0 2vmax'
-    },
-    profileName: {
-      margin: 0,
-      alignSelf: 'flex-start'
-    },
-    profileEmail: {
-      margin: 0,
-      color: '#555555',
-      alignSelf: 'flex-start'
-    }
-  };
 
 export default styles;
