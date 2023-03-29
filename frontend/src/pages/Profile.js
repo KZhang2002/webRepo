@@ -1,7 +1,8 @@
 import { Avatar } from "@mui/material";
-//import { Paper } from "@mui/material";
 import styles from "../static/StyleSheet";
-//import PageTitleText from '../components/typography/PageTitleText'
+import { Box } from "@mui/material";
+import ListingsToolbar from "../components/browse/ListingsToolbar";
+import { generateListings } from "../helpers/listingsHelper";
 
 function Profile(props) {
     return (
@@ -17,6 +18,10 @@ function Profile(props) {
                     <p style={styles.profileEmail}>email@email.com</p>
                 </section>
             </div>
+            <Box style={styles.listingsContainer}>
+                <ListingsToolbar />
+                {generateListings()}
+            </Box>
         </div>
 
     )
