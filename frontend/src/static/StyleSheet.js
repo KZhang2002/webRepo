@@ -57,6 +57,12 @@ const styles = {
   listingTitleText: {
     fontSize: 24,
   },
+  filterTitleText: {
+    fontSize: 18,
+    paddingLeft: "0.5rem",
+    marginBottom: "1rem",
+    fontWeight: "600"
+  },
   breadcrumbBox: {
     display: "flex",
     flexDirection: "row",
@@ -143,6 +149,19 @@ const styles = {
     margin: 0,
     color: '#555555',
     alignSelf: 'flex-start'
+  },
+  filterItem: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "left"
+  },
+  filterMenu: {
+    display: "flex",
+    flexDirection: "column",
+    padding: "1rem",
+    alignItems: "left",
+    justifyContent: "left"
   }
 };
 

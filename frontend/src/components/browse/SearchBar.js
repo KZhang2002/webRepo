@@ -1,7 +1,7 @@
 import { InputAdornment, TextField } from "@mui/material";
 import { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { FilterList } from "@mui/icons-material";
+import FilterMenu from "./FilterMenu";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,7 +17,7 @@ export default function SearchBar() {
       type="search"
       placeholder="Search Listings..."
       value={searchTerm}
-      onClick={() => {setIsSearching(true)}}
+      onFocus={() => {setIsSearching(true)}}
       onBlur={() => setIsSearching(false)}
       variant="outlined"
       onChange={handleChange}
@@ -32,8 +32,8 @@ export default function SearchBar() {
         ) : (<></>),
 
         endAdornment: (
-          <InputAdornment position="end" style={{paddingRight: "1rem"}}>
-            <FilterList />
+          <InputAdornment position="end">
+            <FilterMenu />
           </InputAdornment>
         ),
       }}
