@@ -4,13 +4,12 @@ import Listing from './pages/Listing';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
-import { useLocation } from "react-router-dom";
 import Header from "./components/header/Header";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import SignUp from "./pages/SignUp";
 
 function RoutesWrapper(props) {
-  const location = useLocation()
   const ProtectedRoute = ({ isLoggedIn, children }) => {
     if (!isLoggedIn) {
       return <Navigate to="/login" replace />;
@@ -21,7 +20,8 @@ function RoutesWrapper(props) {
   return <>
     {props.isLoggedIn ? <Header setIsLoggedIn={props.setIsLoggedIn} /> : <></>}
     <Routes>
-    <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="signup" element={<SignUp setIsLoggedIn={props.setIsLoggedIn} />} />
       <Route path="login" element={<Login setIsLoggedIn={props.setIsLoggedIn} />} />
       <Route path="profile" element={
         <ProtectedRoute isLoggedIn={props.isLoggedIn}><Profile /></ProtectedRoute>
