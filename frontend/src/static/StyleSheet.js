@@ -154,14 +154,23 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "left"
+    width: "100%"
   },
   filterMenu: {
     display: "flex",
     flexDirection: "column",
+    width: "15rem",
     padding: "1rem",
-    alignItems: "left",
-    justifyContent: "left"
+    justifyContent: "center"
+  },
+  filterInput: {
+    width: "4rem",
+    marginLeft: "1rem"
+  },
+  filterApplyButton: {
+    marginLeft: "0.5rem",
+    marginRight: "0.5rem",
+    marginTop: "1rem",
     },
     listingsList: {
       display: 'flex',
