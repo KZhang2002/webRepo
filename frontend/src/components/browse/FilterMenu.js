@@ -76,7 +76,7 @@ export default function FilterMenu(props) {
                     horizontal: "left",
                     vertical: "bottom"
                 }}
-                style={{ left: -50 }}
+
                 onClose={() => {
                     handleClose();
                     setFilterValues([...props.filters]);

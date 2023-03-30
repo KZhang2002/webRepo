@@ -6,7 +6,7 @@ import { generateListings } from "../helpers/listingsHelper";
 function BrowseContent(props) {
 
     return (
-        <Box id="listings" style={{...styles.listingsContainer}}>
+        <Box id="listings" style={{ ...styles.listingsContainer }}>
             <ListingsToolbar />
             {generateListings()}
         </Box>
@@ -15,8 +15,8 @@ function BrowseContent(props) {
 
 function Browse(props) {
 
-    return <div id="background" style={{...styles.page}}>
-        <BrowseContent/>
+    return <div id="background" style={{ ...styles.page }}>
+        <BrowseContent />
     </div>
 }
 

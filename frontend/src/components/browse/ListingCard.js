@@ -12,6 +12,7 @@ const ListingCard = (props) => {
 
     return (
         <Box style={styles.listingCard}>
+            <img style={{borderRadius: "10px 10px 0px 0px", objectFit: "cover",width: "100%", height: 250}} src="https://i.pcmag.com/imagery/reviews/03vgWGzPszXGuw7ZDpulrMm-1..v1638566437.jpg"/>
             <Box style={styles.listingHeader}>
                 <Box style={styles.titleDateHeader}>
                     <ListingTitleText to={`/listing?product=${listing.id}`}>{listing.name}</ListingTitleText>
@@ -19,7 +20,6 @@ const ListingCard = (props) => {
                 </Box>
                 <PriceText>{listing.price}</PriceText>
             </Box>
-            <Divider/>
             <Box style={styles.listingBody}>
                 <DescriptionText>{listing.description}</DescriptionText>
                 <ListingReview listingId={listing.id}/>

@@ -2,7 +2,8 @@ import { BG_COLOR, BG_URL } from "./Content";
 
 const styles = {
   loginBox: {
-    width: '30rem',
+    maxWidth: '35rem',
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     padding: "2rem",
@@ -11,10 +12,11 @@ const styles = {
     borderRadius: 10,
   },
   loginPage: {
-    width: '100%',
     height: '100%',
     display: "flex",
     alignItems: "center",
+    paddingLeft: "2rem",
+    paddingRight: "2rem",
     justifyContent: "center",
     background: BG_COLOR,
     backgroundImage: BG_URL,
@@ -80,6 +82,9 @@ const styles = {
     fontWeight: 200,
   },
   page: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     padding: "2rem",
     paddingTop: "8rem",
     paddingBottom: "4rem",
@@ -92,25 +97,28 @@ const styles = {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    marginTop: "2rem"
+    marginTop: "2rem",
+    maxWidth: "100rem"
   },
   listingCard: {
     background: "#e3e3e3",
     borderRadius: 5,
-    padding: "2rem",
+    padding: "0rem, 0rem, 2rem, 0rem",
     margin: "1rem",
     display: "flex",
     flexDirection: "column",
     minWidth: "20rem",
-    maxWidth: "25%",
-    height: "12rem",
+    width: "25%",
+    maxWidth: "30rem",
+ 
   },
   listingHeader: {
     display: "flex",
     flexDirection: "row",
-    width: "100%",
+
     justifyContent: "space-between",
-    marginBottom: "1rem"
+    marginBottom: "1rem",
+    padding: "2rem 2rem 0rem 2rem"
   },
   titleDateHeader: {
     display: "flex",
@@ -119,26 +127,31 @@ const styles = {
   listingBody: {
     display: "flex",
     flexDirection: "column",
-    width: "100%",
-    marginTop: "1rem",
+    marginTop: "0rem",
+    padding: "0rem 2rem 0rem 2rem"
   },
   listingsToolbar: {
-    width: "88%",
+    maxWidth: "79rem",
+    width: "calc(75% + 4rem)",
     height: "4rem",
     justifyContent: "left",
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     marginBottom: "1rem",
+    alignSelf: "center",
+    justifyContent: "center"
   },
   listingReview: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    height: "5rem"
+    height: "3rem",
+    marginBottom: "1rem",
+    marginTop: "0.5rem"
   },
   reviewText: {
-    marginLeft: "1rem",
+    marginLeft: "0.5rem",
     fontSize: 18,
     fontWeight: 600,
     color: "#3c3c3c",
@@ -156,16 +169,16 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    width: '100vmin',
+    maxWidth: '80rem',
     height: '10vh',
     padding: '3vmin',
     backgroundColor: "#EEEEEE",
-    margin: '4vmin auto',
+    marginTop: "2rem"
   },
   profileNameSection: {
     flexDirection: 'column',
     alignSelf: 'flex-start',
-    margin: '0 2vmax'
+    margin: '0 2vmax',
   },
   profileName: {
     margin: 0,
@@ -178,9 +191,8 @@ const styles = {
   },
   reputationSection: {
     flexDirection: 'column',
-    marginLeft: 'auto',
+
     alignSelf: 'flex-end',
-    margin: '0 2vmax'
   },
   reputationText: {
     textAlign: 'right',
@@ -210,6 +222,9 @@ const styles = {
     marginLeft: "0.5rem",
     marginRight: "0.5rem",
     marginTop: "1rem",
+  },
+  filterChipStyle: {
+    margin: "0rem 1rem 0rem 0rem",
   }
 };
 
