@@ -1,10 +1,15 @@
 import { Box } from "@mui/material";
 import styles from "../static/StyleSheet";
-import PageTitleText from '../components/typography/PageTitleText'
+import ListingsToolbar from "../components/browse/ListingsToolbar";
+import { generateListings } from "../helpers/listingsHelper";
 
-function Browse (props) {
+function Browse(props) {
+
     return <Box style={styles.page}>
-        <PageTitleText>Browse Listings</PageTitleText>
+        <Box style={styles.listingsContainer}>
+        <ListingsToolbar />
+            {generateListings()}
+        </Box>
     </Box>
 }
 
