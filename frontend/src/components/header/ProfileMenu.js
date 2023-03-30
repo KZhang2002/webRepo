@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
-import { SettingsOutlined } from '@mui/icons-material';
+import { Person2, SettingsOutlined } from '@mui/icons-material';
 
 export default function ProfileMenu(props) {
 
@@ -39,12 +39,13 @@ export default function ProfileMenu(props) {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
-                size="large"
+                size="larxge"
                 edge="start"
                 color="inherit"
                 aria-label="menu"
+                style={{height: "2rem", marginTop: "1.2rem", marginRight: "0.5rem"}}
             >
-                <SettingsOutlined />
+                <Person2 />
             </IconButton>
             <Menu
                 id="basic-menu"

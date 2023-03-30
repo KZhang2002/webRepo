@@ -14,28 +14,32 @@ function Header(props) {
     const navigate = useNavigate()
     const location = useLocation()
     return (
-        <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", zIndex: 100 }}>
-            <AppBar position="static">
-                <Toolbar style={styles.headerToolbar}>
-                    {location.pathname === '/browse' ? <></> :
-                      <IconButton
-                      onClick={() => navigate('../browse')}
-                      size="large"
-                      edge="start"
-                      color="inherit"
-                      aria-label="menu"
-                      sx={{ mr: 2, mb: 0.2 }}
-                  >
-                      <Home />
-                  </IconButton>
-                    }
-                    <Box style={styles.breadcrumbBox} sx={{ flexGrow: 1, alignItems: "center" }}>
-                        <Typography variant="h6" component="div" >
-                            {`${APP_NAME} / ${location.pathname.slice(1)}`}
-                        </Typography>
-                    </Box>
-                    <ProfileMenu setIsLoggedIn={props.setIsLoggedIn} />
-                </Toolbar>
+        <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", zIndex: 999 }}>
+            <AppBar position="static" style={{display: 'flex', flexDirection: 'row', alignItems: "top", width: "100%", height: "6rem"}}>
+                    <div style={{display: 'flex', flexDirection: 'row', alignItems: "top", width: "100%", height: "4rem", paddingLeft: "2rem", paddingRight: "1rem"}}>
+                        {location.pathname === '/browse' ? <></> :
+                            <IconButton
+                                onClick={() => navigate('../browse')}
+                                size="large"
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                style={{height: "2rem", marginTop: "1.05rem"}}
+                            >
+                                <Home />
+                            </IconButton>
+                        }
+                        <Box style={styles.breadcrumbBox} sx={{ flexGrow: 1, alignItems: "center" }}>
+                            <div style={styles.breadcrumbsTitleText}>
+                                {`${APP_NAME}`}
+                            </div>
+                            <div style={styles.breadcrumbsSepText}>/</div>
+                            <div style={styles.breadcrumbsPathText} >
+                                {`${location.pathname.slice(1)}`}
+                            </div>
+                        </Box>
+                        <ProfileMenu setIsLoggedIn={props.setIsLoggedIn} />
+                    </div>
             </AppBar>
         </Box>
     );
