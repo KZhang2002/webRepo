@@ -1,3 +1,4 @@
+const authtokens = new Map()
 const express = require('express')
 const app = express()
 const port = 8000
@@ -31,7 +32,7 @@ app.get('/user', (req, res) => {
 
         console.log(rows)
         res.status(201)
-        token = 0
+        token = "beans" // TODO: Token generation
         res.send("{auth: " + token + "}")
         return
     })
