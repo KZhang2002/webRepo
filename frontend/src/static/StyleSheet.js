@@ -68,6 +68,17 @@ const styles = {
       margin: 0,
       color: '#555555',
       alignSelf: 'flex-start'
+    },
+    listingsList: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems:'center',
+      justifyContent:'flex-start',
+      width: '100vmin',
+      height: '100vh',
+      padding: '3vmin',
+      backgroundColor: "#EEEEEE",
+      margin: '4vmin auto',
     }
   };
 
