@@ -9,7 +9,6 @@ const styles = {
     justifyContent: "space-around",
     background: "white",
     borderRadius: 25,
-
   },
   loginPage: {
     width: '100%',
@@ -150,6 +149,19 @@ const styles = {
     color: '#555555',
     alignSelf: 'flex-start'
   },
+  reputationSection: {
+    flexDirection: 'column',
+    marginLeft: 'auto',
+    alignSelf: 'flex-end',
+    margin: '0 2vmax'
+  },
+  reputationText: {
+    textAlign: 'right',
+    margin: 0,
+    color: '#555555',
+    alignSelf: 'flex-start',
+    fontSize: '0.8rem'
+  },
   filterItem: {
     display: "flex",
     flexDirection: "row",
@@ -171,17 +183,6 @@ const styles = {
     marginLeft: "0.5rem",
     marginRight: "0.5rem",
     marginTop: "1rem",
-    },
-    listingsList: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems:'center',
-      justifyContent:'flex-start',
-      width: '100vmin',
-      height: '100vh',
-      padding: '3vmin',
-      backgroundColor: "#EEEEEE",
-      margin: '4vmin auto',
   }
 };
 
