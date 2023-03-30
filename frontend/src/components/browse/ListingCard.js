@@ -5,6 +5,8 @@ import PriceText from "../typography/PriceText";
 import DateText from "../typography/DateText";
 import DescriptionText from "../typography/DescriptionText";
 import ListingTitleText from "../typography/ListingTitleText";
+import { Comment, CommentBank, ModeComment } from "@mui/icons-material";
+import ListingReview from "./ListingReview";
 
 const ListingCard = (props) => {
 
@@ -22,6 +24,7 @@ const ListingCard = (props) => {
             <Divider/>
             <Box style={styles.listingBody}>
                 <DescriptionText>{listing.description}</DescriptionText>
+                <ListingReview/>
             </Box>
         </Box>
     )

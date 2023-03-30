@@ -8,7 +8,7 @@ const styles = {
     padding: "2rem",
     justifyContent: "space-around",
     background: "white",
-    borderRadius: 25,
+    borderRadius: 10,
 
   },
   loginPage: {
@@ -42,8 +42,8 @@ const styles = {
     color: "#e3e3e3",
   },
   priceText: {
-    fontSize: 24,
-    fontWeight: 600,
+    fontSize: 30,
+    fontWeight: 200,
   },
   dateText: {
     fontSize: 14,
@@ -66,7 +66,19 @@ const styles = {
   breadcrumbBox: {
     display: "flex",
     flexDirection: "row",
-    height: 10,
+  },
+  breadcrumbsTitleText: {
+    fontSize: 24,
+    fontWeight: 600,
+    marginRight: "0.5rem"
+  },
+  breadcrumbsSepText: {
+    fontSize: 26,
+    marginRight: "0.5rem"
+  },
+  breadcrumbsPathText: {
+    fontSize: 24,
+    fontWeight: 200,
   },
   page: {
     padding: "2rem",
@@ -81,6 +93,7 @@ const styles = {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+    marginTop: "2rem"
   },
   listingCard: {
     background: "#e3e3e3",
@@ -91,7 +104,7 @@ const styles = {
     flexDirection: "column",
     minWidth: "20rem",
     maxWidth: "25%",
-    height: "10rem",
+    height: "12rem",
   },
   listingHeader: {
     display: "flex",
@@ -106,7 +119,7 @@ const styles = {
   },
   listingBody: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     width: "100%",
     marginTop: "1rem",
   },
@@ -119,9 +132,22 @@ const styles = {
     flexDirection: "row",
     marginBottom: "1rem",
   },
+  listingReview: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    height: "5rem"
+  },
+  reviewText: {
+    marginLeft: "1rem",
+    fontSize: 18,
+    fontWeight: 600,
+    color: "#3c3c3c"
+  },
   headerToolbar: {
     display: "flex",
-    flexDirection: "row", alignItems: "top",
+    flexDirection: "row",
+    alignItems: "top",
     height: 100,
     paddingLeft: "2rem"
   },

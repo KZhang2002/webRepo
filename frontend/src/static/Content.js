@@ -1,4 +1,4 @@
-export const APP_NAME = "Not CraigsList"
+export const APP_NAME = "NicoList"
 export const BG_COLOR = "#3e3e3e"
 export const HOMEPAGE = '/browse'
 
