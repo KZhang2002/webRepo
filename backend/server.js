@@ -23,7 +23,35 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.put('/parse', (req, res) => {
+app.get('/user', (req, res) => {
+    const { username, password } = req.body
+    const query = `SELECT * FROM users (username, password) VALUES ('${username}', '${password}')`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(201)
+        token = 0
+        res.send("{auth: " + token + "}")
+        return
+    })
+    res.status(401)
+    res.send("Invalid credentials")
+})
+
+app.post('/user', (req, res) => {
+    const { username, password } = req.body
+    const query = `INSERT INTO users (username, password) VALUES ('${username}', '${password}')`
+    connection.query(query, (err, rows, fields) => {
+        if (err) throw err
+
+        console.log(rows)
+        res.status(200)
+        res.send("Successfully added user!")
+    })
+})
+
+/*app.put('/parse', (req, res) => {
     console.log(req.body)
 
     try {
@@ -37,9 +65,9 @@ app.put('/parse', (req, res) => {
     } catch (err) {
         console.log(err)
     }
-})
+})*/
 
-app.get('/db', (req, res) => {
+/*app.get('/db', (req, res) => {
     connection.query('SHOW TABLES', (err, rows, fields) =>{
         if (err) throw err
 
@@ -47,37 +75,25 @@ app.get('/db', (req, res) => {
         res.status(200)
         res.send(rows)
     })
-})
+})*/
 
-app.post('/user', (req, res) => {
-    const { first, last, age, admin } = req.body
-    const query = `INSERT INTO users (first_name, last_name, age, admin) VALUES ('${first}', '${last}', ${age}, ${admin})`
-    connection.query(query, (err, rows, fields) => {
-        if (err) throw err
-
-        console.log(rows)
-        res.status(200)
-        res.send("Successfully added user!")
-    })
-})
-
-app.get('/users', (req, res) => {
+/*app.get('/users', (req, res) => {
     connection.query(`SELECT * FROM users`, (err, rows, fields) => {
         if (err) throw err
 
         res.status(200)
         res.send(rows)
     })
-})
+})*/
 
-app.put('/users/clear', (req, res) => {
+/*app.put('/users/clear', (req, res) => {
     connection.query(`DELETE FROM users`, (err, rows, fields) => {
         if (err) throw err
 
         res.status(200)
         res.send("Successfully cleared users!")
     })
-})
+})*/
 
 //start server
 app.listen(port, () => {
