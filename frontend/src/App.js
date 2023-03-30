@@ -8,7 +8,6 @@ import Header from "./components/header/Header";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import SignUp from "./pages/SignUp";
-import { ParallaxProvider } from "react-scroll-parallax";
 
 function RoutesWrapper(props) {
   const ProtectedRoute = ({ isLoggedIn, children }) => {
@@ -31,7 +30,7 @@ function RoutesWrapper(props) {
         <ProtectedRoute isLoggedIn={props.isLoggedIn}><Listing /></ProtectedRoute>
       } />
       <Route path="browse" element={
-        <ProtectedRoute isLoggedIn={props.isLoggedIn}><ParallaxProvider><Browse /></ParallaxProvider></ProtectedRoute>
+        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Browse /></ProtectedRoute>
       } />
       <Route path="*" element={<NoPage />} />
     </Routes>

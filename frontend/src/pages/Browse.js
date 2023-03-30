@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import styles from "../static/StyleSheet";
 import ListingsToolbar from "../components/browse/ListingsToolbar";
 import { generateListings } from "../helpers/listingsHelper";
-import { useParallax } from 'react-scroll-parallax';
 
 function BrowseContent(props) {
 

@@ -141,7 +141,8 @@ const styles = {
     marginLeft: "1rem",
     fontSize: 18,
     fontWeight: 600,
-    color: "#3c3c3c"
+    color: "#3c3c3c",
+    textDecoration: "none",
   },
   headerToolbar: {
     display: "flex",

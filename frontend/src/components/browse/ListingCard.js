@@ -1,16 +1,14 @@
 import { Box, Divider } from "@mui/material"
 import styles from "../../static/StyleSheet"
-import { LISTING } from "../../static/Content"
 import PriceText from "../typography/PriceText";
 import DateText from "../typography/DateText";
 import DescriptionText from "../typography/DescriptionText";
 import ListingTitleText from "../typography/ListingTitleText";
-import { Comment, CommentBank, ModeComment } from "@mui/icons-material";
 import ListingReview from "./ListingReview";
 
 const ListingCard = (props) => {
 
-    const listing = LISTING;
+    let listing = props.listing;
 
     return (
         <Box style={styles.listingCard}>
@@ -24,7 +22,7 @@ const ListingCard = (props) => {
             <Divider/>
             <Box style={styles.listingBody}>
                 <DescriptionText>{listing.description}</DescriptionText>
-                <ListingReview/>
+                <ListingReview listingId={listing.id}/>
             </Box>
         </Box>
     )
