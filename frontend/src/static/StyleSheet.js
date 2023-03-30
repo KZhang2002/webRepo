@@ -9,7 +9,6 @@ const styles = {
     justifyContent: "space-around",
     background: "white",
     borderRadius: 10,
-
   },
   loginPage: {
     width: '100%',
@@ -175,6 +174,19 @@ const styles = {
     margin: 0,
     color: '#555555',
     alignSelf: 'flex-start'
+  },
+  reputationSection: {
+    flexDirection: 'column',
+    marginLeft: 'auto',
+    alignSelf: 'flex-end',
+    margin: '0 2vmax'
+  },
+  reputationText: {
+    textAlign: 'right',
+    margin: 0,
+    color: '#555555',
+    alignSelf: 'flex-start',
+    fontSize: '0.8rem'
   },
   filterItem: {
     display: "flex",
