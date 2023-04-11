@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/user/auth', (req, res) => {
-    const { email, password } = req.query
+    const { email, password } = req.body
     const query = `SELECT * FROM user WHERE email='${email}' AND pass='${password}'`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
@@ -45,7 +45,8 @@ app.get('/user/auth', (req, res) => {
 })
 
 app.get('/user/:email', (req, res) => {
-    const email = req.query.email
+    const { email } = req.params
+    console.log(email);
     const query = `SELECT * FROM user WHERE email='${email}'`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
@@ -69,11 +70,7 @@ app.get('/user/:email', (req, res) => {
 })
 
 app.post('/user', (req, res) => {
-    const q = req.query
-    const email = q["email"]
-    const password = q["password"]
-    const first_name = q["first_name"]
-    const last_name = q["last_name"]
+    const {email, password, first_name, last_name} = req.body
     const query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('${email}', '${password}', '${first_name}', '${last_name}')`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
@@ -85,7 +82,7 @@ app.post('/user', (req, res) => {
 })
 
 app.post('/listing', (req, res) => {
-    const q = req.query
+    const q = req.body
     const title = q["title"]
     const price = q["price"]
     const seller_email = q["seller"]
