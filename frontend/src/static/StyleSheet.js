@@ -164,27 +164,26 @@ const styles = {
     height: 100,
     paddingLeft: "2rem"
   },
-  profileHeader: {
+  userHeader: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    maxWidth: '80rem',
-    height: '10vh',
-    padding: '3vmin',
+    height: '5rem',
+    padding: '1.5rem',
     backgroundColor: "#EEEEEE",
     marginTop: "2rem"
   },
-  profileNameSection: {
+  userNameSection: {
     flexDirection: 'column',
     alignSelf: 'flex-start',
     margin: '0 2vmax',
   },
-  profileName: {
+  userName: {
     margin: 0,
     alignSelf: 'flex-start'
   },
-  profileEmail: {
+  userEmail: {
     margin: 0,
     color: '#555555',
     alignSelf: 'flex-start'
