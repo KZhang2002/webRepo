@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.get('/user/auth', (req, res) => {
     const { email, password } = req.body
-    const query = `SELECT * FROM user WHERE email='${email}' AND pass='${password}'`
+    const query = `SELECT (id) FROM user WHERE email='${email}' AND pass='${password}'`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 
@@ -49,7 +49,7 @@ app.get('/user/auth', (req, res) => {
 app.get('/user/:email', (req, res) => {
     const { email } = req.params
     console.log(email);
-    const query = `SELECT * FROM user WHERE email='${email}'`
+    const query = `SELECT (id, first_name, last_name, snowflake) FROM user WHERE email='${email}'`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 
@@ -129,7 +129,7 @@ app.get('/listings', (req, res) => {
 app.get('/listing/:id', (req, res) => {
     const { id } = req.params
     console.log(id);
-    const query = `SELECT * FROM listing WHERE id='${ id }'`
+    const query = `SELECT (title, price, created, seller, item_description, imagelink) FROM listing WHERE id='${ id }'`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 
@@ -155,6 +155,16 @@ app.get('/listing/:id', (req, res) => {
 })
 
 app.post('/listing/:id/bid', (req, res) => {
+    const { id } = req.params
+    connection.query(`SELECT (id, bidder, bid, snowflake) FROM bid WHERE listing='${id}'`, (err, rows, fields) => {
+        if (err) throw err
+
+        res.status(200)
+        res.send(rows)
+    })
+})
+
+app.get('/listing/:id/bids', (req, res) => {
     // TODO: Check if bid is high enough first
     const { id } = req.params
     const { token, bid } = req.body
