@@ -30,7 +30,11 @@ app.get('/user/auth', (req, res) => {
     const { email, password } = req.body
     const query = `SELECT id FROM user WHERE email='${email}' AND pass='${password}'`
     connection.query(query, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         //console.log(rows)
         if (rows.length == 0) {
@@ -51,7 +55,11 @@ app.get('/user/:email', (req, res) => {
     console.log(email);
     const query = `SELECT id, first_name, last_name, snowflake FROM user WHERE email='${email}'`
     connection.query(query, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         console.log(rows)
         if (rows.length == 0) {
@@ -74,7 +82,11 @@ app.get('/user/:email', (req, res) => {
 app.put('/users/clear', (req, res) => {
     //console.log(req)
     connection.query(`DELETE FROM user`, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         res.status(200)
         res.send("Successfully cleared users!")
@@ -83,7 +95,11 @@ app.put('/users/clear', (req, res) => {
 
 app.get('/users', (req, res) => {
     connection.query(`SELECT id, email, first_name, last_name, snowflake FROM user`, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         res.status(200)
         res.send(rows)
@@ -94,7 +110,11 @@ app.post('/user', (req, res) => {
     const {email, password, first_name, last_name} = req.body
     const query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('${email}', '${password}', '${first_name}', '${last_name}')`
     connection.query(query, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         console.log(`Successfully added user with id ${rows['insertId']}`)
         res.status(200)
@@ -109,7 +129,11 @@ app.post('/listing', (req, res) => {
 
     const query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('${title}', '${price}', '${authtokens.get(token)}', '${desc}', '${img}')`
     connection.query(query, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         console.log(`Successfully added listing with id ${rows['insertId']}`)
         res.status(200)
@@ -119,7 +143,11 @@ app.post('/listing', (req, res) => {
 
 app.get('/listings', (req, res) => {
     connection.query(`SELECT * FROM listing`, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         res.status(200)
         res.send(rows)
@@ -131,7 +159,11 @@ app.get('/listing/:id', (req, res) => {
     console.log(id);
     const query = `SELECT title, price, created, seller, item_description, imagelink FROM listing WHERE id='${ id }'`
     connection.query(query, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         console.log(rows)
         if (rows.length == 0) {
@@ -157,7 +189,11 @@ app.get('/listing/:id', (req, res) => {
 app.post('/listing/:id/bid', (req, res) => {
     const { id } = req.params
     connection.query(`SELECT id, bidder, bid, snowflake FROM bid WHERE listing='${id}'`, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         res.status(200)
         res.send(rows)
@@ -171,7 +207,11 @@ app.get('/listing/:id/bids', (req, res) => {
 
     const query = `INSERT INTO bid (listing, bidder, bid) VALUES ('${id}', '${authtokens.get(token)}', '${bid}')`
     connection.query(query, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         console.log(`Successfully added bid with id ${rows['insertId']}`)
         res.status(200)
@@ -182,7 +222,11 @@ app.get('/listing/:id/bids', (req, res) => {
 app.put('/listings/clear', (req, res) => {
     //console.log(req)
     connection.query(`DELETE FROM listing`, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         res.status(200)
         res.send("Successfully cleared listings!")
@@ -197,7 +241,11 @@ app.post('/user/:id/review', (req, res) => {
 
     const query = `INSERT INTO review (user, review, seller) VALUES ('${authtokens.get(token)}', '${review}', '${id}')`
     connection.query(query, (err, rows, fields) => {
-        if (err) throw err
+        if (err) {
+            res.status(500)
+            res.send("500: Internal Server Error\n" + err)
+            return
+        }
 
         console.log(`Successfully added bid with id ${rows['insertId']}`)
         res.status(200)
