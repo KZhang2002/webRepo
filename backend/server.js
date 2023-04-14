@@ -32,7 +32,7 @@ app.get('/user/auth', (req, res) => {
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 
-        console.log(rows)
+        //console.log(rows)
         if (rows.length == 0) {
             res.status(401)
             res.send("Invalid credentials")
@@ -40,7 +40,7 @@ app.get('/user/auth', (req, res) => {
         }
         res.status(201)
         token = generate_token(32)
-        //authtokens.set(token, rows['insertID']);
+        authtokens.set(token, rows[0]['id']);
         res.send("{auth: " + token + "}")
         return
     })
@@ -104,10 +104,10 @@ app.post('/user', (req, res) => {
 
 // Listings
 app.post('/listing', (req, res) => {
-    console.log(req.body)
-    const {title, price, seller, desc, img} = req.body
+    //console.log(req.body)
+    const {title, price, token, desc, img} = req.body
 
-    const query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('${title}', '${price}', (SELECT user.id FROM user WHERE user.email='${seller}'), '${desc}', '${img}')`
+    const query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('${title}', '${price}', '${authtokens.get(token)}', '${desc}', '${img}')`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 
@@ -157,11 +157,9 @@ app.get('/listing/:id', (req, res) => {
 app.post('/listing/:id/bid', (req, res) => {
     // TODO: Check if bid is high enough first
     const { id } = req.params
-    const q = req.body
-    const bidder = q["bidder"] // TODO: Use auth token
-    const bid = q["bid"]
+    const { token, bid } = req.body
 
-    const query = `INSERT INTO bid (listing, bidder, bid) VALUES ('${id}', '${bidder}', '${bid}')`
+    const query = `INSERT INTO bid (listing, bidder, bid) VALUES ('${id}', '${authtokens.get(token)}', '${bid}')`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 
@@ -171,15 +169,23 @@ app.post('/listing/:id/bid', (req, res) => {
     })
 })
 
+app.put('/listings/clear', (req, res) => {
+    //console.log(req)
+    connection.query(`DELETE FROM listing`, (err, rows, fields) => {
+        if (err) throw err
+
+        res.status(200)
+        res.send("Successfully cleared users!")
+    })
+})
+
 // TODO: get bid
 
 app.post('/user/:id/review', (req, res) => {
     const { id } = req.params
-    const q = req.body
-    const user = q["user"] // TODO: Use auth token
-    const review = q["bid"]
+    const { token, review } = req.body
 
-    const query = `INSERT INTO review (user, review, seller) VALUES ('${user}', '${review}', '${id}')`
+    const query = `INSERT INTO review (user, review, seller) VALUES ('${authtokens.get(token)}', '${review}', '${id}')`
     connection.query(query, (err, rows, fields) => {
         if (err) throw err
 
