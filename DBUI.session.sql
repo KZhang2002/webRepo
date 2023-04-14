@@ -8,8 +8,7 @@ CREATE TABLE IF NOT EXISTS user (
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     snowflake DATETIME NOT NULL DEFAULT NOW(),
-    strikes INT NOT NULL DEFAULT 0,
-    is_admin BOOLEAN NOT NULL DEFAULT FALSE
+    strikes INT NOT NULL DEFAULT 0
 );
 DROP TABLE IF EXISTS listing;
 CREATE TABLE IF NOT EXISTS listing (
@@ -19,8 +18,7 @@ CREATE TABLE IF NOT EXISTS listing (
     created DATETIME NOT NULL DEFAULT NOW(),
     seller INT NOT NULL REFERENCES user(id),
     item_description VARCHAR(6969),
-    imagelink VARCHAR(255),
-    approved BOOLEAN NOT NULL DEFAULT TRUE -- TODO This should be false in production --
+    imagelink VARCHAR(255)
 );
 DROP TABLE IF EXISTS bid;
 CREATE TABLE IF NOT EXISTS bid (
