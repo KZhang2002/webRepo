@@ -18,15 +18,24 @@ function LoginInput(props) {
     }
 
     const handleLogin = async () => {
-            const {_, error} = await submit(user, password, callback)
-            setErr(error);
+            const data = await submit(user, password, callback)
+            setErr(data.error);
+    }
+
+    const handleRedirect = async () => {
+        if (props.signup) {
+            navigate(`../login`)
+        } else {
+            navigate('../signup')
+        }
     }
 
     return (
         <Box style={styles.loginInput}>
             <TextField onChange={(e) => setUser(e.target.value)} style={styles.loginInputItem} name="Username"></TextField>
             <TextField onChange={(e) => setPassword(e.target.value)} style={styles.loginInputItem} name="Password" type="password"></TextField>
-            <Button onClick={handleLogin} style={styles.loginInputItem} variant="contained">Login</Button>
+            <Button onClick={handleLogin} style={styles.loginInputItem} variant="contained">{props.signup ? "Create Account" : "Login"}</Button>
+            <Button onClick={handleRedirect} style={styles.loginInputItem} variant="outlined">{props.signup ? "Login" : "Create Account"}</Button>
             { err ? <ErrorText style={styles.loginInputItem}>{err}</ErrorText> : '' }
         </Box>
     )
