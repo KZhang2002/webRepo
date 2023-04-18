@@ -1,66 +1,51 @@
-import './App.css';
-import axios from 'axios'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Browse from './pages/Browse';
+import Listing from './pages/Listing';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
+import NoPage from './pages/NoPage';
+import Header from "./components/header/Header";
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
+import SignUp from "./pages/SignUp";
+
+function RoutesWrapper(props) {
+  const ProtectedRoute = ({ isLoggedIn, children }) => {
+    if (!isLoggedIn) {
+      return <Navigate to="/login" replace />;
+    }
+
+    return children;
+  };
+  return <>
+    {props.isLoggedIn ? <Header setIsLoggedIn={props.setIsLoggedIn} /> : <></>}
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="signup" element={<SignUp setIsLoggedIn={props.setIsLoggedIn} />} />
+      <Route path="login" element={<Login setIsLoggedIn={props.setIsLoggedIn} />} />
+      <Route path="profile" element={
+        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Profile /></ProtectedRoute>
+      } />
+      <Route path="listing" element={
+        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Listing /></ProtectedRoute>
+      } />
+      <Route path="browse" element={
+        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Browse /></ProtectedRoute>
+      } />
+      <Route path="*" element={<NoPage />} />
+    </Routes>
+  </>
+}
 
 function App() {
-  const url = 'http://localhost:8000'
 
-  const checkAPI = () => {
-    axios.get(url + '/').then((res) => {
-      alert(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
-
-  const user = {
-    "first": "Kenny",
-    "last": "Zhang",
-    "age": 20,
-    "admin": true
-  }
-
-  const sendJSON = () => {
-    console.log(user)
-
-    axios.put(url + '/parse', user).then((res) => {
-      alert(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
-
-  const sendUser = () => {
-    axios.post(url + '/user', user).then((res) => {
-      alert(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
-
-  const getUsers = () => {
-    axios.get(url + '/users').then((res) => {
-      alert(JSON.stringify(res.data))
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
-
-  const clearUsers = () => {
-    axios.put(url + '/users/clear').then((res) => {
-      alert(res.data)
-    }).catch((err) => {
-      console.log(err)
-    })
-  }
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
-    <div className="App">
-      <h1>Hello World!</h1>
-      <button onClick={checkAPI}>Check API</button>
-      <button onClick={sendJSON}>Send JSON</button>
-      <button onClick={sendUser}>Send User to DB</button>
-      <button onClick={getUsers}>Get Users from DB</button>
-      <button onClick={clearUsers}>Clear Users in DB</button>
+    <div style={{ height: "100vh" }}>
+      <BrowserRouter>
+        <RoutesWrapper setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+      </BrowserRouter>
     </div>
   );
 }

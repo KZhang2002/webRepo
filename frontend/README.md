@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Get Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
+### `npm i`
+Installs dependencies from package.json
 
 ### `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Contributing
 
-### `npm test`
+### Structure of `/src`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`/pages` - all pages of react app
 
-### `npm run build`
+`/components` - all components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`/api` - backend communication
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+`/helpers` - reusable helper functions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`/static` - all static data (config, content variables, styles)
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Git
+Before making changes, run `git pull` to grab most recent project version
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+If pulling from a new (remote) branch, run `git fetch`. This grabs all new branches from the remote (origin)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Push all commits to the `front-end` branch
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```git add *
+git checkout frontend
+git commit -m "your commit message"
+git push origin front-end
+```
 
-## Learn More
+For larger changes, push to another branch and create a pull-request describing the features implemented (best practice)
+```git add *
+git checkout -b new-branch-name
+git commit -m "your commit message"
+git push origin new-branch-name
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Commit often!!!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Dependencies
+Add all dependencies that are used to the `package.json` file. This will install the new dependencies for everyone.
 
-### Code Splitting
+If you don't, I will know. **And I will come for you.**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+To save a dependency on install, add the `-S` flag to `npm i`. 
 
-### Analyzing the Bundle Size
+### Helpful Resources
+VSCode Extensions for React - https://www.syncfusion.com/blogs/post/7-vs-code-extensions-for-react-developers.aspx
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+React Hooks - https://reactjs.org/docs/hooks-intro.html
 
-### Making a Progressive Web App
+MaterialUI Library - https://mui.com/
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+API Requests - https://mehdiouss.medium.com/how-to-use-async-await-with-the-fetch-api-in-javascript-97cdcca7abbc
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Routing - https://reactrouter.com/en/main
