@@ -37,9 +37,7 @@ export default function SearchBar() {
   const renderAppliedFilters = () => {
       return filters.map((value, index) => {
         if (value.enabled) {
-          return <Chip style={styles.filterChipStyle} label={`${filterItems[index]}: ${value.value}`}></Chip>
-        } else {
-          return <></>
+          return <Chip key={index} style={styles.filterChipStyle} label={`${filterItems[index]}: ${value.value}`}></Chip>
         }
 
       })

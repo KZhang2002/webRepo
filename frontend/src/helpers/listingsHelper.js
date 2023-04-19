@@ -7,6 +7,6 @@ export const generateListings = ( listNum = 35 ) => {
     return listings.map((value, index) => {
         let listing = value;
 
-        return <ListingCard listing={listing} />
+        return <ListingCard key={index} listing={listing} />
     })
 }

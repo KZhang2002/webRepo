@@ -90,7 +90,7 @@ export default function FilterMenu(props) {
                     <Box style={styles.filterTitleText}>Filter Results</Box>
                     {props.filterItems.map((value, index) => {
                         return (
-                            <Box style={styles.filterItem}>
+                            <Box key={index} style={styles.filterItem}>
                                 <MenuItem style={{width: "100%", margin: 0, padding: 0 }} onClick={() => { toggleSelected(index) }}>
                                     <Checkbox style={{marginLeft: "0rem"}} checked={filterValues[index].enabled} />
                                     {value}

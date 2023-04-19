@@ -18,7 +18,7 @@ function LoginInput(props) {
     }
 
     const handleLogin = async () => {
-            const data = await submit(user, password, callback)
+            const data = await submit(user, password, props.signup, callback)
             setErr(data.error);
     }
 

@@ -5,32 +5,33 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
 import Header from "./components/header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 
-function RoutesWrapper(props) {
-  const ProtectedRoute = ({ isLoggedIn, children }) => {
-    if (!isLoggedIn) {
-      return <Navigate to="/login" replace />;
-    }
+const ProtectedRoute = (props) => {
+  if (!props.isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
 
-    return children;
-  };
+  return props.children;
+};
+
+function RoutesWrapper(props) {
   return <>
     {props.isLoggedIn ? <Header setIsLoggedIn={props.setIsLoggedIn} /> : <></>}
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="/" exact element={<Navigate to="/login" replace />} />
       <Route path="signup" element={<SignUp setIsLoggedIn={props.setIsLoggedIn} />} />
       <Route path="login" element={<Login setIsLoggedIn={props.setIsLoggedIn} />} />
       <Route path="profile" element={
-        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Profile /></ProtectedRoute>
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Profile />} />
       } />
       <Route path="listing" element={
-        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Listing /></ProtectedRoute>
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Listing />} />
       } />
       <Route path="browse" element={
-        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Browse /></ProtectedRoute>
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Browse />} />
       } />
       <Route path="*" element={<NoPage />} />
     </Routes>
@@ -39,7 +40,7 @@ function RoutesWrapper(props) {
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("userProfile") ? true : false)
 
   return (
     <div style={{ height: "100vh" }}>
