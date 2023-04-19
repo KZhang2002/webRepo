@@ -221,19 +221,6 @@ app.get('/listing/:id', (req, res) => {
 })
 
 app.post('/listing/:id/bid', (req, res) => {
-    const { id } = req.params
-    connection.query(`SELECT id, bidder, bid, snowflake FROM bid WHERE listing='${id}'`, (err, rows, fields) => {
-        if (err) {
-            handle(err, res)
-            return
-        }
-
-        res.status(200)
-        res.send(rows)
-    })
-})
-
-app.get('/listing/:id/bids', (req, res) => {
     // TODO: Check if bid is high enough first
     const { id } = req.params
     const { token, bid } = req.body
@@ -248,6 +235,19 @@ app.get('/listing/:id/bids', (req, res) => {
         console.log(`Successfully added bid with id ${rows['insertId']}`)
         res.status(200)
         res.send(`Successfully added bid with id ${rows['insertId']}`)
+    })
+})
+
+app.get('/listing/:id/bids', (req, res) => {
+    const { id } = req.params
+    connection.query(`SELECT id, bidder, bid, snowflake FROM bid WHERE listing='${id}'`, (err, rows, fields) => {
+        if (err) {
+            handle(err, res)
+            return
+        }
+
+        res.status(200)
+        res.send(rows)
     })
 })
 
@@ -266,11 +266,11 @@ app.put('/listings/clear', (req, res) => {
 
 // TODO: get bid
 
-app.post('/user/:id/review', (req, res) => {
-    const { id } = req.params
+app.post('/user/:email/review', (req, res) => {
+    const { email } = req.params
     const { token, review } = req.body
 
-    const query = `INSERT INTO review (user, review, seller) VALUES ('${authtokens.get(token)}', '${review}', '${id}')`
+    const query = `INSERT INTO review (user, review, seller) VALUES ('${authtokens.get(token)}', '${review}', (SELECT id FROM user WHERE email='${email}'))`
     connection.query(query, (err, rows, fields) => {
         if (err) {
             handle(err, res)
@@ -283,7 +283,25 @@ app.post('/user/:id/review', (req, res) => {
     })
 })
 
-// TODO: get reviews
+app.get('/user/:email/reviews', (req, res) => {
+    const { email } = req.params
+    connection.query(`
+                SELECT r.id, r.review, r.user, u.first_name, u.last_name, r.snowflake
+                FROM review r
+                INNER JOIN user u ON r.user = u.id
+                INNER JOIN user s ON r.seller = s.id
+                WHERE s.email = '${email}'`, (err, rows, fields) => {
+        if (err) {
+            handle(err, res)
+            return
+        }
+
+        res.status(200)
+        res.send(rows)
+    })
+})
+
+
 
 
 
