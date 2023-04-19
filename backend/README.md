@@ -8,6 +8,10 @@ This file describes the API calls we have defined.
 
 Send a blank request to this endpoint and it will return a Hello World!
 
+### GET `/createexample` (dev only, should not be implemented in GUI)
+
+Send a blank request to this endpoint to clear all databases and populate them with example entries. Testing and demo only. Basically, just open localhost:8000/createexample in Chrome.
+
 ## Users
 
 ### GET `/users`
@@ -38,6 +42,34 @@ Send a blank request to this endpoint and it will return a list of all listings 
 
 ### POST `/listing`
 
-Post a JSON-formatted body to this endpoint with values for parameters `title`, `price`, `seller`, `desc`, and `img` to create a listing.
+Post a JSON-formatted body to this endpoint with values for parameters `title`, `price`, `token`, `desc`, and `img` to create a listing.
 
-The seller parameter should have the email of the seller who is posting the listing. In the future, instead of the seller parameter, we will use the auth token provided in a header to decide whose listing it is.
+### GET `/listing/:id`
+
+Send a request to this endpoint to get information about a listing. For example, `/listing/42069` will get information about the listing with the ID `42069`.
+
+### POST `/listing/:id/bid`
+
+Post a JSON-formatted body to this endpoint with values for parameters `token`, and `bid` to bid on a listing with ID `id`.
+
+### GET `/listing/:id/bids`
+
+Send a request to this endpoint to get all bids on a listing. For example, `/listing/42069/bids` will get the bids for the listing with the ID `42069`.
+
+### PUT `/listings/clear` (dev only, should not be implemented in GUI)
+
+Send a blank request to this endpoint to clear all listings from the database.
+
+## Reviews
+
+### POST `/user/:email/review`
+
+Post a JSON-formatted body to this endpoint with values for parameters `token`, and `review` to review a user with email `email`. For example, `/user/johndoe@smu.edu/review` will post a review for the user with the email `johndoe@smu.edu`.
+
+### GET `/user/:email/reviews`
+
+Send a request to this endpoint to get all reviews on a user. For example, `/user/johndoe@smu.edu/reviews` will get the reviews for the user with the email `johndoe@smu.edu`.
+
+
+
+
