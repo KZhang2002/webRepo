@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.put('/createexample', (req, res) => {
+app.get('/createexample', (req, res) => {
     // Clear all databases
     connection.query('DELETE FROM bid', (err, rows, fields) => {})
     connection.query('DELETE FROM review', (err, rows, fields) => {})
@@ -285,6 +285,8 @@ app.post('/user/:id/review', (req, res) => {
 
 // TODO: get reviews
 
+
+
 // TODO: Tags
 
 //start server
@@ -302,6 +304,8 @@ function generate_token(length){ // Stack Overflow
     }
     return b.join("");
 }
+
+
 
 function handle(err, res){
     res.status(500)
