@@ -26,18 +26,18 @@ app.get('/', (req, res) => {
 
 app.get('/createexample', (req, res) => {
     // Clear all databases
-    connection.query('DELETE FROM bid', (err, rows, fields) => {})
-    connection.query('DELETE FROM review', (err, rows, fields) => {})
-    connection.query('DELETE FROM tag', (err, rows, fields) => {})
-    connection.query('DELETE FROM listing', (err, rows, fields) => {})
-    connection.query('DELETE FROM user', (err, rows, fields) => {})
-    
+    connection.query('DELETE FROM bid', (err, rows, fields) => { })
+    connection.query('DELETE FROM review', (err, rows, fields) => { })
+    connection.query('DELETE FROM tag', (err, rows, fields) => { })
+    connection.query('DELETE FROM listing', (err, rows, fields) => { })
+    connection.query('DELETE FROM user', (err, rows, fields) => { })
+
     // Populate all databases
     // TODO populate tag
     let query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('beans@beans.beans', 'beansbeans', 'Beans', 'Beans')`
-    connection.query(query, (err, rows, fields) => {})
+    connection.query(query, (err, rows, fields) => { })
     query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('jperry@tcu.edu', 'HornedToads3', 'Joshua', 'Perry')`
-    connection.query(query, (err, rows, fields) => {})
+    connection.query(query, (err, rows, fields) => { })
 
     let thomasID = 0;
     query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('thomassss@jail.com', 'I wish I could see the kids', 'Thomas', 'Sebastian')`
@@ -55,9 +55,9 @@ app.get('/createexample', (req, res) => {
                 return
             }
             query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('Can of Beans', '1.49', '${rows['insertId']}', 'These are beans.', 'https://easydinnerideas.com/wp-content/uploads/2022/06/Easy-Baked-Beans-1-720x540.jpeg')`
-            connection.query(query, (err, rows, fields) => {})
+            connection.query(query, (err, rows, fields) => { })
             query = `INSERT INTO review (user, review, seller) VALUES ('${thomasID}', 'This guy sucks. He took my wife and kids.', '${rows['insertId']}')`
-            connection.query(query, (err, rows, fields) => {})
+            connection.query(query, (err, rows, fields) => { })
         })
     })
     res.status(200)
@@ -144,7 +144,7 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/user', (req, res) => {
-    const {email, password, first_name, last_name} = req.body
+    const { email, password, first_name, last_name } = req.body
     const query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('${email}', '${password}', '${first_name}', '${last_name}')`
     connection.query(query, (err, rows, fields) => {
         if (err) {
@@ -161,7 +161,7 @@ app.post('/user', (req, res) => {
 // Listings
 app.post('/listing', (req, res) => {
     //console.log(req.body)
-    const {title, price, token, desc, img} = req.body
+    const { title, price, token, desc, img } = req.body
 
     const query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('${title}', '${price}', '${authtokens.get(token)}', '${desc}', '${img}')`
     connection.query(query, (err, rows, fields) => {
@@ -177,7 +177,34 @@ app.post('/listing', (req, res) => {
 })
 
 app.get('/listings', (req, res) => {
-    connection.query(`SELECT * FROM listing`, (err, rows, fields) => {
+    const { query, tags, minPrice, maxPrice } = req.body
+    let sqlQuery = 'SELECT * FROM listing';
+    let conditions = [];
+
+    if (query) {
+        const termsArray = query.split(' ');
+        const wildcardPatterns = termsArray.map(term => `%${term}%`);
+        const wildcardList = wildcardPatterns.join(' OR ');
+        conditions.push(`(title LIKE '${wildcardList}' OR item_description LIKE '${wildcardList}')`);
+    }
+
+    if (tags) {
+        conditions.push(`ID IN (SELECT DISTINCT listing FROM tag WHERE tag_name IN (${tags.map(tag => `'${tag}'`).join(',')}))`);
+    }
+
+    if (minPrice !== undefined && maxPrice !== undefined) {
+        conditions.push(`price BETWEEN ${minPrice} AND ${maxPrice}`);
+    } else if (minPrice !== undefined) {
+        conditions.push(`price >= ${minPrice}`);
+    } else if (maxPrice !== undefined) {
+        conditions.push(`price <= ${maxPrice}`);
+    }
+
+    if (conditions.length > 0) {
+        sqlQuery += ' WHERE ' + conditions.join(' AND ');
+    }
+
+    connection.query(sqlQuery, (err, rows, fields) => {
         if (err) {
             handle(err, res)
             return
@@ -191,7 +218,7 @@ app.get('/listings', (req, res) => {
 app.get('/listing/:id', (req, res) => {
     const { id } = req.params
     console.log(id)
-    const query = `SELECT title, price, created, seller, item_description, imagelink FROM listing WHERE id='${ id }'`
+    const query = `SELECT title, price, created, seller, item_description, imagelink FROM listing WHERE id='${id}'`
     connection.query(query, (err, rows, fields) => {
         if (err) {
             handle(err, res)
@@ -312,12 +339,12 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
-function generate_token(length){ // Stack Overflow
+function generate_token(length) { // Stack Overflow
     //edit the token allowed characters
     var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("")
-    var b = []  
-    for (var i=0; i<length; i++) {
-        var j = (Math.random() * (a.length-1)).toFixed(0);
+    var b = []
+    for (var i = 0; i < length; i++) {
+        var j = (Math.random() * (a.length - 1)).toFixed(0);
         b[i] = a[j];
     }
     return b.join("");
@@ -325,7 +352,7 @@ function generate_token(length){ // Stack Overflow
 
 
 
-function handle(err, res){
+function handle(err, res) {
     res.status(500)
     res.send("500: Internal Server Error\n" + err)
 }
