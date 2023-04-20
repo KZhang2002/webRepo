@@ -6,7 +6,7 @@ const port = 8000
 
 app.use(express.json())
 
-const cors = require('cors');
+const cors = require('cors')
 app.use(cors())
 
 const mysql = require('mysql')
@@ -18,7 +18,7 @@ const connection = mysql.createConnection({
 })
 
 
-connection.connect();
+connection.connect()
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -39,11 +39,11 @@ app.get('/createexample', (req, res) => {
     query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('jperry@tcu.edu', 'HornedToads3', 'Joshua', 'Perry')`
     connection.query(query, (err, rows, fields) => { })
 
-    let thomasID = 0;
+    let thomasID = 0
     query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('thomassss@jail.com', 'I wish I could see the kids', 'Thomas', 'Sebastian')`
     connection.query(query, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send(err)
             return
         }
         thomasID = rows['insertId']
@@ -51,7 +51,7 @@ app.get('/createexample', (req, res) => {
         query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('johndoe@smu.edu', 'PerunaPog', 'John', 'Doe')`
         connection.query(query, (err, rows, fields) => {
             if (err) {
-                handle(err, res)
+                res.status(500).send(err)
                 return
             }
             query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('Can of Beans', '1.49', '${rows['insertId']}', 'These are beans.', 'https://easydinnerideas.com/wp-content/uploads/2022/06/Easy-Baked-Beans-1-720x540.jpeg')`
@@ -71,20 +71,13 @@ app.get('/user/auth', (req, res) => {
     const query = `SELECT id FROM user WHERE email='${email}' AND pass='${password}'`
     connection.query(query, (err, rows, fields) => {
         if (err) {
-            handle(err, res);
-            return
-        }
-
-        //console.log(rows)
-        if (rows.length == 0) {
-            res.status(401)
-            res.send("Invalid credentials")
+            res.status(400).send()
             return
         }
         res.status(201)
         token = generate_token(32)
         authtokens.set(token, rows[0]['id'])
-        res.send("{auth: " + token + "}")
+        res.send({ auth: token })
         return
     })
 })
@@ -95,25 +88,15 @@ app.get('/user/:email', (req, res) => {
     const query = `SELECT id, first_name, last_name, snowflake FROM user WHERE email='${email}'`
     connection.query(query, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send()
             return
         }
-
-        console.log(rows)
-        if (rows.length == 0) {
-            res.status(404)
-            res.send("We couldn't find the user you were looking for. Unfortunate, truly. Try harder I guess.")
+        if (rows.length === 0) {
+            res.status(404).send()
             return
         }
-        const r = rows[0]
         res.status(200)
-        res.json({
-            'email': r['email'],
-            'first_name': r['first_name'],
-            'last_name': r['last_name'],
-            'snowflake': r['snowflake'],
-            'strikes': r['strikes']
-        })
+        res.send(rows[0])
         return
     })
 })
@@ -122,7 +105,7 @@ app.put('/users/clear', (req, res) => {
     //console.log(req)
     connection.query(`DELETE FROM user`, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send()
             return
         }
 
@@ -134,7 +117,7 @@ app.put('/users/clear', (req, res) => {
 app.get('/users', (req, res) => {
     connection.query(`SELECT id, email, first_name, last_name, snowflake FROM user`, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send()
             return
         }
 
@@ -145,68 +128,90 @@ app.get('/users', (req, res) => {
 
 app.post('/user', (req, res) => {
     const { email, password, first_name, last_name } = req.body
-    const query = `INSERT INTO user (email, pass, first_name, last_name) VALUES ('${email}', '${password}', '${first_name}', '${last_name}')`
-    connection.query(query, (err, rows, fields) => {
+    const query = `
+        INSERT INTO user (email, pass, first_name, last_name)
+        SELECT '${email}', '${password}', '${first_name}', '${last_name}'
+        WHERE NOT EXISTS (SELECT 1 FROM user WHERE email = '${email}')`
+    connection.query(query, (err, result) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send()
             return
         }
 
-        console.log(`Successfully added user with id ${rows['insertId']}`)
-        res.status(200)
-        res.send(`Successfully added user with id ${rows['insertId']}`)
+        if (result.affectedRows === 0) {
+            res.status(409)
+            res.send(`Email ${email} is already in use`)
+            return
+        }
+
+        res.status(201).send()
     })
 })
 
 // Listings
 app.post('/listing', (req, res) => {
-    //console.log(req.body)
     const { title, price, token, desc, img } = req.body
+    const user = authtokens.get(token)
 
-    const query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('${title}', '${price}', '${authtokens.get(token)}', '${desc}', '${img}')`
-    connection.query(query, (err, rows, fields) => {
-        if (err) {
-            handle(err, res)
+    if (!user) {
+        res.status(401).send()
+        return
+    }
+
+    connection.query(`SELECT id FROM user WHERE email='${user}'`, (err, rows, fields) => {
+        if (err || rows.length == 0) {
+            res.status(500)
+            res.send('Error while retrieving user')
             return
         }
 
-        console.log(`Successfully added listing with id ${rows['insertId']}`)
-        res.status(200)
-        res.send(`Successfully added listing with id ${rows['insertId']}`)
+        const seller_id = rows[0].id
+
+        const query = `INSERT INTO listing (title, price, seller_id, item_description, imagelink) VALUES ('${title}', '${price}', '${seller_id}', '${desc}', '${img}')`
+
+        connection.query(query, (err, rows, fields) => {
+            if (err) {
+                res.status(500)
+                res.send('Error while adding listing')
+                return
+            }
+
+            res.status(200).send()
+        })
     })
 })
 
 app.get('/listings', (req, res) => {
     const { query, tags, minPrice, maxPrice } = req.body
-    let sqlQuery = 'SELECT * FROM listing';
-    let conditions = [];
+    let sqlQuery = 'SELECT * FROM listing'
+    let conditions = []
 
     if (query) {
-        const termsArray = query.split(' ');
-        const wildcardPatterns = termsArray.map(term => `%${term}%`);
-        const wildcardList = wildcardPatterns.join(' OR ');
-        conditions.push(`(title LIKE '${wildcardList}' OR item_description LIKE '${wildcardList}')`);
+        const termsArray = query.split(' ')
+        const wildcardPatterns = termsArray.map(term => `%${term}%`)
+        const wildcardList = wildcardPatterns.join(' OR ')
+        conditions.push(`(title LIKE '${wildcardList}' OR item_description LIKE '${wildcardList}')`)
     }
 
     if (tags) {
-        conditions.push(`ID IN (SELECT DISTINCT listing FROM tag WHERE tag_name IN (${tags.map(tag => `'${tag}'`).join(',')}))`);
+        conditions.push(`ID IN (SELECT DISTINCT listing FROM tag WHERE tag_name IN (${tags.map(tag => `'${tag}'`).join(',')}))`)
     }
 
     if (minPrice !== undefined && maxPrice !== undefined) {
-        conditions.push(`price BETWEEN ${minPrice} AND ${maxPrice}`);
+        conditions.push(`price BETWEEN ${minPrice} AND ${maxPrice}`)
     } else if (minPrice !== undefined) {
-        conditions.push(`price >= ${minPrice}`);
+        conditions.push(`price >= ${minPrice}`)
     } else if (maxPrice !== undefined) {
-        conditions.push(`price <= ${maxPrice}`);
+        conditions.push(`price <= ${maxPrice}`)
     }
 
     if (conditions.length > 0) {
-        sqlQuery += ' WHERE ' + conditions.join(' AND ');
+        sqlQuery += ' WHERE ' + conditions.join(' AND ')
     }
 
     connection.query(sqlQuery, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send()
             return
         }
 
@@ -221,7 +226,7 @@ app.get('/listing/:id', (req, res) => {
     const query = `SELECT title, price, created, seller, item_description, imagelink FROM listing WHERE id='${id}'`
     connection.query(query, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send()
             return
         }
 
@@ -233,60 +238,59 @@ app.get('/listing/:id', (req, res) => {
         }
         const r = rows[0]
         res.status(200)
-        res.json({
-            'id': r['id'],
-            'title': r['title'],
-            'price': r['price'],
-            'created': r['created'],
-            'seller': r['seller'],
-            'item_description': r['item_description'],
-            'imagelink': r['imagelink'],
-            'approved': r['approved']
-        })
+        res.send(rows[0])
         return
     })
 })
 
 app.post('/listing/:id/bid', (req, res) => {
-    // TODO: Check if bid is high enough first
     const { id } = req.params
     const { token, bid } = req.body
 
-    const query = `INSERT INTO bid (listing, bidder, bid) VALUES ('${id}', '${authtokens.get(token)}', '${bid}')`
+    const subQuery = `SELECT MAX(bid) as max_bid FROM bid WHERE listing=${id}`
+    const query = `INSERT INTO bid (listing, bidder, bid) SELECT ${id}, '${authtokens.get(token)}', '${bid}' FROM (SELECT IFNULL((${subQuery}), 0) AS max_bid) t WHERE ${bid} > max_bid`
+    
     connection.query(query, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send(err)
             return
         }
 
-        console.log(`Successfully added bid with id ${rows['insertId']}`)
+        if (rows.affectedRows === 0) {
+            res.status(400).send("Bid is not high enough.")
+            return
+        }
+
         res.status(200)
-        res.send(`Successfully added bid with id ${rows['insertId']}`)
     })
 })
 
 app.get('/listing/:id/bids', (req, res) => {
     const { id } = req.params
     connection.query(`SELECT id, bidder, bid, snowflake FROM bid WHERE listing='${id}'`, (err, rows, fields) => {
-        if (err) {
-            handle(err, res)
-            return
-        }
-
-        res.status(200)
-        res.send(rows)
-    })
-})
+      if (err) {
+        res.status(500).send(err)
+        return
+      }
+      
+      if (rows.length === 0) {
+        res.status(204).send('No bids found for this listing.')
+        return
+      }
+  
+      res.status(200).send(rows)
+    });
+  });
 
 app.put('/listings/clear', (req, res) => {
     //console.log(req)
     connection.query(`DELETE FROM listing`, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send(err)
             return
         }
 
-        res.status(200)
+        res.status(200).send()
         res.send("Successfully cleared listings!")
     })
 })
@@ -300,13 +304,11 @@ app.post('/user/:email/review', (req, res) => {
     const query = `INSERT INTO review (user, review, seller) VALUES ('${authtokens.get(token)}', '${review}', (SELECT id FROM user WHERE email='${email}'))`
     connection.query(query, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send(err)
             return
         }
 
-        console.log(`Successfully added bid with id ${rows['insertId']}`)
-        res.status(200)
-        res.send(`Successfully added bid with id ${rows['insertId']}`)
+        res.status(201).send()
     })
 })
 
@@ -319,7 +321,7 @@ app.get('/user/:email/reviews', (req, res) => {
                 INNER JOIN user s ON r.seller = s.id
                 WHERE s.email = '${email}'`, (err, rows, fields) => {
         if (err) {
-            handle(err, res)
+            res.status(500).send(err)
             return
         }
 
@@ -344,15 +346,8 @@ function generate_token(length) { // Stack Overflow
     var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("")
     var b = []
     for (var i = 0; i < length; i++) {
-        var j = (Math.random() * (a.length - 1)).toFixed(0);
-        b[i] = a[j];
+        var j = (Math.random() * (a.length - 1)).toFixed(0)
+        b[i] = a[j]
     }
-    return b.join("");
-}
-
-
-
-function handle(err, res) {
-    res.status(500)
-    res.send("500: Internal Server Error\n" + err)
+    return b.join("")
 }
