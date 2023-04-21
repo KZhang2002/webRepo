@@ -151,33 +151,24 @@ app.post('/user', (req, res) => {
 // Listings
 app.post('/listing', (req, res) => {
     const { title, price, token, desc, img } = req.body
-    const user = authtokens.get(token)
+    const seller_id = authtokens.get(token)
 
-    if (!user) {
+    if (!seller_id) {
         res.status(401).send()
         return
     }
 
-    connection.query(`SELECT id FROM user WHERE email='${user}'`, (err, rows, fields) => {
-        if (err || rows.length == 0) {
+    const query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('${title}', '${price}', '${seller_id}', '${desc}', '${img}')`
+
+    connection.query(query, (err, rows, fields) => {
+        if (err) {
             res.status(500)
-            res.send('Error while retrieving user')
+            res.send('Error while adding listing')
+            console.log(err)
             return
         }
 
-        const seller_id = rows[0].id
-
-        const query = `INSERT INTO listing (title, price, seller_id, item_description, imagelink) VALUES ('${title}', '${price}', '${seller_id}', '${desc}', '${img}')`
-
-        connection.query(query, (err, rows, fields) => {
-            if (err) {
-                res.status(500)
-                res.send('Error while adding listing')
-                return
-            }
-
-            res.status(200).send()
-        })
+        res.status(200).send()
     })
 })
 
