@@ -8,8 +8,8 @@ function Login(props) {
     return (
         <Box style={styles.loginPage}>
             <Box style={styles.loginBox}>
-                <TitleText>{APP_NAME}</TitleText>
-                <LoginInput setIsLoggedIn={props.setIsLoggedIn} />
+                <TitleText>{APP_NAME} - Login</TitleText>
+                <LoginInput setIsLoggedIn={props.setIsLoggedIn} setUserEmail={props.setUserEmail} />
             </Box>
         </Box>
     )

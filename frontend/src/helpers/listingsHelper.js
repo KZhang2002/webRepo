@@ -1,12 +1,9 @@
 import { LISTING } from "../static/Content"
 import ListingCard from "../components/browse/ListingCard"
+import { getListings } from "../api/api"
 
-export const generateListings = ( listNum = 35 ) => {
-    let listings = Array(listNum)
-    listings.fill(LISTING)
+export const generateListings = (listings) => {
     return listings.map((value, index) => {
-        let listing = value;
-
-        return <ListingCard key={index} listing={listing} />
+        return <ListingCard key={index} listing={value} />
     })
 }
