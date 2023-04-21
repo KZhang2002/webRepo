@@ -267,7 +267,12 @@ app.post('/listing/:id/bid', (req, res) => {
 
 app.get('/listing/:id/bids', (req, res) => {
     const { id } = req.params
-    connection.query(`SELECT id, bidder, bid, snowflake FROM bid WHERE listing='${id}'`, (err, rows, fields) => {
+    connection.query(`
+            SELECT b.id AS id, u.email AS bidder_email, b.bid AS bid, b.snowflake AS snowflake
+            FROM bid b
+            JOIN user u ON b.bidder = u.id
+            WHERE b.listing = '${id}'
+        `, (err, rows, fields) => {
       if (err) {
         res.status(500).send(err)
         return
