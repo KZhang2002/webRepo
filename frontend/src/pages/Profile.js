@@ -4,12 +4,10 @@ import ListingsToolbar from "../components/browse/ListingsToolbar";
 import UserCard from "../components/user/UserCard";
 import { ProfileMenu } from "../components/user/ProfileMenu";
 
-function Profile() {
+function Profile(props) {
     return (
-        <div>
-            <div style={styles.page}>
-                <UserCard />
-            </div>
+        <div style={styles.page}>
+            <UserCard userEmail={props.userEmail} />
             <Box style={styles.listingsContainer}>
                 <ProfileMenu />
             </Box>

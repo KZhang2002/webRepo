@@ -1,21 +1,23 @@
 import { login, signUp as createAccount } from "../api/api"
 
-export const submit = async (user, password, signUp, callback) => {
-    if (user && password) {
-        if (!user.includes('@') || !user.includes('.')) {
+export const submit = async (body, signUp, callback) => {
+    if (body.user && body.password) {
+        if (!body.user.includes('@') || !body.user.includes('.')) {
             return { error: 'Please enter a valid email.' }
         }
         else {
             let resp = {}
             if (!signUp) {
-                resp = await login(user, password)
+                resp = await login(body.user, body.password)
+                console.log(resp)
             } else {
-                resp = await createAccount(user, password)
-                submit(user, password, false, callback)
+                resp = await createAccount(body.user, body.password, body.firstName, body.lastName)
+                submit(body, false, callback)
             }
             if (!resp.error) {
                 callback()
-                if (!signUp) localStorage.setItem("userProfile", resp.data)
+                console.log(resp)
+                if (!signUp) localStorage.setItem("userProfile", resp.data.auth)
                 return { error: null }
             } else {
                 console.log(resp.error)
