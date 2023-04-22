@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { SelectField, TextAreaField, TextField, Rating } from './'
+import { SelectField } from './SelectField'
+import {TextAreaField} from './TextAreaField'
+import { TextField } from './TextField'
+import { Rating } from './Rating'
 
 export const ReviewForm = ({ onReviewAdded }) => {
     const [ userName, setUserName ] = useState('');
