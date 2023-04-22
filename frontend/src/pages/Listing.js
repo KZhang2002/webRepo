@@ -5,6 +5,8 @@ import { Box } from "@mui/material";
 // import { ReviewList } from '../components/listing/ReviewList'
 // import { ReviewForm } from '../components/listing/ReviewForm'
 // import { useParams, Link } from 'react-router-dom'
+// import { getProductById } from '../api/api'
+//, addReview
 
 function Listing (props) {
     return (
@@ -20,9 +22,9 @@ function Listing (props) {
     // const mergeProduct = delta => setProduct({ ...product, ...delta });
 
     // const onReviewAdded = (review) => {
-    //     addReview(id, review)
-    //     console.log(review.date)
-    //     mergeProduct({ reviews: [...product.reviews, review] })
+    //     // addReview(id, review)
+    //     // console.log(review.date)
+    //     // mergeProduct({ reviews: [...product.reviews, review] })
     // }
 
     // if (!product) {
@@ -30,16 +32,18 @@ function Listing (props) {
     // }
 
     // return (
-    //     <div className="container mx-auto w-100 px-0">
-    //         <ProdBreadcrumb
-    //             name={product.name} />
-    //         <ProdJumbotron
-    //             name={product.name}
-    //             imageUrl={product.imageUrl}
-    //             price={product.price}
-    //             description={product.description} />
-    //         <ReviewList reviews={product.reviews} />
-    //         <ReviewForm onReviewAdded={onReviewAdded} />
+    //     <div id="background" style={{ ...styles.page }}>
+    //         <div className="container mx-auto w-100 px-0">
+    //             <ProdBreadcrumb
+    //                 name={product.name} />
+    //             <ProdJumbotron
+    //                 name={product.name}
+    //                 imageUrl={product.imageUrl}
+    //                 price={product.price}
+    //                 description={product.description} />
+    //             <ReviewList reviews={product.reviews} />
+    //             <ReviewForm onReviewAdded={onReviewAdded} />
+    //         </div>
     //     </div>
     // )
 }
@@ -61,11 +65,11 @@ function Listing (props) {
 // }
 
 // function ProdJumbotron(props) {
-//     const { addToCart } = useContext(CartContext);
+//     // const { addToCart } = useContext(CartContext);
 
-//     const handleClick = () => {
-//         addToCart(props); // pass the product to addToCart
-//     }
+//     // const handleClick = () => {
+//     //     addToCart(props); // pass the product to addToCart
+//     // }
 
 //     return (
 //         <div className="col">
@@ -85,15 +89,10 @@ function Listing (props) {
 //                             <p className="lead py-2">{props.description}</p>
 //                         </div>
 //                     </div>
-//                     <div className="d-flex justify-content-end p-4">
-//                         <Link to='/cart' className="ml-auto">
-//                             <button onClick={handleClick} type="button" className="btn btn-warning mx-auto py-2 ml-auto"><h5>Add To Cart</h5></button>
-//                         </Link>
-//                     </div>
 //                 </div>
 //             </div>
 //         </div>
 //     )
 // }
 
-export default Listing;
+// export default Listing;
