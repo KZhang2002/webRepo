@@ -202,37 +202,45 @@ app.post('/listing', (req, res) => {
 
 app.get('/listings', (req, res) => {
     const { query, tags, minPrice, maxPrice } = req.query
-    let sqlQuery = 'SELECT * FROM listing'
+    let sqlQuery = 'SELECT l.title, l.price, l.created, l.seller, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags FROM listing l LEFT JOIN tag t ON l.id = t.listing'
     let conditions = []
 
     if (query) {
         const termsArray = query.split(' ')
         const wildcardPatterns = termsArray.map(term => `%${term}%`)
         const wildcardList = wildcardPatterns.join(' OR ')
-        conditions.push(`(title LIKE '${wildcardList}' OR item_description LIKE '${wildcardList}')`)
+        conditions.push(`(l.title LIKE '${wildcardList}' OR l.item_description LIKE '${wildcardList}')`)
     }
 
     if (tags) {
-        conditions.push(`ID IN (SELECT DISTINCT listing FROM tag WHERE tag_name IN (${tags.map(tag => `'${tag}'`).join(',')}))`)
+        conditions.push(`ID IN (SELECT DISTINCT listing FROM tag WHERE tag_name IN (${tags.split(',').map(tag => `'${tag}'`).join(',')}))`)
     }
 
     if (minPrice !== undefined && maxPrice !== undefined) {
-        conditions.push(`price BETWEEN ${minPrice} AND ${maxPrice}`)
+        conditions.push(`l.price BETWEEN ${minPrice} AND ${maxPrice}`)
     } else if (minPrice !== undefined) {
-        conditions.push(`price >= ${minPrice}`)
+        conditions.push(`l.price >= ${minPrice}`)
     } else if (maxPrice !== undefined) {
-        conditions.push(`price <= ${maxPrice}`)
+        conditions.push(`l.price <= ${maxPrice}`)
     }
 
     if (conditions.length > 0) {
         sqlQuery += ' WHERE ' + conditions.join(' AND ')
     }
 
+    sqlQuery += ' GROUP BY l.id'
+
     connection.query(sqlQuery, (err, rows, fields) => {
         if (err) {
             res.status(500).send()
+            console.log(err)
             return
         }
+
+        rows.forEach(function(r) {
+            if (r['tags']) r['tags'] = r['tags'].split(',')
+            else r['tags'] = []
+        })
 
         res.status(200)
         res.send(rows)
@@ -242,7 +250,7 @@ app.get('/listings', (req, res) => {
 app.get('/listing/:id', (req, res) => {
     const { id } = req.params
     console.log(id)
-    const query = `SELECT title, price, created, seller, item_description, imagelink FROM listing WHERE id='${id}'`
+    const query = `SELECT l.title, l.price, l.created, l.seller, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags FROM listing l LEFT JOIN tag t ON l.id = t.listing WHERE l.id='${id}' GROUP BY l.id`
     connection.query(query, (err, rows, fields) => {
         if (err) {
             res.status(500).send()
@@ -255,9 +263,11 @@ app.get('/listing/:id', (req, res) => {
             res.send("We couldn't find the listing you were looking for. Unfortunate, truly. Try harder I guess.")
             return
         }
-        const r = rows[0]
+        let r = rows[0]
+        if (r['tags']) r['tags'] = r['tags'].split(',')
+        else r['tags'] = []
         res.status(200)
-        res.send(rows[0])
+        res.send(r)
         return
     })
 })
