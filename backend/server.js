@@ -252,7 +252,7 @@ app.post('/listing/:id/bid', (req, res) => {
             return
         }
 
-        res.status(200)
+        res.status(200).send()
     })
 })
 
@@ -320,7 +320,6 @@ app.get('/user/:email/reviews', (req, res) => {
             res.status(500).send(err)
             return
         }
-
         res.status(200)
         res.send(rows)
     })
