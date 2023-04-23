@@ -79,6 +79,10 @@ The following parameters must be included in the query string:
 - `desc` (required): A string that contains the description of the listing.
 - `img` (required): A string that contains the URL of the image associated with the listing.
 
+The following parameters can be included in the query string:
+
+- `tags` (optional): A list of comma-separated strings of tags that the listing should be associated with.
+
 ### GET `/listing/:id`
 
 Send a request to this endpoint to get information about a listing. For example, `/listing/42069` will get information about the listing with the ID `42069`.

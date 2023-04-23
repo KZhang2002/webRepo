@@ -158,7 +158,7 @@ app.post('/user', (req, res) => {
 
 // Listings
 app.post('/listing', (req, res) => {
-    const { title, price, token, desc, img } = req.query
+    const { title, price, token, desc, img, tags } = req.query
     if (!(title && price && token && desc && img)) {
         res.status(400).send("Missing some or all of query string")
         return
@@ -180,16 +180,28 @@ app.post('/listing', (req, res) => {
             return
         }
 
+        if (tags) {
+            let q = 'INSERT INTO tag (listing, tag_name) VALUES '
+            tags.split(',').forEach(function(tag, i, arr){
+                q+=`('${rows.insertId}', '${tag}')`
+                if (i != (arr.length-1)) q+=', '
+            })
+            connection.query(q, (err, rows, fields) => {
+                if (err) {
+                    res.status(500)
+                    res.send('Error while adding tags')
+                    console.log(err)
+                    return
+                }
+            })
+        }
+
         res.status(200).send()
     })
 })
 
 app.get('/listings', (req, res) => {
     const { query, tags, minPrice, maxPrice } = req.query
-    if (!(query && tags && minPrice && maxPrice)) {
-        res.status(400).send("Missing some or all of query string")
-        return
-    }
     let sqlQuery = 'SELECT * FROM listing'
     let conditions = []
 
