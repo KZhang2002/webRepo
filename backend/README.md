@@ -24,22 +24,22 @@ Send an empty request to this endpoint to get information about a user. For exam
 
 ### GET `/user/auth`
 
-Send a JSON-formatted body to this endpoint to get an auth token. Where specified, this auth token must be used to authenticate the user for posting or getting certain information.
+Send a query to this endpoint to get an auth token. Where specified, this auth token must be used to authenticate the user for posting or getting certain information.
 
 #### Parameters
 
-The following parameters must be included in the request body as JSON:
+The following parameters must be included in the query string:
 
 - `email` (required): A string that contains the user's email.
 - `password` (required): A string that contains the user's password.
 
 ### POST `/user`
 
-Post a JSON-formatted body to this endpoint with values for parameters `email`, `password`, `first_name`, and `last_name` to create a user.
+Post a query to this endpoint with values for parameters `email`, `password`, `first_name`, and `last_name` to create a user.
 
 #### Parameters
 
-The following parameters must be included in the request body as JSON:
+The following parameters must be included in the query string:
 
 - `email` (required): A string that contains the user's email.
 - `password` (required): A string that contains the user's password.
@@ -67,11 +67,11 @@ The following optional parameters can be included in the request body as JSON:
 
 ### POST `/listing`
 
-Post a JSON-formatted body to this endpoint to create a listing.
+Post a query to this endpoint to create a listing.
 
 #### Parameters
 
-The following parameters must be included in the request body as JSON:
+The following parameters must be included in the query string:
 
 - `title` (required): A string that contains the title of the listing.
 - `price` (required): A float that represents the price of the listing.
@@ -85,11 +85,11 @@ Send a request to this endpoint to get information about a listing. For example,
 
 ### POST `/listing/:id/bid`
 
-Post a JSON-formatted body to this endpoint with values for parameters `token`, and `bid` to bid on a listing with ID `id`.
+Post a query to this endpoint with values for parameters `token`, and `bid` to bid on a listing with ID `id`.
 
 #### Parameters
 
-The following parameters must be included in the request body as JSON:
+The following parameters must be included in the query string:
 
 - `token` (required): A string that contains the authentication token of the user who bidded.
 - `bid` (required): A float that represents the user's bid.
@@ -106,11 +106,11 @@ Send an empty request to this endpoint to clear all listings from the database.
 
 ### POST `/user/:email/review`
 
-Post a JSON-formatted body to this endpoint with values for parameters `token`, and `review` to review a user with email `email`. For example, `/user/johndoe@smu.edu/review` will post a review for the user with the email `johndoe@smu.edu`.
+Post a query to this endpoint with values for parameters `token`, and `review` to review a user with email `email`. For example, `/user/johndoe@smu.edu/review` will post a review for the user with the email `johndoe@smu.edu`.
 
 #### Parameters
 
-The following parameters must be included in the request body as JSON:
+The following parameters must be included in the query string:
 
 - `token` (required): A string that contains the authentication token of the user who created the review.
 - `review` (required): A string that contains the review.

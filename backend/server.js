@@ -67,7 +67,7 @@ app.get('/createexample', (req, res) => {
 // Users
 
 app.get('/user/auth', (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.query
     const query = `SELECT id FROM user WHERE email='${email}' AND pass='${password}'`
     connection.query(query, (err, rows, fields) => {
         if (err) {
@@ -127,7 +127,7 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/user', (req, res) => {
-    const { email, password, first_name, last_name } = req.body
+    const { email, password, first_name, last_name } = req.query
     const query = `
         INSERT INTO user (email, pass, first_name, last_name)
         SELECT '${email}', '${password}', '${first_name}', '${last_name}'
@@ -150,7 +150,7 @@ app.post('/user', (req, res) => {
 
 // Listings
 app.post('/listing', (req, res) => {
-    const { title, price, token, desc, img } = req.body
+    const { title, price, token, desc, img } = req.query
     const seller_id = authtokens.get(token)
 
     if (!seller_id) {
@@ -173,7 +173,7 @@ app.post('/listing', (req, res) => {
 })
 
 app.get('/listings', (req, res) => {
-    const { query, tags, minPrice, maxPrice } = req.body
+    const { query, tags, minPrice, maxPrice } = req.query
     let sqlQuery = 'SELECT * FROM listing'
     let conditions = []
 
@@ -236,7 +236,7 @@ app.get('/listing/:id', (req, res) => {
 
 app.post('/listing/:id/bid', (req, res) => {
     const { id } = req.params
-    const { token, bid } = req.body
+    const { token, bid } = req.query
 
     const subQuery = `SELECT MAX(bid) as max_bid FROM bid WHERE listing=${id}`
     const query = `INSERT INTO bid (listing, bidder, bid) SELECT ${id}, '${authtokens.get(token)}', '${bid}' FROM (SELECT IFNULL((${subQuery}), 0) AS max_bid) t WHERE ${bid} > max_bid`
@@ -295,7 +295,7 @@ app.put('/listings/clear', (req, res) => {
 
 app.post('/user/:email/review', (req, res) => {
     const { email } = req.params
-    const { token, review } = req.body
+    const { token, review } = req.query
 
     const query = `INSERT INTO review (user, review, seller) VALUES ('${authtokens.get(token)}', '${review}', (SELECT id FROM user WHERE email='${email}'))`
     connection.query(query, (err, rows, fields) => {
