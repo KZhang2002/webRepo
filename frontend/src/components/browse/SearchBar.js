@@ -29,6 +29,7 @@ export default function SearchBar(props) {
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
+    props.setQuery(event.target.value)
   };
 
   const applyFilters = (filters) => {

@@ -27,7 +27,10 @@ function RoutesWrapper(props) {
       <Route path="profile" element={
         <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Profile userEmail={props.userEmail} />} />
       } />
-      <Route path="listing" element={
+      <Route path="user/:email" element={
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Profile userEmail={null} />} />
+      } />
+      <Route path="listing/:id" element={
         <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Listing />} />
       } />
       <Route path="browse" element={

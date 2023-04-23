@@ -1,5 +1,8 @@
 import styles from "../static/StyleSheet";
-import { Box } from "@mui/material";
+import { Box, useScrollTrigger } from "@mui/material";
+import { useEffect, useState } from "react";
+import {useLocation }from "react-router-dom"
+import { getListing } from "../api/api";
 
 // import { useState, useEffect, useContext } from 'react'
 // import { ReviewList } from '../components/listing/ReviewList'
@@ -9,9 +12,20 @@ import { Box } from "@mui/material";
 //, addReview
 
 function Listing (props) {
-    return (
-        <Box style={styles}></Box>
-    )
+    const location = useLocation();
+    const listingId = location.pathname.split("/").pop()
+    const [listing, setListing] = useState({})
+
+    useEffect(() => {
+        getListing(listingId).then((data) => {
+            setListing(data.data)
+        })
+    }, [])
+
+    return <Box style={styles}>
+        Listing {listingId}
+        Listing Body: {listing.title}
+    </Box>
     // const {id} = useParams();
     // const [product, setProduct] = useState(null);
 
