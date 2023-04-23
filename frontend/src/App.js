@@ -8,6 +8,8 @@ import Header from "./components/header/Header";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import SignUp from "./pages/SignUp";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 function RoutesWrapper(props) {
   const ProtectedRoute = ({ isLoggedIn, children }) => {

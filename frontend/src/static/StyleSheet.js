@@ -87,7 +87,7 @@ const styles = {
     alignItems: "center",
     padding: "2rem",
     paddingTop: "8rem",
-    paddingBottom: "4rem",
+    paddingBottom: "2rem",
     minHeight: "100%",
     background: BG_COLOR,
     backgroundImage: BG_URL,
@@ -98,7 +98,7 @@ const styles = {
     flexWrap: "wrap",
     justifyContent: "center",
     marginTop: "2rem",
-    maxWidth: "100rem"
+    maxWidth: "100rem",
   },
   listingCard: {
     background: "#e3e3e3",
@@ -169,19 +169,20 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    height: '5rem',
+    height: '9rem',
     padding: '1.5rem',
     backgroundColor: "#EEEEEE",
-    marginTop: "2rem"
   },
   userNameSection: {
     flexDirection: 'column',
     alignSelf: 'flex-start',
     margin: '0 2vmax',
+    flexGrow: 1
   },
   userName: {
     margin: 0,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+    fontWeight: 'bold',
   },
   userEmail: {
     margin: 0,
@@ -190,15 +191,15 @@ const styles = {
   },
   reputationSection: {
     flexDirection: 'column',
-
     alignSelf: 'flex-end',
+    justifyContent: 'space-between'
   },
   reputationText: {
     textAlign: 'right',
     margin: 0,
     color: '#555555',
     alignSelf: 'flex-start',
-    fontSize: '0.8rem'
+    fontSize: '0.8rem',
   },
   filterItem: {
     display: "flex",
@@ -224,6 +225,18 @@ const styles = {
   },
   filterChipStyle: {
     margin: "0rem 1rem 0rem 0rem",
+  },
+  listingImageFrame: {
+    width: "30vw",
+    height: "30vw",
+    overflow: "hidden",
+  },
+  listingImage: {
+    width: "100%",
+    height: "auto",
+  },
+  listingBadge: {
+    backgroundColor: "#1976d2",
   }
 };
 
