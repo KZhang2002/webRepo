@@ -170,7 +170,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'flex-start',
     height: '9rem',
-    padding: '1.5rem',
+    padding: '1.5rem, 1rem, 1.5rem, 1rem',
     backgroundColor: "#EEEEEE",
   },
   userNameSection: {
