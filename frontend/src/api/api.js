@@ -3,7 +3,7 @@ import { ENDPOINT } from "../static/Config"
 const NONRESPONSE = {data: null, error: "Server Error: "}
 const SERVER_ERR = {data: null, error: "There was a problem. Please try again later."}
 
-const handleQuery = async (endpoint, method, body = null) => {
+const handleQuery = async (endpoint, method, {body, params}) => {
     
     const payload = {
         method,
@@ -19,12 +19,11 @@ const handleQuery = async (endpoint, method, body = null) => {
 
     try {
         if (method == 'GET') {
-            console.log(body)
-            response = await fetch(endpoint+ (body ? '?' + new URLSearchParams(body) : ""));
-            console.log(response)
+            response = await fetch(endpoint+ (params ? '?' + new URLSearchParams(params) : ""));
             data = await response.json();
         } else if (method == 'POST') {
             response = await fetch(endpoint, payload);
+            console.log("here")
         }  
 
     } catch (err) {
@@ -39,21 +38,25 @@ const handleQuery = async (endpoint, method, body = null) => {
 }
 
 export const login = async (email, password) => {
-   return await handleQuery(ENDPOINT+'/user/auth', 'GET', {email, password})
+   return await handleQuery(ENDPOINT+'/user/auth', 'GET', {params: {email, password}})
 }
  
 export const signUp = async (email, password, first_name, last_name) => {
-    return await handleQuery(ENDPOINT+'/user', 'POST', {email, password, first_name, last_name})
+    return await handleQuery(ENDPOINT+'/user', 'POST', {body: {email, password, first_name, last_name}})
 }
 
-export const getListings = async () => {
-    return await handleQuery(ENDPOINT+'/listings', 'GET')
+export const getListings = async (filters) => {
+    return await handleQuery(ENDPOINT+'/listings', 'GET', {})
 }
 
 export const addListing = async (title, price, seller, desc, img) => {
-    return await handleQuery(ENDPOINT+'/listing', 'POST', {title, price, token: seller, desc, img})
+    return await handleQuery(ENDPOINT+'/listing', 'POST', {body: {title, price, token: seller, desc, img}})
 }
 
 export const getUser = async (email) => {
-    return await handleQuery(ENDPOINT+`/user/${email}`, 'GET')
+    return await handleQuery(ENDPOINT+`/user/${email}`, 'GET', {})
+}
+
+export const getListing = async (id) => {
+    return await handleQuery(ENDPOINT+`/listing/${id}`, 'GET', {})
 }

@@ -5,6 +5,8 @@ import DateText from "../typography/DateText";
 import DescriptionText from "../typography/DescriptionText";
 import ListingTitleText from "../typography/ListingTitleText";
 import ListingReview from "./ListingReview";
+import { useEffect, useState } from "react";
+import { getUser } from "../../api/api";
 
 const ListingCard = (props) => {
 
@@ -18,7 +20,7 @@ const ListingCard = (props) => {
             }} src={listing.imagelink} />
             <Box style={styles.listingHeader}>
                 <Box style={styles.titleDateHeader}>
-                    <ListingTitleText to={`/listing?product=${listing.id}`}>{listing.title}</ListingTitleText>
+                    <ListingTitleText to={`/listing/${listing.id}`}>{listing.title}</ListingTitleText>
                     <DateText date={listing.date} />
                 </Box>
                 <PriceText>{listing.price}</PriceText>
