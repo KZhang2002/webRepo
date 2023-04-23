@@ -67,7 +67,11 @@ app.get('/createexample', (req, res) => {
 // Users
 
 app.get('/user/auth', (req, res) => {
-    const { email, password } = req.body
+    const { email, password } = req.query
+    if (!(email && password)) {
+        res.status(400).send("Missing some or all of query string")
+        return
+    }
     const query = `SELECT id FROM user WHERE email='${email}' AND pass='${password}'`
     connection.query(query, (err, rows, fields) => {
         if (err) {
@@ -127,7 +131,11 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/user', (req, res) => {
-    const { email, password, first_name, last_name } = req.body
+    const { email, password, first_name, last_name } = req.query
+    if (!(email && password && first_name && last_name)) {
+        res.status(400).send("Missing some or all of query string")
+        return
+    }
     const query = `
         INSERT INTO user (email, pass, first_name, last_name)
         SELECT '${email}', '${password}', '${first_name}', '${last_name}'
@@ -150,7 +158,11 @@ app.post('/user', (req, res) => {
 
 // Listings
 app.post('/listing', (req, res) => {
-    const { title, price, token, desc, img } = req.body
+    const { title, price, token, desc, img, tags } = req.query
+    if (!(title && price && token && desc && img)) {
+        res.status(400).send("Missing some or all of query string")
+        return
+    }
     const seller_id = authtokens.get(token)
 
     if (!seller_id) {
@@ -168,43 +180,67 @@ app.post('/listing', (req, res) => {
             return
         }
 
+        if (tags) {
+            let q = 'INSERT INTO tag (listing, tag_name) VALUES '
+            tags.split(',').forEach(function(tag, i, arr){
+                q+=`('${rows.insertId}', '${tag}')`
+                if (i != (arr.length-1)) q+=', '
+            })
+            connection.query(q, (err, rows, fields) => {
+                if (err) {
+                    res.status(500)
+                    res.send('Error while adding tags')
+                    console.log(err)
+                    return
+                }
+            })
+        }
+
         res.status(200).send()
     })
 })
 
 app.get('/listings', (req, res) => {
-    const { query, tags, minPrice, maxPrice } = req.body
-    let sqlQuery = 'SELECT * FROM listing'
+    const { query, tags, minPrice, maxPrice } = req.query
+    let sqlQuery = 'SELECT l.title, l.price, l.created, l.seller, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags FROM listing l LEFT JOIN tag t ON l.id = t.listing'
     let conditions = []
 
     if (query) {
         const termsArray = query.split(' ')
         const wildcardPatterns = termsArray.map(term => `%${term}%`)
         const wildcardList = wildcardPatterns.join(' OR ')
-        conditions.push(`(title LIKE '${wildcardList}' OR item_description LIKE '${wildcardList}')`)
+        conditions.push(`(l.title LIKE '${wildcardList}' OR l.item_description LIKE '${wildcardList}')`)
     }
 
     if (tags) {
-        conditions.push(`ID IN (SELECT DISTINCT listing FROM tag WHERE tag_name IN (${tags.map(tag => `'${tag}'`).join(',')}))`)
+        conditions.push(`ID IN (SELECT DISTINCT listing FROM tag WHERE tag_name IN (${tags.split(',').map(tag => `'${tag}'`).join(',')}))`)
     }
 
     if (minPrice !== undefined && maxPrice !== undefined) {
-        conditions.push(`price BETWEEN ${minPrice} AND ${maxPrice}`)
+        conditions.push(`l.price BETWEEN ${minPrice} AND ${maxPrice}`)
     } else if (minPrice !== undefined) {
-        conditions.push(`price >= ${minPrice}`)
+        conditions.push(`l.price >= ${minPrice}`)
     } else if (maxPrice !== undefined) {
-        conditions.push(`price <= ${maxPrice}`)
+        conditions.push(`l.price <= ${maxPrice}`)
     }
 
     if (conditions.length > 0) {
         sqlQuery += ' WHERE ' + conditions.join(' AND ')
     }
 
+    sqlQuery += ' GROUP BY l.id'
+
     connection.query(sqlQuery, (err, rows, fields) => {
         if (err) {
             res.status(500).send()
+            console.log(err)
             return
         }
+
+        rows.forEach(function(r) {
+            if (r['tags']) r['tags'] = r['tags'].split(',')
+            else r['tags'] = []
+        })
 
         res.status(200)
         res.send(rows)
@@ -214,7 +250,7 @@ app.get('/listings', (req, res) => {
 app.get('/listing/:id', (req, res) => {
     const { id } = req.params
     console.log(id)
-    const query = `SELECT title, price, created, seller, item_description, imagelink FROM listing WHERE id='${id}'`
+    const query = `SELECT l.title, l.price, l.created, l.seller, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags FROM listing l LEFT JOIN tag t ON l.id = t.listing WHERE l.id='${id}' GROUP BY l.id`
     connection.query(query, (err, rows, fields) => {
         if (err) {
             res.status(500).send()
@@ -227,16 +263,22 @@ app.get('/listing/:id', (req, res) => {
             res.send("We couldn't find the listing you were looking for. Unfortunate, truly. Try harder I guess.")
             return
         }
-        const r = rows[0]
+        let r = rows[0]
+        if (r['tags']) r['tags'] = r['tags'].split(',')
+        else r['tags'] = []
         res.status(200)
-        res.send(rows[0])
+        res.send(r)
         return
     })
 })
 
 app.post('/listing/:id/bid', (req, res) => {
     const { id } = req.params
-    const { token, bid } = req.body
+    const { token, bid } = req.query
+    if (!(token && bid)) {
+        res.status(400).send("Missing some or all of query string")
+        return
+    }
 
     const subQuery = `SELECT MAX(bid) as max_bid FROM bid WHERE listing=${id}`
     const query = `INSERT INTO bid (listing, bidder, bid) SELECT ${id}, '${authtokens.get(token)}', '${bid}' FROM (SELECT IFNULL((${subQuery}), 0) AS max_bid) t WHERE ${bid} > max_bid`
@@ -252,7 +294,7 @@ app.post('/listing/:id/bid', (req, res) => {
             return
         }
 
-        res.status(200)
+        res.status(200).send()
     })
 })
 
@@ -295,7 +337,11 @@ app.put('/listings/clear', (req, res) => {
 
 app.post('/user/:email/review', (req, res) => {
     const { email } = req.params
-    const { token, review } = req.body
+    const { token, review } = req.query
+    if (!(token && review)) {
+        res.status(400).send("Missing some or all of query string")
+        return
+    }
 
     const query = `INSERT INTO review (user, review, seller) VALUES ('${authtokens.get(token)}', '${review}', (SELECT id FROM user WHERE email='${email}'))`
     connection.query(query, (err, rows, fields) => {
@@ -320,15 +366,10 @@ app.get('/user/:email/reviews', (req, res) => {
             res.status(500).send(err)
             return
         }
-
         res.status(200)
         res.send(rows)
     })
 })
-
-
-
-
 
 // TODO: Tags
 
