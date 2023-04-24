@@ -1,8 +1,7 @@
 import styles from "../static/StyleSheet";
 import { Box } from "@mui/material";
-import { UserCard } from "../components/user/UserCard";
-import { useEffect, useState } from "react";
-import {useLocation }from "react-router-dom"
+import UserCard from "../components/user/UserCard";
+import { useLocation }from "react-router-dom"
 import { getListing } from "../api/api";
 
 import { useState, useEffect, useRef } from "react";
@@ -27,14 +26,11 @@ function Listing(props) {
 
     useEffect(() => {
         getListing(listingId).then((data) => {
+            console.log(data)
             setListing(data.data)
         })
     }, [])
 
-    return <Box style={styles}>
-        Listing {listingId}
-        Listing Body: {listing.title}
-    </Box>
     // const {id} = useParams();
     // const [product, setProduct] = useState(null);
     // useEffect(() => {
@@ -51,11 +47,10 @@ function Listing(props) {
     };
 
     const product = {
-        name: "Lorem Ipsum!",
-        imageUrl: "https://placehold.jp/150x150.png",
-        price: "1.99",
-        description:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        name: listing.title,
+        imageUrl: listing.imagelink,
+        price: listing.price,
+        description: listing.item_description,
         reviews: "",
         endDate: {
             time: "23:23",
@@ -83,6 +78,19 @@ function Listing(props) {
 
 //Subcomponents
 function SellerCards(props) {
+    const bids = [
+        {name: "johnproctor77", bid: "3.00", time: "3:24 pm", date: "4/20"},
+        {name: "sarahgood23", bid: "3.00", time: "3:24 pm", date: "4/20"},
+        {name: "deodatlawson49", bid: "3.00", time: "3:24 pm", date: "4/20"},
+        {name: "marthacorey20", bid: "3.00", time: "3:24 pm", date: "4/20"},
+    ]
+    const productInfo = {
+        endDate: {
+            date: new Date().toLocaleDateString(),
+            time: "5:30 PM",
+        }
+    }
+
     return (
         <div className="row container mx-auto px-0">
             <div className="col ps-0">
@@ -92,7 +100,7 @@ function SellerCards(props) {
                 >
                     <div className="column container pb-3">
                         <h4 className="m-0 mb-1">
-                            <b>Seller:</b>
+                            <b>Seller</b>
                         </h4>
                         <div className="px-2 pb-3">
                             <UserCard />
@@ -108,8 +116,16 @@ function SellerCards(props) {
                     <div className="column container">
                         <div className="row">
                             <h4 className="m-0">
-                                <b>Contact Information:</b>
+                                <b>Auction Information:</b>
                             </h4>
+                            <div className="col-6 my-auto">
+                                    <h4 className="my-0">
+                                        Auction ends at {productInfo.endDate.time} on {productInfo.endDate.date}
+                                    </h4>
+                                </div>
+                                <div className="col-3 my-auto">
+                                    <BidHistoryDialog bids={bids}/>
+                                </div>
                         </div>
                         <div className="row pt-3">
                             <h5>phone number</h5>
@@ -143,6 +159,10 @@ function ProdJumbotron(props) {
                         style={styles.listingImageFrame}
                     >
                         <img
+                         onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = "https://i0.wp.com/roadmap-tech.com/wp-content/uploads/2019/04/placeholder-image.jpg?resize=400%2C400&ssl=1";
+                        }} 
                             src={props.imageUrl}
                             className="img-fluid"
                             style={styles.listingImage}
@@ -164,14 +184,6 @@ function ProdJumbotron(props) {
                                         </h3>
                                     </span>
                                 </h2>
-                                <div className="col-6 my-auto">
-                                    <h4 className="my-0">
-                                        Auction ends at {props.endDate.time} on {props.endDate.date}
-                                    </h4>
-                                </div>
-                                <div className="col-3 my-auto">
-                                    <BidHistoryDialog />
-                                </div>
                             </div>
                             <p className="lead py-2">{props.description}</p>
                         </div>
@@ -182,7 +194,7 @@ function ProdJumbotron(props) {
     );
 }
 
-function BidHistoryDialog() {
+function BidHistoryDialog(props) {
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState("paper");
 
@@ -205,13 +217,6 @@ function BidHistoryDialog() {
         }
     }, [open]);
 
-    const bids = [
-        {name: "johnproctor77", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "sarahgood23", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "deodatlawson49", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "marthacorey20", bid: "3.00", time: "3:24 pm", date: "4/20"},
-    ]
-
     return (
         <div>
             <Button onClick={handleClickOpen("paper")}>See bid history</Button>
@@ -221,7 +226,6 @@ function BidHistoryDialog() {
                 scroll={scroll}
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
-                fullWidth="true"
                 maxWidth="md"
             >
                 <DialogTitle id="scroll-dialog-title">Bid History</DialogTitle>
@@ -232,17 +236,19 @@ function BidHistoryDialog() {
                         tabIndex={-1}
                     >
                         <table className="table table-striped">
-                            <tr>
-                                <th className="col">Name</th>
-                                <th className="col">Bid</th>
-                                <th className="col">Time</th>
-                                <th className="col">Date</th>
-                            </tr>
-                            <tbody class="table-group-divider">
-                            {bids.map(
-                                bid => (
+                            <thead>
                                 <tr>
-                                    <td>{bid.name}</td>
+                                    <th className="col">Name</th>
+                                    <th className="col">Bid</th>
+                                    <th className="col">Time</th>
+                                    <th className="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                            {props.bids.map(
+                                (bid, index) => (
+                                <tr key={index}>
+                                    <td >{bid.name}</td>
                                     <td>${bid.bid}</td>
                                     <td>{bid.time}</td>
                                     <td>{bid.date}</td>

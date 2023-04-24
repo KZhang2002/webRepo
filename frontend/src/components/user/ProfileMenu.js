@@ -1,12 +1,7 @@
+import { generateListings } from "../../helpers/listingsHelper";
 import { Box } from "@mui/material";
-import { generateListings } from "../../helpers/listingsHelper";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Accordion, AccordionSummary, AccordionDetails, useScrollTrigger, Button, Box } from "@mui/material";
-import { generateListings } from "../../helpers/listingsHelper";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState, useEffect } from "react";
 import { addListing, getListings } from "../../api/api";
-import AddListingDialog from "./AddListingDialog";
 import styles from "../../static/StyleSheet";
 import Browse, { BrowseContent } from "../../pages/Browse";
 
