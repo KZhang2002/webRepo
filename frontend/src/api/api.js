@@ -1,31 +1,74 @@
 import { ENDPOINT } from "../static/Config"
 
-const NONRESPONSE = {data: null, error: "No data received from server."}
+const NONRESPONSE = {data: null, error: "Server Error: "}
 const SERVER_ERR = {data: null, error: "There was a problem. Please try again later."}
 
-export const login = async (user, password) => {
+const handleQuery = async (endpoint, method, {body, params}) => {
+    
     const payload = {
-        method: 'POST',
+        method,
         headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
         },
-        body: JSON.stringify({user, password})
+        body: JSON.stringify(body)
     }
 
-    const data = null
+    let data = null
+    let response = null;
 
     try {
-        const resp = await fetch(ENDPOINT, payload)
-        data = resp.json()
-    } catch {
-       // return SERVER_ERR
-       return {data: '', error: null}
+        if (method == 'GET') {
+            response = await fetch(endpoint+ (params ? '?' + new URLSearchParams(params) : ""));
+            data = await response.json();
+        } else if (method == 'POST') {
+            response = await fetch(endpoint, payload);
+            console.log("here")
+        }  
+
+    } catch (err) {
+        return {data: null, error: `${err}`}
     }
 
-    if (data) {
+    if (response.status == 200 || response.status == 201) {
         return {data, error: null}
     } else {
-        return NONRESPONSE
+        return {data: null, error: SERVER_ERR}
     }
+}
+
+export const login = async (email, password) => {
+   return await handleQuery(ENDPOINT+'/user/auth', 'GET', {params: {email, password}})
+}
+ 
+export const signUp = async (email, password, first_name, last_name) => {
+    return await handleQuery(ENDPOINT+'/user', 'POST', {body: {email, password, first_name, last_name}})
+}
+
+export const getListings = async (filters) => {
+    let params = {query: filters.query, tags: filters.tags}
+    
+    if (filters.minPrice) {
+        params['minPrice'] = filters.minPrice
+    }
+
+    if (filters.maxPrice) {
+        params['maxPrice'] = filters.maxPrice
+    }
+
+    console.log(params)
+
+    return await handleQuery(ENDPOINT+'/listings', 'GET', {params})
+}
+
+export const addListing = async (title, price, seller, desc, img) => {
+    return await handleQuery(ENDPOINT+'/listing', 'POST', {body: {title, price, token: seller, desc, img}})
+}
+
+export const getUser = async (email) => {
+    return await handleQuery(ENDPOINT+`/user/${email}`, 'GET', {})
+}
+
+export const getListing = async (id) => {
+    return await handleQuery(ENDPOINT+`/listing/${id}`, 'GET', {})
 }

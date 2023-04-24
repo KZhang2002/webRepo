@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 
 const ListingsToolbar = (props) => {
     return <Box style={styles.listingsToolbar}>
-        <SearchBar/>
+        <SearchBar {...props}/>
     </Box>
 }
 

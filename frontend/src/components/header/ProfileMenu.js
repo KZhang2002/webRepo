@@ -22,6 +22,7 @@ export default function ProfileMenu(props) {
     const handleLogout = () => {
         handleClose()
         navigate('../login')
+        localStorage.removeItem("userProfile")
         props.setIsLoggedIn(false)
     }
 

@@ -5,34 +5,38 @@ import Profile from './pages/Profile';
 import Login from './pages/Login';
 import NoPage from './pages/NoPage';
 import Header from "./components/header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
-function RoutesWrapper(props) {
-  const ProtectedRoute = ({ isLoggedIn, children }) => {
-    if (!isLoggedIn) {
-      return <Navigate to="/login" replace />;
-    }
+const ProtectedRoute = (props) => {
+  if (!props.isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
 
-    return children;
-  };
+  return props.children;
+};
+
+function RoutesWrapper(props) {
   return <>
     {props.isLoggedIn ? <Header setIsLoggedIn={props.setIsLoggedIn} /> : <></>}
     <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="signup" element={<SignUp setIsLoggedIn={props.setIsLoggedIn} />} />
-      <Route path="login" element={<Login setIsLoggedIn={props.setIsLoggedIn} />} />
+      <Route path="/" exact element={<Navigate to="/login" replace />} />
+      <Route path="signup" element={<SignUp setUserEmail={props.setUserEmail} setIsLoggedIn={props.setIsLoggedIn} />} />
+      <Route path="login" element={<Login setUserEmail={props.setUserEmail} setIsLoggedIn={props.setIsLoggedIn} />} />
       <Route path="profile" element={
-        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Profile /></ProtectedRoute>
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Profile userEmail={props.userEmail} />} />
       } />
-      <Route path="listing" element={
-        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Listing /></ProtectedRoute>
+      <Route path="user/:email" element={
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Profile userEmail={null} />} />
+      } />
+      <Route path="listing/:id" element={
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Listing />} />
       } />
       <Route path="browse" element={
-        <ProtectedRoute isLoggedIn={props.isLoggedIn}><Browse /></ProtectedRoute>
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Browse />} />
       } />
       <Route path="*" element={<NoPage />} />
     </Routes>
@@ -41,12 +45,13 @@ function RoutesWrapper(props) {
 
 function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("userProfile") ? true : false)
+  const [userEmail, setUserEmail] = useState("");
 
   return (
     <div style={{ height: "100vh" }}>
       <BrowserRouter>
-        <RoutesWrapper setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+        <RoutesWrapper setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} userEmail={userEmail} setUserEmail={setUserEmail}/>
       </BrowserRouter>
     </div>
   );

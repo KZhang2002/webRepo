@@ -14,3 +14,11 @@ export const LISTING = {
     description: "A high quality item furnished from exotic materials such as: ​Black Fairy Dust, ​Broken Bat Wing, ​Butterfly Dust​ Feather, attered Bee Wing, and ​Spooky Twig",
     image: "",
 }
+
+export const USER = {
+    id: null,
+    first_name: "",
+    last_name: "",
+    imageUrl: "",
+    email: "",
+}

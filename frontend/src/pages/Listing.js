@@ -1,6 +1,9 @@
 import styles from "../static/StyleSheet";
 import { Box } from "@mui/material";
 import { UserCard } from "../components/user/UserCard";
+import { useEffect, useState } from "react";
+import {useLocation }from "react-router-dom"
+import { getListing } from "../api/api";
 
 import { useState, useEffect, useRef } from "react";
 // import { ReviewList } from '../components/listing/ReviewList'
@@ -16,12 +19,24 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 function Listing(props) {
-    // return (
-    //     <Box style={styles}></Box>
-    // )
     //const {id} = useParams();
     //const [product, setProduct] = useState(null);
+    const location = useLocation();
+    const listingId = location.pathname.split("/").pop()
+    const [listing, setListing] = useState({})
 
+    useEffect(() => {
+        getListing(listingId).then((data) => {
+            setListing(data.data)
+        })
+    }, [])
+
+    return <Box style={styles}>
+        Listing {listingId}
+        Listing Body: {listing.title}
+    </Box>
+    // const {id} = useParams();
+    // const [product, setProduct] = useState(null);
     // useEffect(() => {
     //     getProductById(id).then(x => setProduct(x))
     // }, [])
