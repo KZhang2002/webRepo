@@ -80,7 +80,11 @@ app.get('/user/auth', (req, res) => {
     const query = `SELECT id FROM user WHERE email='${email}' AND pass='${password}'`
     connection.query(query, (err, rows, fields) => {
         if (err) {
-            res.status(400).send()
+            res.status(500).send('Internal server error')
+            return
+        }
+        if (rows.length == 0) {
+            res.status(400).send('Invalid email and/or password')
             return
         }
         res.status(201)
