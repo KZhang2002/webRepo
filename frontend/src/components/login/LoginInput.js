@@ -13,12 +13,15 @@ function LoginInput(props) {
     const [err, setErr] = useState('')
 
     const callback = () => {
+        console.log(props)
         props.setIsLoggedIn(true);
+        props.setUserEmail(user);
         navigate(`../${HOMEPAGE}`)
     }
 
     const handleLogin = async () => {
-            const data = await submit(user, password, callback)
+            const data = await submit({user, password, ...props.additionalData}, props.signup, callback)
+            console.log(data)
             setErr(data.error);
     }
 
@@ -32,8 +35,8 @@ function LoginInput(props) {
 
     return (
         <Box style={styles.loginInput}>
-            <TextField onChange={(e) => setUser(e.target.value)} style={styles.loginInputItem} name="Username"></TextField>
-            <TextField onChange={(e) => setPassword(e.target.value)} style={styles.loginInputItem} name="Password" type="password"></TextField>
+            <TextField onChange={(e) => setUser(e.target.value)} style={styles.loginInputItem} placeholder="Username"></TextField>
+            <TextField onChange={(e) => setPassword(e.target.value)} style={styles.loginInputItem} placeholder="Password" type="password"></TextField>
             <Button onClick={handleLogin} style={styles.loginInputItem} variant="contained">{props.signup ? "Create Account" : "Login"}</Button>
             <Button onClick={handleRedirect} style={styles.loginInputItem} variant="outlined">{props.signup ? "Login" : "Create Account"}</Button>
             { err ? <ErrorText style={styles.loginInputItem}>{err}</ErrorText> : '' }

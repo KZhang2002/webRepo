@@ -11,7 +11,7 @@
             "name": "DBUI",
             "database": "mysql",
             "username": "root",
-            "password": "password"
+            "password": "CoolPasswordThanks"
         }
     ]
 }
