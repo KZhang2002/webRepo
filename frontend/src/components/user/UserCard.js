@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import styles from "../../static/StyleSheet";
 import { Avatar, useScrollTrigger } from "@mui/material";
 import { getUser } from "../../api/api";
 
@@ -16,10 +14,10 @@ function UserCard(props) {
     }, [props.userEmail])
 
     return (
-        <div style={styles.userHeader}>
+        <div id="userCard" style={styles.userHeader}>
             <Avatar
-                alt="placeholder"
-                src={""}
+                alt={name}
+                // src={imageUrl}
                 sx={{ width: 100, height: 100 }}
             />
             <section style={styles.userNameSection}>
@@ -27,8 +25,11 @@ function UserCard(props) {
                 <p style={styles.userEmail}>{userInfo.email}</p>
             </section>
             <section style={styles.reputationSection}>
-                <p style={styles.reputationText}> 
-                    <b>{1}</b> strike(s) on record
+                <p style={styles.reputationText}>
+                    Reputation: <b>{stats.reputation} / 5</b>
+                </p>
+                <p style={styles.reputationText}>
+                    <b>{stats.itemsSold}</b> item(s) sold
                 </p>
                 <p style={styles.reputationText}>
                     Joined <b>12 months ago</b>
