@@ -25,6 +25,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/createexample', (req, res) => {
+    problem = false
+    
     // Clear all databases
     connection.query('DELETE FROM bid', (err, rows, fields) => { })
     connection.query('DELETE FROM review', (err, rows, fields) => { })
@@ -44,6 +46,7 @@ app.get('/createexample', (req, res) => {
     connection.query(query, (err, rows, fields) => {
         if (err) {
             res.status(500).send(err)
+            problem = true
             return
         }
         thomasID = rows['insertId']
@@ -52,6 +55,7 @@ app.get('/createexample', (req, res) => {
         connection.query(query, (err, rows, fields) => {
             if (err) {
                 res.status(500).send(err)
+                problem = true
                 return
             }
             query = `INSERT INTO listing (title, price, seller, item_description, imagelink) VALUES ('Can of Beans', '1.49', '${rows['insertId']}', 'These are beans.', 'https://easydinnerideas.com/wp-content/uploads/2022/06/Easy-Baked-Beans-1-720x540.jpeg')`
@@ -60,6 +64,7 @@ app.get('/createexample', (req, res) => {
             connection.query(query, (err, rows, fields) => { })
         })
     })
+    if (problem) return
     res.status(200)
     res.send("Successfully filled databases!")
 })
@@ -179,6 +184,8 @@ app.post('/listing', (req, res) => {
             console.log(err)
             return
         }
+        
+        problem = false
 
         if (tags) {
             let q = 'INSERT INTO tag (listing, tag_name) VALUES '
@@ -191,11 +198,12 @@ app.post('/listing', (req, res) => {
                     res.status(500)
                     res.send('Error while adding tags')
                     console.log(err)
+                    problem = true
                     return
                 }
             })
         }
-
+        if (problem) return
         res.status(200).send()
     })
 })
