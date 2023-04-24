@@ -184,7 +184,7 @@ const styles = {
     alignSelf: 'flex-start',
     fontWeight: 'bold',
   },
-  userEmail: {
+  userRep: {
     margin: 0,
     color: '#555555',
     alignSelf: 'flex-start'

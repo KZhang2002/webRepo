@@ -16,16 +16,16 @@ export function UserCard({
         <div id="userCard" style={styles.userHeader}>
             <Avatar
                 alt={name}
-                // src={imageUrl}
+                src={imageUrl}
                 sx={{ width: 100, height: 100 }}
             />
             <section style={styles.userNameSection}>
                 <h2 style={styles.userName}>{name}</h2>
-                <p style={styles.userEmail}>{email}</p>
+                <p style={styles.userRep}>Reputation: <b>{stats.reputation} / 5</b></p>
             </section>
             <section style={styles.reputationSection}>
                 <p style={styles.reputationText}>
-                    Reputation: <b>{stats.reputation} / 5</b>
+                    REPLACE LATER
                 </p>
                 <p style={styles.reputationText}>
                     <b>{stats.itemsSold}</b> item(s) sold

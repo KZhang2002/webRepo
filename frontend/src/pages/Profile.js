@@ -8,9 +8,11 @@ function Profile() {
     return (
         <div>
             <div style={styles.page}>
-                <UserCard />
+                <div className='px-4 py-3' style={{backgroundColor: '#EEEEEE'}}>
+                    <UserCard />
+                </div>
             </div>
-            <Box style={styles.listingsContainer}>
+            <Box className="mx-auto" style={styles.listingsContainer}>
                 <ProfileMenu />
             </Box>
         </div>
