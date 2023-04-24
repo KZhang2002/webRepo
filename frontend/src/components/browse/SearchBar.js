@@ -4,19 +4,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterMenu from "./FilterMenu";
 import { Chip } from "@mui/material"
 import styles from "../../static/StyleSheet";
-import { Add, AddBox } from "@mui/icons-material";
+import { Add, AddBox, QueryBuilder } from "@mui/icons-material";
 
 export default function SearchBar(props) {
-
   const filterItems = [
-    'Name',
-    'Description',
-    'Date',
-    'Price',
-    'Auction Price',
-    'Location',
-    'Verified',
-    'Reputation',
+    'Minimum Price',
+    'Maximum Price',
     'Tags'
   ]
 
@@ -29,11 +22,15 @@ export default function SearchBar(props) {
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
-    props.setQuery(event.target.value)
+    props.setQuery({...props.query, query: event.target.value})
   };
 
   const applyFilters = (filters) => {
     setFilters([...filters])
+
+    console.log(filters)
+
+    props.setQuery({query: props.query.query, minPrice: filters[0].enabled ? filters[0].value : '', maxPrice: filters[1].enabled ? filters[1].value : '', tags: filters[2].value.split(" ")})
   }
 
   const renderAppliedFilters = () => {
