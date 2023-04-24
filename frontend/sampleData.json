@@ -22,5 +22,109 @@
         "Desc": "Wires used tor connecting eletrical components",
         "Img": "https://images.unsplash.com/photo-1636116524330-e1b72e090f48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHdpcmVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
         "Tags": ["Wire", "Electrical Component", "Computer"]
+    },
+    {
+        "Title": "Plywood",
+        "Price": "$10",
+        "Token": "",
+        "Desc": "Wood used for structural support",
+        "Img": "https://images.unsplash.com/photo-1508948414348-13a52d2ec394?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGx5d29vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["Plywood", "Wood", "Structure"]
+    },
+    {
+        "Title": "Discovery Board",
+        "Price": "$50",
+        "Token": "",
+        "Desc": "Small ARM enabled processor for program development",
+        "Img": "https://ae01.alicdn.com/kf/HTB1lCuPNVXXXXcCXpXXq6xXFXXXK/STM32F429I-DISCO-Embeded-ST-LINK-V2-STM32-Touch-Screen-Evaluation-Development-Board-STM32F4-Discovery-Kit-STM32F429.jpg_Q90.jpg_.webp",
+        "Tags": ["Electrical Component", "Computer Part"]
+    },
+    {
+        "Title": "USB C cable",
+        "Price": "$4",
+        "Token": "",
+        "Desc": "USB C wire for charging or data transfer",
+        "Img": "https://www.shutterstock.com/image-photo/usb-c-port-260nw-1085631305.jpg",
+        "Tags": ["Wire", "Electrical Component", "Computer", "USB", "USB C"]
+    },
+    {
+        "Title": "Motor",
+        "Price": "$15.99",
+        "Token": "",
+        "Desc": "Servo motor for turning a small axle",
+        "Img": "http://via.placeholder.com/640x360",
+        "Tags": ["Motor", "Small part", "Machine"]
+    },
+    {
+        "Title": "Screws",
+        "Price": "$2000",
+        "Token": "",
+        "Desc": "Screws for fastening items",
+        "Img": "http://via.placeholder.com/640x360",
+        "Tags": ["Small part", "Screws"]
+    },
+    {
+        "Title": "Washer",
+        "Price": "$6",
+        "Token": "",
+        "Desc": "20 Washers for fastening items",
+        "Img": "http://via.placeholder.com/640x360",
+        "Tags": ["Small part", "Metal Part", "Washer"]
+    },
+    {
+        "Title": "Clamp",
+        "Price": "$60",
+        "Token": "",
+        "Desc": "Clamp to hold items while you work on them",
+        "Img": "http://via.placeholder.com/640x360",
+        "Tags": ["Clamp", "Structure"]
+    },
+    {
+        "Title": "Circut Breaker",
+        "Price": "$4",
+        "Token": "",
+        "Desc": "A circut breaker used to interrupt current flow after protective relays detect a fault.",
+        "Img": "http://via.placeholder.com/640x360",
+        "Tags": ["Electrical Component", "Computer", "Circut Breaker"]
+    },
+    {
+        "Title": "Resistor 5Ω",
+        "Price": "$10",
+        "Token": "",
+        "Desc": "5 Ohm resistor.",
+        "Img": "https://images.unsplash.com/photo-1586256053828-a36b572ab01d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzaXN0b3J8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["Electrical Component", "Computer Part", "Resistor"]
+    },
+    {
+        "Title": "Resistor 10Ω",
+        "Price": "$10",
+        "Token": "",
+        "Desc": "10 Ohm resistor",
+        "Img": "https://images.unsplash.com/photo-1586256053828-a36b572ab01d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzaXN0b3J8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["Electrical Component", "Computer Part", "Resistor"]
+    },
+    {
+        "Title": "Resistor 20Ω",
+        "Price": "$10",
+        "Token": "",
+        "Desc": "20 Ohm resistor",
+        "Img": "https://images.unsplash.com/photo-1586256053828-a36b572ab01d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzaXN0b3J8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["Electrical Component", "Computer Part", "Resistor"]
+    },
+    {
+        "Title": "Resistor 50Ω",
+        "Price": "$10",
+        "Token": "",
+        "Desc": "50 Ohm resistor",
+        "Img": "https://images.unsplash.com/photo-1586256053828-a36b572ab01d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzaXN0b3J8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["Electrical Component", "Computer Part", "Resistor"]
+    },
+    {
+        "Title": "Resistor 100Ω",
+        "Price": "$10",
+        "Token": "",
+        "Desc": "100 Ohm resistor",
+        "Img": "https://images.unsplash.com/photo-1586256053828-a36b572ab01d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzaXN0b3J8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["Electrical Component", "Computer Part", "Resistor"]
     }
 ]
