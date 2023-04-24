@@ -1,0 +1,26 @@
+[
+    {
+        "Title": "Gear",
+        "Price": "$2.99",
+        "Token": "",
+        "Desc": "Small gear useful for many different machines",
+        "Img": "https://images.unsplash.com/photo-1571291341483-2fdc082c59ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjN8fGdlYXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["gear", "Small part", "Machine"]
+    },
+    {
+        "Title": "Computer Monitor",
+        "Price": "$200",
+        "Token": "",
+        "Desc": "High Definition monitor with good with a refresh rate of 600Hz",
+        "Img": "https://images.unsplash.com/photo-1586210579191-33b45e38fa2c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y29tcHV0ZXIlMjBtb25pdG9yfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["Monitor", "Computer", "Computer Part"]
+    },
+    {
+        "Title": "Wires",
+        "Price": "$30.99",
+        "Token": "",
+        "Desc": "Wires used tor connecting eletrical components",
+        "Img": "https://images.unsplash.com/photo-1636116524330-e1b72e090f48?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHdpcmVzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60",
+        "Tags": ["Wire", "Electrical Component", "Computer"]
+    }
+]
