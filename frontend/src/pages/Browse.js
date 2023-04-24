@@ -8,18 +8,18 @@ import { getListings } from "../api/api";
 export function BrowseContent(props) {
 
     const [renderedListings, setRenderedListings] = useState([])
-    const [query, setQuery] = useState("");
+    const [filters, setFilters] = useState({ query: "", tags: [], minPrice: "", maxPrice: ""});
 
     useEffect(() => {
-        getListings({query}).then((listings) => {
+        getListings(filters).then((listings) => {
             setRenderedListings(listings.data || []);
             console.log(listings.data)
         })
-    }, [query])
+    }, [filters])
 
     return (
         <Box id="listings" style={{ ...styles.listingsContainer }}>
-            <ListingsToolbar setQuery={setQuery} {...props}/>
+            <ListingsToolbar setQuery={setFilters} query={filters} {...props}/>
             {generateListings(renderedListings)}
         </Box>
     )

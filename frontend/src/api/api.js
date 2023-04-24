@@ -46,7 +46,19 @@ export const signUp = async (email, password, first_name, last_name) => {
 }
 
 export const getListings = async (filters) => {
-    return await handleQuery(ENDPOINT+'/listings', 'GET', {})
+    let params = {query: filters.query, tags: filters.tags}
+    
+    if (filters.minPrice) {
+        params['minPrice'] = filters.minPrice
+    }
+
+    if (filters.maxPrice) {
+        params['maxPrice'] = filters.maxPrice
+    }
+
+    console.log(params)
+
+    return await handleQuery(ENDPOINT+'/listings', 'GET', {params})
 }
 
 export const addListing = async (title, price, seller, desc, img) => {

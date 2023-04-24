@@ -1,4 +1,4 @@
-import { Box, Divider } from "@mui/material"
+import { Box, Button, Divider } from "@mui/material"
 import styles from "../../static/StyleSheet"
 import PriceText from "../typography/PriceText";
 import DateText from "../typography/DateText";
@@ -21,13 +21,16 @@ const ListingCard = (props) => {
             <Box style={styles.listingHeader}>
                 <Box style={styles.titleDateHeader}>
                     <ListingTitleText to={`/listing/${listing.id}`}>{listing.title}</ListingTitleText>
-                    <DateText date={listing.date} />
+                    <DateText date={listing.created} />
                 </Box>
-                <PriceText>{listing.price}</PriceText>
+                <Box style={{display: "flex", flexDirection: "column", justifyContent: "right"}}>
+                    <PriceText style={{alignSelf: "flex-end"}}>{listing.price}</PriceText>
+                    <Button variant="contained" style={{marginTop: "-6rem"}}>Bid: $20</Button>
+                </Box>
             </Box>
             <Box style={styles.listingBody}>
                 <DescriptionText>{listing.item_description}</DescriptionText>
-                <ListingReview listingId={listing.id} />
+                <ListingReview userId={listing.seller} />
             </Box>
         </Box>
     )
