@@ -1,8 +1,8 @@
 import { Rating } from './Rating'
+import { Box } from "@mui/material"
 
 export const ReviewList = ({ reviews = [] }) => <>
-    <div className="mt-4 mx-0 px-0">
-        <Header value={reviews.length} />
+    <Box style={{paddingTop: "6rem"}}>
         {(reviews.length === 0) ? <BasicCard /> : 
                 reviews.map((review) =>
                     <Review 
@@ -10,15 +10,8 @@ export const ReviewList = ({ reviews = [] }) => <>
                         key={review.id}/>
                 )
             }
-    </div>
+    </Box>
 </>;
-
-//Subcomponents
-function Header({value = 0}) {
-    return (
-        <h4 className="text-muted" style ={{fontWeight: 600}}><span className="text-body">Product Reviews </span>({value})</h4>
-    )
-}
 
 function BasicCard() {
     return (

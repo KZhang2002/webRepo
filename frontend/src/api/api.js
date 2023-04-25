@@ -72,3 +72,14 @@ export const getUser = async (email) => {
 export const getListing = async (id) => {
     return await handleQuery(ENDPOINT+`/listing/${id}`, 'GET', {})
 }
+
+export const getListingBids = async (id) => {
+    return await handleQuery(ENDPOINT+`/listing/${id}/bids`, 'GET', {})
+}
+
+export const addListingBid = async (token, bid, id) => {
+    console.log(token)
+    console.log(bid)
+    console.log(id)
+    return await handleQuery(ENDPOINT+`/listing/${id}/bid`, 'POST', {params: {token, bid}})
+}

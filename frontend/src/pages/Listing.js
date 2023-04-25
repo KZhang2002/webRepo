@@ -2,7 +2,7 @@ import styles from "../static/StyleSheet";
 import { Box } from "@mui/material";
 import UserCard from "../components/user/UserCard";
 import { useLocation }from "react-router-dom"
-import { getListing } from "../api/api";
+import { getListing, getListingBids } from "../api/api";
 
 import { useState, useEffect, useRef } from "react";
 // import { ReviewList } from '../components/listing/ReviewList'
@@ -16,6 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import AddBidDialog from "../components/listing/AddBidDialog";
 
 function Listing(props) {
     //const {id} = useParams();
@@ -68,7 +69,7 @@ function Listing(props) {
                 <ProdJumbotron
                     {...product}
                 />
-                <SellerCards />
+                <SellerCards id={listingId} />
                 {/* <ReviewList reviews={product.reviews} />
                 <ReviewForm onReviewAdded={onReviewAdded} /> */}
             </div>
@@ -123,9 +124,9 @@ function SellerCards(props) {
                                     Auction ending at <b>{productInfo.endDate.time}</b> <br/>on <b>{productInfo.endDate.date}</b>
                                 </h2>
                             </div>
-                            <div className="row container my-auto pt-0" style={{}}>
+                            <div className="row container my-auto pt-0" >
                                 <div className="d-flex justify-content-end px-0">
-                                    <BidHistoryDialog bids={bids}/>
+                                    <BidHistoryDialog bids={bids} id={props.id} />
                                 </div>
                                 
                             </div>
@@ -191,6 +192,8 @@ function ProdJumbotron(props) {
 function BidHistoryDialog(props) {
     const [open, setOpen] = useState(false);
     const [scroll, setScroll] = useState("paper");
+    const [bids, setBids] = useState([]);
+    const [addBidDialogOpen, setAddBidDialogOpen] = useState(false)
 
     const handleClickOpen = (scrollType) => () => {
         setOpen(true);
@@ -200,6 +203,18 @@ function BidHistoryDialog(props) {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const handleAddBid = () => {
+        setAddBidDialogOpen(true)
+        handleClose()
+    }
+
+    useEffect(() => {
+        getListingBids(props.id).then((data) => {
+            console.log(data.data)
+            setBids(data.data)
+        })
+    }, [])
 
     const descriptionElementRef = useRef(null);
     useEffect(() => {
@@ -212,10 +227,12 @@ function BidHistoryDialog(props) {
     }, [open]);
 
     return (
-        <div>
+        <>
+        <AddBidDialog setOpen={setAddBidDialogOpen} open={addBidDialogOpen}/>
             <Button size="large" variant="contained" onClick={handleClickOpen("paper")}>See bid history</Button>
             <Dialog
                 open={open}
+                maxWidth="lg"
                 onClose={handleClose}
                 scroll={scroll}
                 aria-labelledby="scroll-dialog-title"
@@ -229,7 +246,7 @@ function BidHistoryDialog(props) {
                   }}
             >
                 <DialogTitle id="scroll-dialog-title">Bid History</DialogTitle>
-                <DialogContent dividers={scroll === "paper"}>
+                <DialogContent dividers={scroll === "paper"} style={{width: "30rem"}}>
                     <DialogContentText
                         id="scroll-dialog-description"
                         ref={descriptionElementRef}
@@ -240,18 +257,16 @@ function BidHistoryDialog(props) {
                                 <tr>
                                     <th className="col">Name</th>
                                     <th className="col">Bid</th>
-                                    <th className="col">Time</th>
                                     <th className="col">Date</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                            {props.bids.map(
+                            {bids.map(
                                 (bid, index) => (
                                 <tr key={index}>
-                                    <td >{bid.name}</td>
+                                    <td >{bid.bidder_email}</td>
                                     <td>${bid.bid}</td>
-                                    <td>{bid.time}</td>
-                                    <td>{bid.date}</td>
+                                    <td>{new Date(bid.snowflake).toLocaleDateString()}</td>
                                 </tr>
                             ))}
                             </tbody>
@@ -260,10 +275,10 @@ function BidHistoryDialog(props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Close</Button>
-                    <Button onClick={handleClose}>Place Bid</Button>
+                    <Button onClick={handleAddBid}>Place Bid</Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     );
 }
 

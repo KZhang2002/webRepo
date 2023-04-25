@@ -37,8 +37,8 @@ function UserCard(props) {
                 <p style={styles.userEmail}>"email@email.com"</p>
                 <p style={styles.userEmail}>{phone}</p>
                 <div style={styles.listingReview} id="reviewButton">
-                    <IconButton onClick={() => navigate(`/user/${userInfo.id}`)} className="py-0" sx={{ color: '#3c3c3c' }}><ModeComment /></IconButton>
-                    <Link to={`/user/${props.email}`} style={styles.reviewText}>5 Seller Reviews</Link>
+                    <IconButton onClick={() => navigate(`/user/${props.email}/reviews`)} sx={{ color: '#3c3c3c' }}><ModeComment /></IconButton>
+                    <Link to={`/user/${props.email}/reviews`} style={styles.reviewText}>View Seller Reviews</Link>
                 </div>
             </section>
             <section className="col-3 py-3" style={styles.reputationSection}>
