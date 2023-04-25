@@ -14,7 +14,9 @@ function Profile(props) {
 
     return (
         <div style={styles.page}>
-            <UserCard email={email} />
+            <div className='card px-4 py-3' style={{backgroundColor: '#EEEEEE'}}>
+                <UserCard email={email}/>
+            </div>
             <Box style={styles.listingsContainer}>
                 <ProfileMenu isOwn={true} />
             </Box>

@@ -92,12 +92,23 @@ const styles = {
     background: BG_COLOR,
     backgroundImage: BG_URL,
   },
+  listingPage: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "2rem",
+    paddingTop: "8rem",
+    paddingBottom: "2rem",
+    height: "100%",
+    background: BG_COLOR,
+    backgroundImage: BG_URL,
+  },
   listingsContainer: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    marginTop: "2rem",
+    marginTop: "1rem",
     maxWidth: "100rem",
   },
   listingCard: {
@@ -179,7 +190,7 @@ const styles = {
   userNameSection: {
     flexDirection: 'column',
     alignSelf: 'flex-start',
-    margin: '0 2vmax',
+    margin: '0 0 0 2vmax',
     flexGrow: 1
   },
   userName: {
@@ -195,7 +206,9 @@ const styles = {
   reputationSection: {
     flexDirection: 'column',
     alignSelf: 'flex-end',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    overflow: 'visible',
+    width: '200px'
   },
   reputationText: {
     textAlign: 'right',
@@ -230,8 +243,8 @@ const styles = {
     margin: "0rem 1rem 0rem 0rem",
   },
   listingImageFrame: {
-    width: "30vw",
-    height: "30vw",
+    width: "25vw",
+    height: "25vw",
     overflow: "hidden",
   },
   listingImage: {
