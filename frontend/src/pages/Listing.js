@@ -92,13 +92,13 @@ function SellerCards(props) {
     }
 
     return (
-        <div className="row container mx-auto px-0">
+        <div className="row container mx-auto pb-0 px-0">
             <div className="col ps-0">
                 <div
-                    className="card border-0 p-3 px-3 my-4 h-75"
+                    className="card border-0 p-3 mt-4 mb-2 h-75"
                     style={{ backgroundColor: "#EEEEEE" }}
                 >
-                    <div className="column container pb-3">
+                    <div className="column container pb-2">
                         <h4 className="m-0 mb-1">
                             <b>Seller Information:</b>
                         </h4>
@@ -119,7 +119,7 @@ function SellerCards(props) {
                                 <b>Details:</b>
                             </h4>
                             <div className="row my-auto">
-                                    <h2 className="my-0 pt-2 pb-1 lh-sm">
+                                    <h2 className="my-0 pt-2 pb-0 lh-sm">
                                         Auction ending at <b>{productInfo.endDate.time}</b> <br/>on <b>{productInfo.endDate.date}</b>
                                     </h2>
                                 </div>

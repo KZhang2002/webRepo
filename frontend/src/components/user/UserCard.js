@@ -32,16 +32,16 @@ function UserCard(props) {
                 // src={imageUrl}
                 sx={{ width: 100, height: 100 }}
             />
-            <section style={styles.userNameSection}>
+            <section className="col-6" style={styles.userNameSection}>
                 <h2 style={styles.userName}>{`${userInfo.first_name} ${userInfo.last_name}`}</h2>
-                <p style={styles.userEmail}>{props.email}</p>
+                <p style={styles.userEmail}>"email@email.com"</p>
                 <p style={styles.userEmail}>{phone}</p>
                 <div style={styles.listingReview} id="reviewButton">
-                    <IconButton onClick={() => navigate(`/user/${userInfo.id}`)} sx={{ color: '#3c3c3c' }}><ModeComment /></IconButton>
+                    <IconButton onClick={() => navigate(`/user/${userInfo.id}`)} className="py-0" sx={{ color: '#3c3c3c' }}><ModeComment /></IconButton>
                     <Link to={`/user/${props.email}`} style={styles.reviewText}>5 Seller Reviews</Link>
                 </div>
             </section>
-            <section className="overflow-visible col-3" style={styles.reputationSection}>
+            <section className="col-3 py-3" style={styles.reputationSection}>
                 <p style={styles.reputationText}>
                     Reputation: <b>{stats.reputation} / 5</b>
                 </p>

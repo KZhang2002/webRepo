@@ -161,7 +161,7 @@ const styles = {
     alignItems: "center",
     height: "3rem",
     marginBottom: "1rem",
-    marginTop: "0.5rem",
+    marginTop: "",
     marginLeft: "-0.5rem"
   },
   reviewText: {
@@ -183,13 +183,12 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    height: '11rem',
-    padding: '1.5rem 1rem 1.5rem 1rem',
+    height: '10rem',
+    padding: '1rem',
     backgroundColor: "#EEEEEE",
   },
   userNameSection: {
     flexDirection: 'column',
-    alignSelf: 'flex-start',
     margin: '0 0 0 2vmax',
     flexGrow: 1
   },
@@ -207,7 +206,6 @@ const styles = {
     flexDirection: 'column',
     alignSelf: 'flex-end',
     justifyContent: 'space-between',
-    overflow: 'visible',
     width: '200px'
   },
   reputationText: {
