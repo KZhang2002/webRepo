@@ -92,6 +92,17 @@ const styles = {
     background: BG_COLOR,
     backgroundImage: BG_URL,
   },
+  listingPage: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "2rem",
+    paddingTop: "8rem",
+    paddingBottom: "2rem",
+    height: "100%",
+    background: BG_COLOR,
+    backgroundImage: BG_URL,
+  },
   listingsContainer: {
     display: "flex",
     flexDirection: "row",
@@ -227,8 +238,8 @@ const styles = {
     margin: "0rem 1rem 0rem 0rem",
   },
   listingImageFrame: {
-    width: "30vw",
-    height: "30vw",
+    width: "25vw",
+    height: "25vw",
     overflow: "hidden",
   },
   listingImage: {

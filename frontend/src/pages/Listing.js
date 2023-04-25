@@ -63,8 +63,8 @@ function Listing(props) {
     }
 
     return (
-        <div id="background" style={{ ...styles.page }}>
-            <div className="container mx-auto w-100 px-0">
+        <div id="background" style={{ ...styles.listingPage }}>
+            <div className="container mx-auto w-100 px-0 pt-3 pb-2">
                 <ProdJumbotron
                     {...product}
                 />
@@ -86,8 +86,8 @@ function SellerCards(props) {
     ]
     const productInfo = {
         endDate: {
-            date: new Date().toLocaleDateString(),
-            time: "5:30 PM",
+            date: new Date().toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}),
+            time: "15:30 PM",
         }
     }
 
@@ -95,12 +95,12 @@ function SellerCards(props) {
         <div className="row container mx-auto px-0">
             <div className="col ps-0">
                 <div
-                    className="card border-0 py-3 px-3 my-4 h-75"
+                    className="card border-0 p-3 px-3 my-4 h-75"
                     style={{ backgroundColor: "#EEEEEE" }}
                 >
                     <div className="column container pb-3">
                         <h4 className="m-0 mb-1">
-                            <b>Seller</b>
+                            <b>Seller Information:</b>
                         </h4>
                         <div className="px-2 pb-3">
                             <UserCard />
@@ -110,28 +110,25 @@ function SellerCards(props) {
             </div>
             <div className="col-5 pe-0">
                 <div
-                    className="card border-0 p-3 mt-4 flex-grow-1 h-75"
+                    className="card border-0 p-3 my-4 flex-grow-1 h-75"
                     style={{ backgroundColor: "#EEEEEE" }}
                 >
                     <div className="column container">
                         <div className="row">
                             <h4 className="m-0">
-                                <b>Auction Information:</b>
+                                <b>Details:</b>
                             </h4>
-                            <div className="col-6 my-auto">
-                                    <h4 className="my-0">
-                                        Auction ends at {productInfo.endDate.time} on {productInfo.endDate.date}
-                                    </h4>
+                            <div className="row my-auto">
+                                    <h2 className="my-0 pt-2 pb-1 lh-sm">
+                                        Auction ending at <b>{productInfo.endDate.time}</b> <br/>on <b>{productInfo.endDate.date}</b>
+                                    </h2>
                                 </div>
-                                <div className="col-3 my-auto">
+                                <div className="row my-auto pt-3">
                                     <BidHistoryDialog bids={bids}/>
                                 </div>
                         </div>
                         <div className="row pt-3">
-                            <h5>phone number</h5>
-                            <h5>email</h5>
-                            <h5>optional</h5>
-                            <h5>optional</h5>
+                            
                         </div>
                     </div>
                 </div>
@@ -141,16 +138,10 @@ function SellerCards(props) {
 }
 
 function ProdJumbotron(props) {
-    // const { addToCart } = useContext(CartContext);
-
-    // const handleClick = () => {
-    //     addToCart(props); // pass the product to addToCart
-    // }
-
     return (
         <div className="col">
             <div
-                className="card border-0 mt-2"
+                className="card border-0"
                 style={{ backgroundColor: "#F8F9FA" }}
             >
                 <div className="container row">
@@ -171,7 +162,7 @@ function ProdJumbotron(props) {
                     <div className="textSection col px-0 py-5">
                         <div className="jumbotron">
                             <h1 className="display-4 pb-2">
-                                <b>{props.name}</b>
+                                <strong><b>{props.name}</b></strong>
                             </h1>
                             <div className="row">
                                 <h2 className="lead col-2 my-auto">
@@ -180,7 +171,7 @@ function ProdJumbotron(props) {
                                         style={styles.listingBadge}
                                     >
                                         <h3 className="my-0 mx-1">
-                                            ${props.price}
+                                            <b>${props.price}</b>
                                         </h3>
                                     </span>
                                 </h2>
@@ -219,7 +210,7 @@ function BidHistoryDialog(props) {
 
     return (
         <div>
-            <Button onClick={handleClickOpen("paper")}>See bid history</Button>
+            <Button size="large" variant="contained" onClick={handleClickOpen("paper")}>See bid history</Button>
             <Dialog
                 open={open}
                 onClose={handleClose}
