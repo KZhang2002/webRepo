@@ -118,14 +118,17 @@ function SellerCards(props) {
                             <h4 className="m-0">
                                 <b>Details:</b>
                             </h4>
-                            <div className="row my-auto">
-                                    <h2 className="my-0 pt-2 pb-0 lh-sm">
-                                        Auction ending at <b>{productInfo.endDate.time}</b> <br/>on <b>{productInfo.endDate.date}</b>
-                                    </h2>
-                                </div>
-                                <div className="row my-auto pt-3">
+                            <div className="row container my-auto">
+                                <h2 className="mt-2 mb-0 py-0 lh-sm">
+                                    Auction ending at <b>{productInfo.endDate.time}</b> <br/>on <b>{productInfo.endDate.date}</b>
+                                </h2>
+                            </div>
+                            <div className="row container my-auto pt-0" style={{}}>
+                                <div className="d-flex justify-content-end px-0">
                                     <BidHistoryDialog bids={bids}/>
                                 </div>
+                                
+                            </div>
                         </div>
                         <div className="row pt-3">
                             
