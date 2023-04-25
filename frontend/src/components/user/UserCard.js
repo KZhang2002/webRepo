@@ -41,7 +41,7 @@ function UserCard({
                     <Link to={`/user/${email}`} style={styles.reviewText}>5 Seller Reviews</Link>
                 </div>
             </section>
-            <section style={styles.reputationSection}>
+            <section className="overflow-visible col-3" style={styles.reputationSection}>
                 <p style={styles.reputationText}>
                     Reputation: <b>{stats.reputation} / 5</b>
                 </p>
@@ -49,7 +49,9 @@ function UserCard({
                     <b>{stats.itemsSold}</b> item(s) sold
                 </p>
                 <p style={styles.reputationText}>
-                    Joined <b>12 months ago</b>
+                    Joined <b>
+                        {/* 12 months ago */}August 27, 1940
+                        </b>
                 </p>
             </section>
         </div>

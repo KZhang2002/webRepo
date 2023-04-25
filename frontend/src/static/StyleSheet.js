@@ -108,7 +108,7 @@ const styles = {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    marginTop: "2rem",
+    marginTop: "1rem",
     maxWidth: "100rem",
   },
   listingCard: {
@@ -187,7 +187,7 @@ const styles = {
   userNameSection: {
     flexDirection: 'column',
     alignSelf: 'flex-start',
-    margin: '0 2vmax',
+    margin: '0 0 0 2vmax',
     flexGrow: 1
   },
   userName: {
@@ -203,7 +203,9 @@ const styles = {
   reputationSection: {
     flexDirection: 'column',
     alignSelf: 'flex-end',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    overflow: 'visible',
+    width: '200px'
   },
   reputationText: {
     textAlign: 'right',

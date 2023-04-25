@@ -13,7 +13,7 @@ function Profile(props) {
 
     return (
         <div style={styles.page}>
-            <div className='px-4 py-3' style={{backgroundColor: '#EEEEEE'}}>
+            <div className='card px-4 py-3' style={{backgroundColor: '#EEEEEE'}}>
                 <UserCard userEmail={props.userEmail || otherUserEmail}/>
             </div>
             <Box style={styles.listingsContainer}>
