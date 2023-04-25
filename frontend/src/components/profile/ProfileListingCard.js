@@ -1,14 +1,15 @@
-import { Box, Button, Divider } from "@mui/material"
+import { Box, Button, Divider, IconButton } from "@mui/material"
 import styles from "../../static/StyleSheet"
 import PriceText from "../typography/PriceText";
 import DateText from "../typography/DateText";
 import DescriptionText from "../typography/DescriptionText";
 import ListingTitleText from "../typography/ListingTitleText";
-import ListingReview from "./ListingReview";
+import ListingReview from "../browse/ListingReview";
 import { useEffect, useState } from "react";
 import { getUser } from "../../api/api";
+import { Delete, Edit } from "@mui/icons-material";
 
-const ListingCard = (props) => {
+const ProfileListingCard = (props) => {
 
     let listing = props.listing;
 
@@ -25,16 +26,18 @@ const ListingCard = (props) => {
                 </Box>
                 <Box style={{ display: "flex", flexDirection: "column", justifyContent: "right" }}>
                     <PriceText style={{ alignSelf: "flex-end" }}>{listing.price}</PriceText>
-                    <Button variant="contained" style={{ marginTop: "-6rem" }}>Bid: $20</Button>
                 </Box>
             </Box>
-            <Box style={styles.listingBody}>
+            <Box style={{ ...styles.listingBody, paddingBottom: '2rem' }}>
                 <DescriptionText>{listing.item_description}</DescriptionText>
-                {props.isOwn ?  <></> : <ListingReview userId={listing.seller} />}
+                <Box style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", marginRight: "-1rem", marginBottom: "-1rem"}}>
+                    <IconButton><Edit /></IconButton>
+                    <IconButton><Delete /></IconButton>
+                </Box>
             </Box>
         </Box>
     )
 }
 
-export default ListingCard;
+export default ProfileListingCard;
 

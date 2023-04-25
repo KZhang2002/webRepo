@@ -128,7 +128,9 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     marginTop: "0rem",
-    padding: "0rem 2rem 0rem 2rem"
+    height: "100%",
+    padding: "0rem 2rem 0rem 2rem",
+    justifyContent: "space-between"
   },
   listingsToolbar: {
     maxWidth: "79rem",
@@ -148,7 +150,8 @@ const styles = {
     alignItems: "center",
     height: "3rem",
     marginBottom: "1rem",
-    marginTop: "0.5rem"
+    marginTop: "0.5rem",
+    marginLeft: "-0.5rem"
   },
   reviewText: {
     marginLeft: "0.5rem",
@@ -169,8 +172,8 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    height: '9rem',
-    padding: '1.5rem, 1rem, 1.5rem, 1rem',
+    height: '11rem',
+    padding: '1.5rem 1rem 1.5rem 1rem',
     backgroundColor: "#EEEEEE",
   },
   userNameSection: {

@@ -10,6 +10,9 @@ import { Navigate } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import User from "./components/user/User";
+import { ReviewList } from "./components/listing/ReviewList";
+import UserReviews from "./pages/UserReviews";
 
 const ProtectedRoute = (props) => {
   if (!props.isLoggedIn) {
@@ -23,14 +26,17 @@ function RoutesWrapper(props) {
   return <>
     {props.isLoggedIn ? <Header setIsLoggedIn={props.setIsLoggedIn} /> : <></>}
     <Routes>
-      <Route path="/" exact element={<Navigate to="/login" replace />} />
+      <Route path="/" exact element={<Navigate to={!props.isLoggedIn ? "/login" : '/browse'} replace />} />
       <Route path="signup" element={<SignUp setUserEmail={props.setUserEmail} setIsLoggedIn={props.setIsLoggedIn} />} />
       <Route path="login" element={<Login setUserEmail={props.setUserEmail} setIsLoggedIn={props.setIsLoggedIn} />} />
       <Route path="profile" element={
         <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Profile userEmail={props.userEmail} />} />
       } />
-      <Route path="user/:email" element={
-        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Profile userEmail={null} />} />
+      <Route path="user/:email" exact element={
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<User />} />
+      } />
+      <Route path="user/:email/reviews" element={
+        <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<UserReviews />} />
       } />
       <Route path="listing/:id" element={
         <ProtectedRoute isLoggedIn={props.isLoggedIn} children={<Listing />} />

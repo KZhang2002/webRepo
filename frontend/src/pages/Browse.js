@@ -20,7 +20,7 @@ export function BrowseContent(props) {
     return (
         <Box id="listings" style={{ ...styles.listingsContainer }}>
             <ListingsToolbar setQuery={setFilters} query={filters} {...props}/>
-            {generateListings(renderedListings)}
+            {generateListings(renderedListings, props.isOwn)}
         </Box>
     )
 }
