@@ -13,7 +13,9 @@ function User(props) {
 
     return (
         <div style={styles.page}>
-            <UserCard email={otherUserEmail} />
+            <div className='card px-4 pt-3 pb-1 col-5' style={{backgroundColor: '#EEEEEE'}}>
+                <UserCard email={otherUserEmail} />
+            </div>
             <Box style={styles.listingsContainer}>
                 <ProfileMenu isOwn={false} />
             </Box>

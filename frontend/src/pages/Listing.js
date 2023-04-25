@@ -79,10 +79,10 @@ function Listing(props) {
 //Subcomponents
 function SellerCards(props) {
     const bids = [
-        {name: "johnproctor77", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "sarahgood23", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "deodatlawson49", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "marthacorey20", bid: "3.00", time: "3:24 pm", date: "4/20"},
+        {name: "johnproctor77", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
+        {name: "sarahgood23", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
+        {name: "deodatlawson49", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
+        {name: "marthacorey20", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
     ]
     const productInfo = {
         endDate: {
@@ -220,7 +220,13 @@ function BidHistoryDialog(props) {
                 scroll={scroll}
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
-                maxWidth="md"
+                maxWidth="sm"
+                PaperProps={{
+                    style: {
+                      width: "90vw",
+                      maxHeight: "90vh",
+                    },
+                  }}
             >
                 <DialogTitle id="scroll-dialog-title">Bid History</DialogTitle>
                 <DialogContent dividers={scroll === "paper"}>
