@@ -17,7 +17,10 @@ export const submit = async (body, signUp, callback) => {
             if (!resp.error) {
                 callback()
                 console.log(resp)
-                if (!signUp) localStorage.setItem("userProfile", resp.data.auth)
+                if (!signUp) {
+                    localStorage.setItem("userProfile", resp.data.auth)
+                    localStorage.setItem("userProfileEmail", body.user)
+                }
                 return { error: null }
             } else {
                 console.log(resp.error)

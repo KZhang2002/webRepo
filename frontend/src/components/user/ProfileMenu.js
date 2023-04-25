@@ -6,7 +6,7 @@ import { addListing, getListings } from "../../api/api";
 import styles from "../../static/StyleSheet";
 import Browse, { BrowseContent } from "../../pages/Browse";
 
-export const ProfileMenu = ({ props }) => {
+export const ProfileMenu = (props) => {
 
     const [renderedListings, setRenderedListings] = useState([])
     const [dialogOpen, setDialogOpen] = useState(false)
@@ -32,7 +32,7 @@ export const ProfileMenu = ({ props }) => {
     return (
         <>
             <AddListingDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} setLoad={setLoad}></AddListingDialog>
-            <BrowseContent isOwn={true} handleAddListing={handleAddListing} />
+            <BrowseContent isOwn={props.isOwn} handleAddListing={handleAddListing} />
         </>
     );
 };

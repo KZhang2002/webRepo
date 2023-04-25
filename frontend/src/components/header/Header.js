@@ -30,7 +30,7 @@ function Header(props) {
                             </IconButton>
                         }
                         <Box style={styles.breadcrumbBox} sx={{ flexGrow: 1, alignItems: "center" }}>
-                            <div style={styles.breadcrumbsTitleText}>
+                            <div style={styles.breadcrumbsTitleText} onClick={() => navigate("/")}>
                                 {`${APP_NAME}`}
                             </div>
                             <div style={styles.breadcrumbsSepText}>/</div>

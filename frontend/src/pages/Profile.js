@@ -9,15 +9,16 @@ import { useLocation } from "react-router-dom";
 
 function Profile(props) {
     const location = useLocation()
-    const otherUserEmail = location.pathname.split("/").pop();
+
+    let email =  localStorage.getItem("userProfileEmail")
 
     return (
         <div style={styles.page}>
             <div className='card px-4 py-3' style={{backgroundColor: '#EEEEEE'}}>
-                <UserCard userEmail={props.userEmail || otherUserEmail}/>
+                <UserCard email={email}/>
             </div>
             <Box style={styles.listingsContainer}>
-                <ProfileMenu />
+                <ProfileMenu isOwn={true} />
             </Box>
         </div>
     );
