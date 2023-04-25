@@ -14,7 +14,7 @@ function Profile(props) {
 
     return (
         <div style={styles.page}>
-            <div className='card px-4 py-3' style={{backgroundColor: '#EEEEEE'}}>
+            <div className='card px-4 pt-3 pb-1 col-5' style={{backgroundColor: '#EEEEEE'}}>
                 <UserCard email={email}/>
             </div>
             <Box style={styles.listingsContainer}>

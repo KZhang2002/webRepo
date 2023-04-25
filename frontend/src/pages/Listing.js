@@ -80,10 +80,10 @@ function Listing(props) {
 //Subcomponents
 function SellerCards(props) {
     const bids = [
-        {name: "johnproctor77", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "sarahgood23", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "deodatlawson49", bid: "3.00", time: "3:24 pm", date: "4/20"},
-        {name: "marthacorey20", bid: "3.00", time: "3:24 pm", date: "4/20"},
+        {name: "johnproctor77", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
+        {name: "sarahgood23", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
+        {name: "deodatlawson49", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
+        {name: "marthacorey20", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
     ]
     const productInfo = {
         endDate: {
@@ -93,13 +93,13 @@ function SellerCards(props) {
     }
 
     return (
-        <div className="row container mx-auto px-0">
+        <div className="row container mx-auto pb-0 px-0">
             <div className="col ps-0">
                 <div
-                    className="card border-0 p-3 px-3 my-4 h-75"
+                    className="card border-0 p-3 mt-4 mb-2 h-75"
                     style={{ backgroundColor: "#EEEEEE" }}
                 >
-                    <div className="column container pb-3">
+                    <div className="column container pb-2">
                         <h4 className="m-0 mb-1">
                             <b>Seller Information:</b>
                         </h4>
@@ -119,14 +119,17 @@ function SellerCards(props) {
                             <h4 className="m-0">
                                 <b>Details:</b>
                             </h4>
-                            <div className="row my-auto">
-                                    <h2 className="my-0 pt-2 pb-1 lh-sm">
-                                        Auction ending at <b>{productInfo.endDate.time}</b> <br/>on <b>{productInfo.endDate.date}</b>
-                                    </h2>
+                            <div className="row container my-auto">
+                                <h2 className="mt-2 mb-0 py-0 lh-sm">
+                                    Auction ending at <b>{productInfo.endDate.time}</b> <br/>on <b>{productInfo.endDate.date}</b>
+                                </h2>
+                            </div>
+                            <div className="row container my-auto pt-0" >
+                                <div className="d-flex justify-content-end px-0">
+                                    <BidHistoryDialog bids={bids} id={props.id} />
                                 </div>
-                                <div className="row my-auto pt-3">
-                                    <BidHistoryDialog id={props.id} bids={bids}/>
-                                </div>
+                                
+                            </div>
                         </div>
                         <div className="row pt-3">
                             
@@ -234,6 +237,13 @@ function BidHistoryDialog(props) {
                 scroll={scroll}
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
+                maxWidth="sm"
+                PaperProps={{
+                    style: {
+                      width: "90vw",
+                      maxHeight: "90vh",
+                    },
+                  }}
             >
                 <DialogTitle id="scroll-dialog-title">Bid History</DialogTitle>
                 <DialogContent dividers={scroll === "paper"} style={{width: "30rem"}}>
