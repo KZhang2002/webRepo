@@ -21,10 +21,11 @@ const handleQuery = async (endpoint, method, {body, params}) => {
         if (method == 'GET') {
             response = await fetch(endpoint+ (params ? '?' + new URLSearchParams(params) : ""));
             data = await response.json();
+
         } else if (method == 'POST') {
             response = await fetch(endpoint, payload);
             console.log("here")
-        }  
+        }
 
     } catch (err) {
         return {data: null, error: `${err}`}
