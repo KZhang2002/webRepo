@@ -5,7 +5,7 @@
         "token": "",
         "desc": "Small gear useful for many different machines",
         "img": "https://images.pexels.com/photos/3785933/pexels-photo-3785933.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["gear", "small-part", "machine"]
+        "tags": "gear small-part machine"
     },
     {
         "title": "Computer Monitor",
@@ -13,7 +13,7 @@
         "token": "",
         "desc": "High Definition monitor with good with a refresh rate of 600Hz",
         "img": "https://images.pexels.com/photos/439803/pexels-photo-439803.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["monitor", "computer", "computer-part"]
+        "tags": "monitor computer computer-part"
     },
     {
         "title": "Wires",
@@ -21,7 +21,7 @@
         "token": "",
         "desc": "Wires used tor connecting eletrical components",
         "img": "https://images.pexels.com/photos/2332882/pexels-photo-2332882.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["wire", "electrical-component", "computer"]
+        "tags": "wire electrical-component computer"
     },
     {
         "title": "Plywood",
@@ -29,7 +29,7 @@
         "token": "",
         "desc": "Wood used for structural support",
         "img": "https://images.pexels.com/photos/4744800/pexels-photo-4744800.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["plywood", "wood", "structure"]
+        "tags": "plywood wood structure"
     },
     {
         "title": "Discovery Board",
@@ -37,7 +37,7 @@
         "token": "",
         "desc": "Small ARM enabled processor for program development",
         "img": "https://ae01.alicdn.com/kf/HTB1lCuPNVXXXXcCXpXXq6xXFXXXK/STM32F429I-DISCO-Embeded-ST-LINK-V2-STM32-Touch-Screen-Evaluation-Development-Board-STM32F4-Discovery-Kit-STM32F429.jpg_Q90.jpg_.webp",
-        "tags": ["electrical-component", "computer-part"]
+        "tags": "electrical-component computer-part"
     },
     {
         "title": "USB C cable",
@@ -45,7 +45,7 @@
         "token": "",
         "desc": "USB C wire for charging or data transfer",
         "img": "https://images.pexels.com/photos/914915/pexels-photo-914915.jpeg?auto=compress&cs=tinysrgb&w=600",
-        "tags": ["wire", "electrical-component", "computer", "usb", "usb-c"]
+        "tags": "wire electrical-component computer usb usb-c"
     },
     {
         "title": "Motor",
@@ -53,7 +53,7 @@
         "token": "",
         "desc": "Servo motor for turning a small axle",
         "img": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Servo_Motor.jpg",
-        "tags": ["motor", "small-part", "machine"]
+        "tags": "motor small-part machine"
     },
     {
         "title": "Screws",
@@ -61,7 +61,7 @@
         "token": "",
         "desc": "Screws for fastening items",
         "img": "https://live.staticflickr.com/65535/50301341786_a7798899ff_b.jpg",
-        "tags": ["small-part", "screws"]
+        "tags": "small-part screws"
     },
     {
         "title": "Washer",
@@ -69,7 +69,7 @@
         "token": "",
         "desc": "20 Washers for fastening items",
         "img": "https://p1.pxfuel.com/preview/535/98/485/washers-sheet-rings-circle.jpg",
-        "tags": ["small-part", "metal-part", "washer"]
+        "tags": "small-part metal-part washer"
     },
     {
         "title": "Clamp",
@@ -77,7 +77,7 @@
         "token": "",
         "desc": "Clamp to hold items while you work on them",
         "img": "https://mobileimages.lowes.com/productimages/c433b11e-bb0e-4822-9033-bebf42e81b80/10367565.jpg",
-        "tags": ["clamp", "structure", "tool"]
+        "tags": "clamp structure tool"
     },
     {
         "title": "Circut Breaker",
@@ -85,7 +85,7 @@
         "token": "",
         "desc": "A circut breaker used to interrupt current flow after protective relays detect a fault.",
         "img": "https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["electrical-component", "computer", "circut-breaker"]
+        "tags": "electrical-component computer circut-breaker"
     },
     {
         "title": "Resistor 5 Ohm",
@@ -93,7 +93,7 @@
         "token": "",
         "desc": "5 Ohm resistor.",
         "img": "https://images.pexels.com/photos/6586771/pexels-photo-6586771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["electrical-component", "computer-part", "resistor"]
+        "tags": "electrical-component computer-part resistor"
     },
     {
         "title": "Resistor 10 Ohm",
@@ -101,7 +101,7 @@
         "token": "",
         "desc": "10 Ohm resistor",
         "img": "https://images.pexels.com/photos/6586771/pexels-photo-6586771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["electrical-component", "computer-part", "resistor"]
+        "tags": "electrical-component computer-part resistor"
     },
     {
         "title": "Resistor 20 Ohm",
@@ -109,7 +109,7 @@
         "token": "",
         "desc": "20 Ohm resistor",
         "img": "https://images.pexels.com/photos/6586771/pexels-photo-6586771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["electrical-component", "computer-part", "resistor"]
+        "tags": "electrical-component computer-part resistor"
     },
     {
         "title": "Resistor 50 Ohm",
@@ -117,7 +117,7 @@
         "token": "",
         "desc": "50 Ohm resistor Ohm",
         "img": "https://images.pexels.com/photos/6586771/pexels-photo-6586771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["electrical-component", "computer-part", "resistor"]
+        "tags": "electrical-component computer-part resistor"
     },
     {
         "title": "Resistor 100 Ohm",
@@ -125,6 +125,7 @@
         "token": "",
         "desc": "100 Ohm resistor",
         "img": "https://images.pexels.com/photos/6586771/pexels-photo-6586771.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        "tags": ["electrical-component", "computer-part", "resistor"]
+        "tags": "electrical-component computer-part resistor"
     }
+
 ]
