@@ -109,7 +109,7 @@ const EditListingDialog = (props) => {
             </DialogContent>
             <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={handleAddListing}>Add Listing</Button>
+                <Button onClick={handleAddListing}>Edit Listing</Button>
             </DialogActions>
         </Dialog>
     )

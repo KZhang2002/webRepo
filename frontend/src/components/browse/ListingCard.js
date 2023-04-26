@@ -7,10 +7,13 @@ import ListingTitleText from "../typography/ListingTitleText";
 import ListingReview from "./ListingReview";
 import { useEffect, useState } from "react";
 import { getUser } from "../../api/api";
+import AddBidDialog from "../listing/AddBidDialog";
 
 const ListingCard = (props) => {
 
-    let listing = props.listing;
+    let listing = props.listing; 
+    console.log(listing)
+    const [addBidDialogOpen, setAddBidDialogOpen] = useState(false)
 
     return (
         <Box style={styles.listingCard}>
@@ -25,9 +28,10 @@ const ListingCard = (props) => {
                 </Box>
                 <Box style={{ display: "flex", flexDirection: "column", justifyContent: "right" }}>
                     <PriceText style={{ alignSelf: "flex-end" }}>{listing.price}</PriceText>
-                    <Button variant="contained" style={{ marginTop: "-6rem" }}>Bid: $20</Button>
+                    <Button variant="contained" onClick={() => {setAddBidDialogOpen(true)}} style={{ marginTop: "-6rem" }}>Bid: $20</Button>
                 </Box>
             </Box>
+            <AddBidDialog open={addBidDialogOpen} setOpen={setAddBidDialogOpen} id={listing.id}/>
             <Box style={styles.listingBody}>
                 <DescriptionText>{listing.item_description}</DescriptionText>
                 {props.isOwn ?  <></> : <ListingReview userId={listing.seller} />}

@@ -8,10 +8,15 @@ import ListingReview from "../browse/ListingReview";
 import { useEffect, useState } from "react";
 import { getUser } from "../../api/api";
 import { Delete, Edit } from "@mui/icons-material";
+import EditListingDialog from "../user/EditListingDialog";
+import DeleteListingDialog from "../user/DeleteListingDialog";
 
 const ProfileListingCard = (props) => {
 
     let listing = props.listing;
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const [load, setLoad] = useState(false);
 
     return (
         <Box style={styles.listingCard}>
@@ -31,8 +36,10 @@ const ProfileListingCard = (props) => {
             <Box style={{ ...styles.listingBody, paddingBottom: '2rem' }}>
                 <DescriptionText>{listing.item_description}</DescriptionText>
                 <Box style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", marginRight: "-1rem", marginBottom: "-1rem"}}>
-                    <IconButton><Edit /></IconButton>
-                    <IconButton><Delete /></IconButton>
+                    <IconButton><Edit onClick={() => {setEditDialogOpen(true)}} /></IconButton>
+                    <IconButton><Delete onClick={() => {setDeleteDialogOpen(true)}}/></IconButton>
+                    <EditListingDialog dialogOpen={editDialogOpen} setDialogOpen={setEditDialogOpen} setLoad={setLoad} />
+                    <DeleteListingDialog dialogOpen={deleteDialogOpen} setDialogOpen={setDeleteDialogOpen} setLoad={setLoad} />
                 </Box>
             </Box>
         </Box>
