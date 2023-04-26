@@ -34,7 +34,7 @@ function UserCard(props) {
             />
             <section className="col-6" style={styles.userNameSection}>
                 <h2 style={styles.userName}>{`${userInfo.first_name} ${userInfo.last_name}`}</h2>
-                <p style={styles.userEmail}>"email@email.com"</p>
+                <p style={styles.userEmail}>{props.email}</p>
                 <p style={styles.userEmail}>{phone}</p>
                 <div style={styles.listingReview} id="reviewButton">
                     <IconButton onClick={() => navigate(`/user/${props.email}/reviews`)} sx={{ color: '#3c3c3c' }}><ModeComment /></IconButton>

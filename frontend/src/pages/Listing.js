@@ -228,7 +228,7 @@ function BidHistoryDialog(props) {
 
     return (
         <>
-        <AddBidDialog setOpen={setAddBidDialogOpen} open={addBidDialogOpen}/>
+        <AddBidDialog id={props.id} setOpen={setAddBidDialogOpen} open={addBidDialogOpen}/>
             <Button size="large" variant="contained" onClick={handleClickOpen("paper")}>See bid history</Button>
             <Dialog
                 open={open}
@@ -246,7 +246,7 @@ function BidHistoryDialog(props) {
                   }}
             >
                 <DialogTitle id="scroll-dialog-title">Bid History</DialogTitle>
-                <DialogContent dividers={scroll === "paper"} style={{width: "30rem"}}>
+                <DialogContent dividers={scroll === "paper"}>
                     <DialogContentText
                         id="scroll-dialog-description"
                         ref={descriptionElementRef}
