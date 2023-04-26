@@ -1,7 +1,7 @@
 import styles from "../static/StyleSheet";
 import { Box } from "@mui/material";
 import UserCard from "../components/user/UserCard";
-import { useLocation }from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { getListing, getListingBids } from "../api/api";
 
 import { useState, useEffect, useRef } from "react";
@@ -46,30 +46,14 @@ function Listing(props) {
         // console.log(review.date)
         // mergeProduct({ reviews: [...product.reviews, review] })
     };
-
-    const product = {
-        name: listing.title,
-        imageUrl: listing.imagelink,
-        price: listing.price,
-        description: listing.item_description,
-        reviews: "",
-        endDate: {
-            time: "23:23",
-            date: "12/20"
-        }
-    };
-
-    if (!product) {
-        return <div>Loading...</div>;
-    }
-
     return (
-        <div id="background" style={{ ...styles.listingPage }}>
-            <div className="container mx-auto w-100 px-0 pt-3 pb-2">
+        <div id="background" style={{ ...styles.listingPage, height: "100%", overflowY: "scroll" }}>
+            <div className="container w-100 px-0 pt-3 pb-2" style={{minWidth: "30rem"}}>
                 <ProdJumbotron
-                    {...product}
+                    id={listingId}
+                    {...listing}
                 />
-                <SellerCards id={listingId} />
+                <SellerCards listing={listing} id={listingId} />
                 {/* <ReviewList reviews={product.reviews} />
                 <ReviewForm onReviewAdded={onReviewAdded} /> */}
             </div>
@@ -80,21 +64,15 @@ function Listing(props) {
 //Subcomponents
 function SellerCards(props) {
     const bids = [
-        {name: "johnproctor77", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
-        {name: "sarahgood23", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
-        {name: "deodatlawson49", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
-        {name: "marthacorey20", bid: "3.00", time: "3:24:01 pm", date: "April 20"},
+        { name: "johnproctor77", bid: "3.00", time: "3:24:01 pm", date: "April 20" },
+        { name: "sarahgood23", bid: "3.00", time: "3:24:01 pm", date: "April 20" },
+        { name: "deodatlawson49", bid: "3.00", time: "3:24:01 pm", date: "April 20" },
+        { name: "marthacorey20", bid: "3.00", time: "3:24:01 pm", date: "April 20" },
     ]
-    const productInfo = {
-        endDate: {
-            date: new Date().toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}),
-            time: "15:30 PM",
-        }
-    }
 
     return (
-        <div className="row container mx-auto pb-0 px-0">
-            <div className="col ps-0">
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+            <div className="ps-0" style={{ minWidth: "20rem", width: "100%" }}>
                 <div
                     className="card border-0 p-3 mt-4 mb-2 h-75"
                     style={{ backgroundColor: "#EEEEEE" }}
@@ -104,44 +82,23 @@ function SellerCards(props) {
                             <b>Seller Information:</b>
                         </h4>
                         <div className="px-2 pb-3">
-                            <UserCard />
+                            <UserCard email={props.listing.seller_email} />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="col-5 pe-0">
-                <div
-                    className="card border-0 p-3 my-4 flex-grow-1 h-75"
-                    style={{ backgroundColor: "#EEEEEE" }}
-                >
-                    <div className="column container">
-                        <div className="row">
-                            <h4 className="m-0">
-                                <b>Details:</b>
-                            </h4>
-                            <div className="row container my-auto">
-                                <h2 className="mt-2 mb-0 py-0 lh-sm">
-                                    Auction ending at <b>{productInfo.endDate.time}</b> <br/>on <b>{productInfo.endDate.date}</b>
-                                </h2>
-                            </div>
-                            <div className="row container my-auto pt-0" >
-                                <div className="d-flex justify-content-end px-0">
-                                    <BidHistoryDialog bids={bids} id={props.id} />
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div className="row pt-3">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     );
 }
 
 function ProdJumbotron(props) {
+    const productInfo = {
+        endDate: {
+            date: new Date().toLocaleDateString('en-us', { year: "numeric", month: "short", day: "numeric" }),
+            time: "15:30 PM",
+        }
+    }
     return (
         <div className="col">
             <div
@@ -151,14 +108,14 @@ function ProdJumbotron(props) {
                 <div className="container row">
                     <div
                         className="d-flex col-md-4 p-5 align-items-center"
-                        style={styles.listingImageFrame}
+                        style={{...styles.listingImageFrame, minWidth: "20rem", minHeight: "20rem"}}
                     >
                         <img
-                         onError={({ currentTarget }) => {
-                            currentTarget.onerror = null; // prevents looping
-                            currentTarget.src = "https://i0.wp.com/roadmap-tech.com/wp-content/uploads/2019/04/placeholder-image.jpg?resize=400%2C400&ssl=1";
-                        }} 
-                            src={props.imageUrl}
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null; // prevents looping
+                                currentTarget.src = "https://i0.wp.com/roadmap-tech.com/wp-content/uploads/2019/04/placeholder-image.jpg?resize=400%2C400&ssl=1";
+                            }}
+                            src={props.imagelink}
                             className="img-fluid"
                             style={styles.listingImage}
                         ></img>
@@ -166,7 +123,7 @@ function ProdJumbotron(props) {
                     <div className="textSection col px-0 py-5">
                         <div className="jumbotron">
                             <h1 className="display-4 pb-2">
-                                <strong><b>{props.name}</b></strong>
+                                <strong><b>{props.title}</b></strong>
                             </h1>
                             <div className="row">
                                 <h2 className="lead col-2 my-auto">
@@ -175,12 +132,40 @@ function ProdJumbotron(props) {
                                         style={styles.listingBadge}
                                     >
                                         <h3 className="my-0 mx-1">
-                                            <b>${props.price}</b>
+                                            <b>${props.current_bid_price || props.starting_bid_price}</b>
                                         </h3>
                                     </span>
                                 </h2>
                             </div>
-                            <p className="lead py-2">{props.description}</p>
+                            <p className="lead py-2">{props.item_description}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="pe-0" style={{ marginRight: "3rem", marginLeft: "3rem", marginBottom: "3rem" }}>
+                    <div
+                        className="card border-0 p-3 my-4 flex-grow-1 h-75"
+                        style={{ backgroundColor: "#EEEEEE" }}
+                    >
+                        <div className="column container">
+                            <div className="row">
+                                <h4 className="m-0">
+                                    <b>Details:</b>
+                                </h4>
+                                <div className="row container my-auto">
+                                    <h2 className="mt-2 mb-0 py-0 lh-sm">
+                                        Auction ending at <b>{productInfo.endDate.time}</b> on <b>{productInfo.endDate.date}</b>
+                                    </h2>
+                                </div>
+                                <div className="row container my-auto pt-0 mt-2" >
+                                    <div className="d-flex justify-content-end px-0">
+                                        <BidHistoryDialog id={props.id} />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div className="row pt-3">
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -212,9 +197,9 @@ function BidHistoryDialog(props) {
     useEffect(() => {
         getListingBids(props.id).then((data) => {
             console.log(data.data)
-            setBids(data.data)
+            setBids(data.data || [])
         })
-    }, [])
+    }, [open])
 
     const descriptionElementRef = useRef(null);
     useEffect(() => {
@@ -228,7 +213,7 @@ function BidHistoryDialog(props) {
 
     return (
         <>
-        <AddBidDialog id={props.id} setOpen={setAddBidDialogOpen} open={addBidDialogOpen}/>
+            <AddBidDialog id={props.id} setOpen={setAddBidDialogOpen} open={addBidDialogOpen} />
             <Button size="large" variant="contained" onClick={handleClickOpen("paper")}>See bid history</Button>
             <Dialog
                 open={open}
@@ -240,10 +225,10 @@ function BidHistoryDialog(props) {
                 maxWidth="sm"
                 PaperProps={{
                     style: {
-                      width: "90vw",
-                      maxHeight: "90vh",
+                        width: "90vw",
+                        maxHeight: "90vh",
                     },
-                  }}
+                }}
             >
                 <DialogTitle id="scroll-dialog-title">Bid History</DialogTitle>
                 <DialogContent dividers={scroll === "paper"}>
@@ -261,14 +246,14 @@ function BidHistoryDialog(props) {
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
-                            {bids.map(
-                                (bid, index) => (
-                                <tr key={index}>
-                                    <td >{bid.bidder_email}</td>
-                                    <td>${bid.bid}</td>
-                                    <td>{new Date(bid.snowflake).toLocaleDateString()}</td>
-                                </tr>
-                            ))}
+                                {bids.map(
+                                    (bid, index) => (
+                                        <tr key={index}>
+                                            <td >{bid.bidder_email}</td>
+                                            <td>${bid.bid}</td>
+                                            <td>{new Date(bid.snowflake).toLocaleDateString()}</td>
+                                        </tr>
+                                    ))}
                             </tbody>
                         </table>
                     </DialogContentText>

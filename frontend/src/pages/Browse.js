@@ -15,7 +15,8 @@ export function BrowseContent(props) {
             setRenderedListings(listings.data || []);
             console.log(listings.data)
         })
-    }, [filters])
+        props.setLoad(false)
+    }, [filters, props.load])
 
     return (
         <Box id="listings" style={{ ...styles.listingsContainer }}>
@@ -28,7 +29,7 @@ export function BrowseContent(props) {
 function Browse(props) {
 
     return <div id="background" style={{ ...styles.page }}>
-        <BrowseContent isOwn={false} handleAddListing={()=>{}}/>
+        <BrowseContent load={false} setLoad={() => {}} isOwn={false} handleAddListing={()=>{}}/>
     </div>
 }
 

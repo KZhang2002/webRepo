@@ -30,7 +30,7 @@ const ProfileListingCard = (props) => {
                     <DateText date={listing.created} />
                 </Box>
                 <Box style={{ display: "flex", flexDirection: "column", justifyContent: "right" }}>
-                    <PriceText style={{ alignSelf: "flex-end" }}>{listing.price}</PriceText>
+                    <PriceText style={{ alignSelf: "flex-end" }}>{listing.starting_bid_price}</PriceText>
                 </Box>
             </Box>
             <Box style={{ ...styles.listingBody, paddingBottom: '2rem' }}>

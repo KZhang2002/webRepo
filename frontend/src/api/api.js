@@ -63,7 +63,7 @@ export const getListings = async (filters) => {
 }
 
 export const addListing = async (title, price, seller, desc, img) => {
-    return await handleQuery(ENDPOINT+'/listing', 'POST', {body: {title, price, token: seller, desc, img}})
+    return await handleQuery(ENDPOINT+'/listing', 'POST', {body: {title, price, token: seller, desc, img: (img || "none")}})
 }
 
 export const getUser = async (email) => {
@@ -82,5 +82,5 @@ export const addListingBid = async (token, bid, id) => {
     console.log(token)
     console.log(bid)
     console.log(id)
-    return await handleQuery(ENDPOINT+`/listing/${id}/bid`, 'POST', {params: {token, bid}})
+    return await handleQuery(ENDPOINT+`/listing/${id}/bid`, 'POST', {body: {token, bid}})
 }

@@ -7,6 +7,7 @@ import ListingTitleText from "../typography/ListingTitleText";
 import ListingReview from "./ListingReview";
 import { useEffect, useState } from "react";
 import { getUser } from "../../api/api";
+import { Link } from "react-router-dom";
 import AddBidDialog from "../listing/AddBidDialog";
 
 const ListingCard = (props) => {
@@ -27,14 +28,15 @@ const ListingCard = (props) => {
                     <DateText date={listing.created} />
                 </Box>
                 <Box style={{ display: "flex", flexDirection: "column", justifyContent: "right" }}>
-                    <PriceText style={{ alignSelf: "flex-end" }}>{listing.price}</PriceText>
-                    <Button variant="contained" onClick={() => {setAddBidDialogOpen(true)}} style={{ marginTop: "-6rem" }}>Bid: $20</Button>
+                    <PriceText style={{ alignSelf: "flex-end" }}>{listing.starting_bid_price}</PriceText>
+                    <Button variant="contained" onClick={() => {setAddBidDialogOpen(true)}} style={{ marginTop: "-6rem" }}>{`Bid: $${listing.current_bid_price || listing.starting_bid_price}`}</Button>
                 </Box>
             </Box>
             <AddBidDialog open={addBidDialogOpen} setOpen={setAddBidDialogOpen} id={listing.id}/>
             <Box style={styles.listingBody}>
                 <DescriptionText>{listing.item_description}</DescriptionText>
-                {props.isOwn ?  <></> : <ListingReview userId={listing.seller} />}
+                {props.isOwn ?  <></> : <ListingReview userId={listing.seller_email} />}
+                <Link style={{marginBottom: "2rem"}} to={`/user/${listing.seller_email}/`} >{listing.seller_email}</Link>
             </Box>
         </Box>
     )

@@ -14,8 +14,6 @@ const AddListingDialog = (props) => {
 
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
-    const [price, setPrice] = useState("");
-    const [amount, setAmount] = useState(0);
     const [bid, setBid] = useState(0);
     const [imageURL, setImageURL] = useState("")
     const [err, setErr] = useState("");
@@ -25,11 +23,11 @@ const AddListingDialog = (props) => {
     }
 
     const handleAddListing = () => {
-        if (title && desc && price && amount && bid) {
-            props.setLoad(true);
+        if (title && desc && bid) {
             let token = localStorage.getItem("userProfile");
-            addListing(title, price, token, desc, imageURL).then(() => {
+            addListing(title, bid, token, desc, imageURL).then(() => {
                 handleClose();
+                props.setLoad(true);
             })  
         }
         else {
@@ -42,7 +40,7 @@ const AddListingDialog = (props) => {
             <DialogTitle>Add Listing</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Something you'd like to sell? Enter any inventory up to 1000 items.
+                    Something you'd like to sell?
                 </DialogContentText>
                 <TextField
                     onChange={(e) => { setTitle(e.target.value) }}
@@ -61,26 +59,6 @@ const AddListingDialog = (props) => {
                     id="name"
                     label="Description"
                     type="email"
-                    fullWidth
-                    variant="standard"
-                />
-                <TextField
-                    onChange={(e) => { setAmount(e.target.value) }}
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Lot Size"
-                    type="number"
-                    fullWidth
-                    variant="standard"
-                />
-                <TextField
-                    onChange={(e) => { setPrice(e.target.value) }}
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Price/Unit"
-                    type="number"
                     fullWidth
                     variant="standard"
                 />

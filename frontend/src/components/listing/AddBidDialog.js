@@ -12,6 +12,7 @@ const AddBidDialog = (props) => {
         addListingBid(token, bidValue, props.id).then((data) => {
             console.log(data)
         })
+        props.setOpen(false)
     }
 
     return (

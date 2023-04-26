@@ -10,7 +10,7 @@ export default function ListingReview (props) {
     return (
         <div style={styles.listingReview} id="reviewButton">
             <IconButton style={{marginTop: "0.2rem"}} onClick={() => navigate(`/user/${props.userId}`)} sx={{color: '#3c3c3c'}}><ModeComment/></IconButton>
-            <Link to={`/user/${props.userId}/reviews`} style={styles.reviewText}>5 Seller Reviews</Link>
+            <Link to={`/user/${props.userId}/reviews`} style={styles.reviewText}>View Reviews</Link>
         </div>
     )
 }

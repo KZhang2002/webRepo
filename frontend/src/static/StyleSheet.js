@@ -159,9 +159,8 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    height: "3rem",
-    marginBottom: "1rem",
-    marginTop: "",
+    height: "2rem",
+    marginTop: "2rem",
     marginLeft: "-0.5rem"
   },
   reviewText: {
