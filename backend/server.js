@@ -213,8 +213,12 @@ app.post('/listing', (req, res) => {
 })
 
 app.get('/listings', (req, res) => {
-    const { query, tags, minPrice, maxPrice } = req.query
-    let sqlQuery = 'SELECT l.title, l.price, l.created, l.seller, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags FROM listing l LEFT JOIN tag t ON l.id = t.listing'
+    const { query, tags, minPrice, maxPrice, user } = req.query
+    let sqlQuery = `
+        SELECT l.title, l.price, l.created, u.email as seller_email, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags 
+        FROM listing l 
+        LEFT JOIN tag t ON l.id = t.listing 
+        LEFT JOIN user u ON l.seller = u.id`
     let conditions = []
 
     if (query) {
@@ -234,6 +238,10 @@ app.get('/listings', (req, res) => {
         conditions.push(`l.price >= ${minPrice}`)
     } else if (maxPrice !== undefined) {
         conditions.push(`l.price <= ${maxPrice}`)
+    }
+
+    if (user) {
+        conditions.push(`u.email = '${user}'`)
     }
 
     if (conditions.length > 0) {
@@ -291,7 +299,7 @@ app.post('/listing/:id/bid', (req, res) => {
         res.status(400).send("Missing some or all of query string")
         return
     }
-
+    
     const subQuery = `SELECT MAX(bid) as max_bid FROM bid WHERE listing=${id}`
     const query = `INSERT INTO bid (listing, bidder, bid) SELECT ${id}, '${authtokens.get(token)}', '${bid}' FROM (SELECT IFNULL((${subQuery}), 0) AS max_bid) t WHERE ${bid} > max_bid`
     
