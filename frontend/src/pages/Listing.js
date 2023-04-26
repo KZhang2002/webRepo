@@ -226,7 +226,6 @@ function BidHistoryDialog(props) {
                 scroll={scroll}
                 aria-labelledby="scroll-dialog-title"
                 aria-describedby="scroll-dialog-description"
-                maxWidth="sm"
                 PaperProps={{
                     style: {
                         width: "90vw",
