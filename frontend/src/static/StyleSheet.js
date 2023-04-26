@@ -52,6 +52,7 @@ const styles = {
     fontWeight: 400,
   },
   descriptionText: {
+    height: "2rem",
     fontSize: 14,
     color: "#3c3c3c",
   },
@@ -126,7 +127,6 @@ const styles = {
   listingHeader: {
     display: "flex",
     flexDirection: "row",
-
     justifyContent: "space-between",
     marginBottom: "1rem",
     padding: "2rem 2rem 0rem 2rem"
@@ -139,7 +139,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     marginTop: "0rem",
-    height: "100%",
+    height: "10rem",
     padding: "0rem 2rem 0rem 2rem",
     justifyContent: "space-between"
   },
@@ -163,6 +163,13 @@ const styles = {
     marginTop: "2rem",
     marginLeft: "-0.5rem"
   },
+  listingProfileReview: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    height: "2rem",
+    marginLeft: "-0.5rem"
+  },
   reviewText: {
     marginLeft: "0.5rem",
     fontSize: 18,
@@ -178,25 +185,30 @@ const styles = {
     paddingLeft: "2rem"
   },
   userHeader: {
+    minWidth: "15rem",
     display: 'flex',
+    flexWrap: "wrap",
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    height: '10rem',
     padding: '1rem',
+    paddingBottom: "1.5rem",
     backgroundColor: "#EEEEEE",
   },
   userNameSection: {
+    minWidth: "10rem",
     flexDirection: 'column',
     margin: '0 0 0 2vmax',
     flexGrow: 1
   },
   userName: {
+    minWidth: "10rem",
     margin: 0,
     alignSelf: 'flex-start',
     fontWeight: 'bold',
   },
   userEmail: {
+    minWidth: "10rem",
     margin: 0,
     color: '#555555',
     alignSelf: 'flex-start'
@@ -240,13 +252,12 @@ const styles = {
     margin: "0rem 1rem 0rem 0rem",
   },
   listingImageFrame: {
-    width: "25vw",
-    height: "25vw",
     overflow: "hidden",
   },
   listingImage: {
     width: "100%",
     height: "auto",
+    marginLeft: "-0.5rem"
   },
   listingBadge: {
     backgroundColor: "#1976d2",

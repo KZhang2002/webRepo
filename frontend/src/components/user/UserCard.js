@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import styles from "../../static/StyleSheet";
 function UserCard(props) {
 
-    let phone = "999-999-9999"
+    let phone = "318-485-2384"
 
     let stats = {
         reputation: "5",
@@ -33,26 +33,12 @@ function UserCard(props) {
                 sx={{ width: 100, height: 100 }}
             />
             <section className="col-6" style={styles.userNameSection}>
-                <h2 style={styles.userName}>{`${userInfo.first_name} ${userInfo.last_name}`}</h2>
-                <p style={styles.userEmail}>{props.email}</p>
-                <p style={styles.userEmail}>{phone}</p>
-                <div style={styles.listingReview} id="reviewButton">
+                <h2 style={styles.userName}>{`Peter Wilkinson`}</h2>
+                <p style={styles.userEmail}>{"peter_wilk02@gmail.com"}</p>
+                <div style={styles.listingProfileReview} className="mt-1" id="reviewButton">
                     <IconButton onClick={() => navigate(`/user/${props.email}/reviews`)} sx={{ color: '#3c3c3c' }}><ModeComment /></IconButton>
                     <Link to={`/user/${props.email}/reviews`} style={styles.reviewText}>View Seller Reviews</Link>
                 </div>
-            </section>
-            <section className="col-3 py-3" style={styles.reputationSection}>
-                <p style={styles.reputationText}>
-                    Reputation: <b>{stats.reputation} / 5</b>
-                </p>
-                <p style={styles.reputationText}>
-                    <b>{stats.itemsSold}</b> item(s) sold
-                </p>
-                <p style={styles.reputationText}>
-                    Joined <b>
-                        {/* 12 months ago */}August 27, 1940
-                        </b>
-                </p>
             </section>
         </div>
     );

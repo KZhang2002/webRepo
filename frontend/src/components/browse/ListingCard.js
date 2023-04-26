@@ -18,7 +18,7 @@ const ListingCard = (props) => {
 
     return (
         <Box style={styles.listingCard}>
-            <img style={{ borderRadius: "10px 10px 0px 0px", objectFit: "cover", width: "100%", height: 250 }} onError={({ currentTarget }) => {
+            <img style={{ borderRadius: "5px 5px 0px 0px", objectFit: "-moz-initial", height: 250 }} onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = "https://i0.wp.com/roadmap-tech.com/wp-content/uploads/2019/04/placeholder-image.jpg?resize=400%2C400&ssl=1";
             }} src={listing.imagelink} />
@@ -36,7 +36,7 @@ const ListingCard = (props) => {
             <Box style={styles.listingBody}>
                 <DescriptionText>{listing.item_description}</DescriptionText>
                 {props.isOwn ?  <></> : <ListingReview userId={listing.seller_email} />}
-                <Link style={{marginBottom: "2rem"}} to={`/user/${listing.seller_email}/`} >{listing.seller_email}</Link>
+                <Link style={{marginBottom: "2rem"}} to={`/user/${listing.seller_email}`} >{"peter_wilk02@gmail.com"}</Link>
             </Box>
         </Box>
     )

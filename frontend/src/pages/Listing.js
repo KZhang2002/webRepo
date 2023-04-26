@@ -17,6 +17,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import AddBidDialog from "../components/listing/AddBidDialog";
+import {Chip} from "@mui/material";
 
 function Listing(props) {
     //const {id} = useParams();
@@ -48,7 +49,7 @@ function Listing(props) {
     };
     return (
         <div id="background" style={{ ...styles.listingPage, height: "100%", overflowY: "scroll" }}>
-            <div className="container w-100 px-0 pt-3 pb-2" style={{minWidth: "30rem"}}>
+            <div className="container w-100 px-0 pt-3 pb-2" style={{ minWidth: "20rem" }}>
                 <ProdJumbotron
                     id={listingId}
                     {...listing}
@@ -74,14 +75,14 @@ function SellerCards(props) {
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
             <div className="ps-0" style={{ minWidth: "20rem", width: "100%" }}>
                 <div
-                    className="card border-0 p-3 mt-4 mb-2 h-75"
+                    className="card border-0 p-3 mt-4 mb-2"
                     style={{ backgroundColor: "#EEEEEE" }}
                 >
                     <div className="column container pb-2">
                         <h4 className="m-0 mb-1">
-                            <b>Seller Information:</b>
+                            <b>Seller Information</b>
                         </h4>
-                        <div className="px-2 pb-3">
+                        <div className="px-2 pt-2">
                             <UserCard email={props.listing.seller_email} />
                         </div>
                     </div>
@@ -96,19 +97,19 @@ function ProdJumbotron(props) {
     const productInfo = {
         endDate: {
             date: new Date().toLocaleDateString('en-us', { year: "numeric", month: "short", day: "numeric" }),
-            time: "15:30 PM",
+            time: "3:30 PM",
         }
     }
     return (
         <div className="col">
             <div
-                className="card border-0"
+                className="card border-0 p-5"
                 style={{ backgroundColor: "#F8F9FA" }}
             >
                 <div className="container row">
                     <div
-                        className="d-flex col-md-4 p-5 align-items-center"
-                        style={{...styles.listingImageFrame, minWidth: "20rem", minHeight: "20rem"}}
+                        className="d-flex col-md-4 align-items-center"
+                        style={{ ...styles.listingImageFrame, minWidth: "15rem", minHeight: "15rem" }}
                     >
                         <img
                             onError={({ currentTarget }) => {
@@ -120,9 +121,9 @@ function ProdJumbotron(props) {
                             style={styles.listingImage}
                         ></img>
                     </div>
-                    <div className="textSection col px-0 py-5">
+                    <div className="textSection col ps-2">
                         <div className="jumbotron">
-                            <h1 className="display-4 pb-2">
+                            <h1 className="display-4 pb-2" style={{minWidth: "20rem"}}>
                                 <strong><b>{props.title}</b></strong>
                             </h1>
                             <div className="row">
@@ -141,7 +142,10 @@ function ProdJumbotron(props) {
                         </div>
                     </div>
                 </div>
-                <div className="pe-0" style={{ marginRight: "3rem", marginLeft: "3rem", marginBottom: "3rem" }}>
+                {/* {(props.tags || []).map((value, index) => {
+                    return <Chip key={index} style={styles.filterChipStyle} label={`${props.tags[index]}: ${value.value}`}></Chip>
+                })} */}
+                <div className="pe-0">
                     <div
                         className="card border-0 p-3 my-4 flex-grow-1 h-75"
                         style={{ backgroundColor: "#EEEEEE" }}
@@ -149,10 +153,10 @@ function ProdJumbotron(props) {
                         <div className="column container">
                             <div className="row">
                                 <h4 className="m-0">
-                                    <b>Details:</b>
+                                    <b>Details</b>
                                 </h4>
                                 <div className="row container my-auto">
-                                    <h2 className="mt-2 mb-0 py-0 lh-sm">
+                                    <h2 className="mt-2 mb-0 py-0 lh-sm" style={{fontWeight: 400}}>
                                         Auction ending at <b>{productInfo.endDate.time}</b> on <b>{productInfo.endDate.date}</b>
                                     </h2>
                                 </div>

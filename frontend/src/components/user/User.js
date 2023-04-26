@@ -10,10 +10,11 @@ import { useLocation } from "react-router-dom";
 function User(props) {
     const location = useLocation()
     const otherUserEmail = location.pathname.split("/").pop();
+    console.log(otherUserEmail)
 
     return (
         <div style={styles.page}>
-            <div className='card px-4 pt-3 pb-1 col-5' style={{backgroundColor: '#EEEEEE'}}>
+            <div className='card px-4 pt-3 pb-1 col-5' style={{backgroundColor: '#EEEEEE', minWidth: "20rem"}}>
                 <UserCard email={otherUserEmail} />
             </div>
             <Box style={styles.listingsContainer}>

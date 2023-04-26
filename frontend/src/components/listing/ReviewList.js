@@ -2,7 +2,7 @@ import { Rating } from './Rating'
 import { Box } from "@mui/material"
 
 export const ReviewList = ({ reviews = [] }) => <>
-    <Box style={{paddingTop: "6rem"}}>
+    <Box style={{ display: "flex", paddingTop: "6rem", width: "80%", justifyContent: "center"}}>
         {(reviews.length === 0) ? <BasicCard /> : 
                 reviews.map((review) =>
                     <Review 
@@ -15,7 +15,7 @@ export const ReviewList = ({ reviews = [] }) => <>
 
 function BasicCard() {
     return (
-        <div className="card border-light mb-4 px-3 py-2" style = {{backgroundColor: "#F8F9FA"}}>
+        <div className="card border-light mb-4 px-3 py-2" style = {{backgroundColor: "#F8F9FA", width: "20%", alignItems: "center", minWidth: "20rem"}}>
             <span className="align-center py-1">Be the first to add a review!</span>
         </div>     
     )
