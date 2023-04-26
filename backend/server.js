@@ -140,7 +140,7 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/user', (req, res) => {
-    const { email, password, first_name, last_name } = req.query
+    const { email, password, first_name, last_name } = req.body
     if (!(email && password && first_name && last_name)) {
         res.status(400).send("Missing some or all of query string")
         return
@@ -167,7 +167,7 @@ app.post('/user', (req, res) => {
 
 // Listings
 app.post('/listing', (req, res) => {
-    const { title, price, token, desc, img, tags } = req.query
+    const { title, price, token, desc, img, tags } = req.body
     if (!(title && price && token && desc && img)) {
         res.status(400).send("Missing some or all of query string")
         return
@@ -286,7 +286,7 @@ app.get('/listing/:id', (req, res) => {
 
 app.post('/listing/:id/bid', (req, res) => {
     const { id } = req.params
-    const { token, bid } = req.query
+    const { token, bid } = req.body
     if (!(token && bid)) {
         res.status(400).send("Missing some or all of query string")
         return
@@ -349,7 +349,7 @@ app.put('/listings/clear', (req, res) => {
 
 app.post('/user/:email/review', (req, res) => {
     const { email } = req.params
-    const { token, review } = req.query
+    const { token, review } = req.body
     if (!(token && review)) {
         res.status(400).send("Missing some or all of query string")
         return
