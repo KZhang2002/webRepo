@@ -215,10 +215,16 @@ app.post('/listing', (req, res) => {
 app.get('/listings', (req, res) => {
     const { query, tags, minPrice, maxPrice, user } = req.query
     let sqlQuery = `
-        SELECT l.title, l.price, l.created, u.email as seller_email, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags 
+        SELECT l.id, l.title, l.price as starting_bid_price, b.current_bid_price, l.created, u.email as seller_email, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags 
         FROM listing l 
         LEFT JOIN tag t ON l.id = t.listing 
-        LEFT JOIN user u ON l.seller = u.id`
+        LEFT JOIN user u ON l.seller = u.id
+        LEFT JOIN (
+            SELECT listing, MAX(bid) as current_bid_price 
+            FROM bid 
+            GROUP BY listing
+        ) b ON l.id = b.listing
+    `
     let conditions = []
 
     if (query) {
@@ -270,7 +276,18 @@ app.get('/listings', (req, res) => {
 app.get('/listing/:id', (req, res) => {
     const { id } = req.params
     console.log(id)
-    const query = `SELECT l.title, l.price, l.created, l.seller, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags FROM listing l LEFT JOIN tag t ON l.id = t.listing WHERE l.id='${id}' GROUP BY l.id`
+    const query = `
+    SELECT l.title, l.price as starting_bid_price, b.current_bid_price, l.created, u.email as seller_email, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags 
+    FROM listing l 
+    LEFT JOIN tag t ON l.id = t.listing 
+    LEFT JOIN user u ON l.seller = u.id
+    LEFT JOIN (
+        SELECT listing, MAX(bid) as current_bid_price 
+        FROM bid 
+        GROUP BY listing
+    ) b ON l.id = b.listing
+    WHERE l.id = '${id}'
+`
     connection.query(query, (err, rows, fields) => {
         if (err) {
             res.status(500).send()
