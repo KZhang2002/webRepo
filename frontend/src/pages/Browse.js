@@ -21,7 +21,7 @@ export function BrowseContent(props) {
     return (
         <Box id="listings" style={{ ...styles.listingsContainer }}>
             <ListingsToolbar setQuery={setFilters} query={filters} {...props}/>
-            {generateListings(renderedListings, props.isOwn)}
+            {generateListings(renderedListings, props.isOwn, {email: props.email || ""})}
         </Box>
     )
 }
@@ -29,7 +29,7 @@ export function BrowseContent(props) {
 function Browse(props) {
 
     return <div id="background" style={{ ...styles.page }}>
-        <BrowseContent load={false} setLoad={() => {}} isOwn={false} handleAddListing={()=>{}}/>
+        <BrowseContent email={props.email || ""} load={false} setLoad={() => {}} isOwn={false} handleAddListing={()=>{}}/>
     </div>
 }
 

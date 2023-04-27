@@ -1,5 +1,5 @@
 import { Avatar, useScrollTrigger, IconButton } from "@mui/material";
-import { ModeComment } from "@mui/icons-material";
+import { List, ModeComment } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import { getUser } from "../../api/api";
 import { useState, useEffect } from "react";
@@ -32,8 +32,8 @@ function UserCard(props) {
                 <h2 style={styles.userName}>{`${formatName(userInfo.first_name)} ${formatName(userInfo.last_name)}`}</h2>
                 <p style={styles.userEmail}>{props.email}</p>
                 <div style={styles.listingProfileReview} className="mt-1" id="reviewButton">
-                    <IconButton onClick={() => navigate(`/user/${props.email}/reviews`)} sx={{ color: '#3c3c3c' }}><ModeComment /></IconButton>
-                    <Link to={`/user/${props.email}/reviews`} style={styles.reviewText}>View Seller Reviews</Link>
+                    <IconButton onClick={() => navigate(`/user/${props.email}/reviews`)} sx={{ color: '#3c3c3c', marginTop: "0.1rem" }}><List/></IconButton>
+                    <Link to={`/user/${props.email}`} style={styles.reviewText}>View Seller Listings</Link>
                 </div>
             </section>
         </div>

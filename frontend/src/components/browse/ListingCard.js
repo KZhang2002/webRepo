@@ -29,14 +29,14 @@ const ListingCard = (props) => {
                 </Box>
                 <Box style={{ display: "flex", flexDirection: "column", justifyContent: "right" }}>
                     <PriceText style={{ alignSelf: "flex-end" }}>{listing.starting_bid_price}</PriceText>
-                    <Button variant="contained" onClick={() => {setAddBidDialogOpen(true)}} style={{ marginTop: "-6rem" }}>{`Bid: $${listing.current_bid_price || listing.starting_bid_price}`}</Button>
+                    <Button variant="contained" onClick={() => {setAddBidDialogOpen(true)}} style={{ marginTop: "-6rem", width: "8rem" }}>{`Bid: $${listing.current_bid_price || listing.starting_bid_price}`}</Button>
                 </Box>
             </Box>
             <AddBidDialog open={addBidDialogOpen} setOpen={setAddBidDialogOpen} id={listing.id}/>
             <Box style={styles.listingBody}>
                 <DescriptionText>{listing.item_description}</DescriptionText>
                 {props.isOwn ?  <></> : <ListingReview userId={listing.seller_email} />}
-                <Link style={{marginBottom: "2rem"}} to={`/user/${listing.seller_email}`} >{"peter_wilk02@gmail.com"}</Link>
+                <Link style={{marginBottom: "2rem"}} to={`/user/${listing.seller_email}`} >{listing.seller_email}</Link>
             </Box>
         </Box>
     )

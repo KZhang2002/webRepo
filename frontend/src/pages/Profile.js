@@ -18,7 +18,7 @@ function Profile(props) {
                 <UserCard email={email}/>
             </div>
             <Box style={styles.listingsContainer}>
-                <ProfileMenu isOwn={true} />
+                <ProfileMenu email={email} isOwn={true} />
             </Box>
         </div>
     );

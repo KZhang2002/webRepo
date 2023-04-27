@@ -9,12 +9,13 @@ import ProfileMenu from './ProfileMenu';
 import { Home } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from '../../static/StyleSheet';
+import { ButtonBase } from '@mui/material';
 
 function Header(props) {
     const navigate = useNavigate()
     const location = useLocation()
     return (
-        <Box sx={{ flexGrow: 1, position: "fixed", width: "100%", zIndex: 999 }}>
+        <Box sx={{ flexGrow: 1, position: "fixed", width: "100vw", zIndex: 999 }}>
             <AppBar position="static" style={{display: 'flex', flexDirection: 'row', alignItems: "top", width: "100%", height: "6rem"}}>
                     <div style={{display: 'flex', flexDirection: 'row', alignItems: "top", width: "100%", height: "4rem", paddingLeft: "2rem", paddingRight: "1rem"}}>
                         {location.pathname === '/browse' ? <></> :
@@ -30,13 +31,15 @@ function Header(props) {
                             </IconButton>
                         }
                         <Box style={styles.breadcrumbBox} sx={{ flexGrow: 1, alignItems: "center" }}>
-                            <div style={styles.breadcrumbsTitleText} onClick={() => navigate("/")}>
+                            <ButtonBase style={styles.breadcrumbsTitleText} onClick={() => navigate("/")}>
                                 {`${APP_NAME}`}
-                            </div>
+                            </ButtonBase>
                             <div style={styles.breadcrumbsSepText}>/</div>
+                            {window.innerWidth > 800 ? (
                             <div style={styles.breadcrumbsPathText} >
                                 {`${location.pathname.slice(1)}`}
                             </div>
+                            ) : <></>}
                         </Box>
                         <ProfileMenu setIsLoggedIn={props.setIsLoggedIn} />
                     </div>

@@ -36,10 +36,6 @@ const ProfileListingCard = (props) => {
             <Box style={{ ...styles.listingBody, paddingBottom: '2rem' }}>
                 <DescriptionText>{listing.item_description}</DescriptionText>
                 <Box style={{display: "flex", flexDirection: "row", justifyContent: "flex-end", marginRight: "-1rem", marginBottom: "-1rem"}}>
-                    <IconButton><Edit onClick={() => {setEditDialogOpen(true)}} /></IconButton>
-                    <IconButton><Delete onClick={() => {setDeleteDialogOpen(true)}}/></IconButton>
-                    <EditListingDialog dialogOpen={editDialogOpen} setDialogOpen={setEditDialogOpen} setLoad={setLoad} />
-                    <DeleteListingDialog dialogOpen={deleteDialogOpen} setDialogOpen={setDeleteDialogOpen} setLoad={setLoad} />
                 </Box>
             </Box>
         </Box>

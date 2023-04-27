@@ -17,7 +17,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import AddBidDialog from "../components/listing/AddBidDialog";
-import {Chip} from "@mui/material";
+import { Chip } from "@mui/material";
 
 function Listing(props) {
     //const {id} = useParams();
@@ -49,7 +49,7 @@ function Listing(props) {
     };
     return (
         <div id="background" style={{ ...styles.listingPage, height: "100%", overflowY: "scroll" }}>
-            <div className="container w-100 px-0 pt-3 pb-2" style={{ minWidth: "20rem" }}>
+            <div className="container w-100 px-0 pt-3 pb-2" style={{ minWidth: "20rem", marginTop: "8rem" }}>
                 <ProdJumbotron
                     id={listingId}
                     {...listing}
@@ -94,10 +94,27 @@ function SellerCards(props) {
 }
 
 function ProdJumbotron(props) {
+    const startDate = new Date(props.created)
+    const endDate = new Date(props.created)
+    endDate.setMonth(startDate.getMonth() + 1)
+
+
+
+    function formatAMPM(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+    }
+
     const productInfo = {
         endDate: {
-            date: new Date().toLocaleDateString('en-us', { year: "numeric", month: "short", day: "numeric" }),
-            time: "3:30 PM",
+            date: endDate.toLocaleDateString('en-us', { year: "numeric", month: "short", day: "numeric" }),
+            time: formatAMPM(endDate)
         }
     }
     return (
@@ -123,7 +140,7 @@ function ProdJumbotron(props) {
                     </div>
                     <div className="textSection col ps-2">
                         <div className="jumbotron">
-                            <h1 className="display-4 pb-2" style={{minWidth: "20rem"}}>
+                            <h1 className="display-4 pb-2" style={{ minWidth: "20rem" }}>
                                 <strong><b>{props.title}</b></strong>
                             </h1>
                             <div className="row">
@@ -156,7 +173,7 @@ function ProdJumbotron(props) {
                                     <b>Details</b>
                                 </h4>
                                 <div className="row container my-auto">
-                                    <h2 className="mt-2 mb-0 py-0 lh-sm" style={{fontWeight: 400}}>
+                                    <h2 className="mt-2 mb-0 py-0 lh-sm" style={{ fontWeight: 400 }}>
                                         Auction ending at <b>{productInfo.endDate.time}</b> on <b>{productInfo.endDate.date}</b>
                                     </h2>
                                 </div>
@@ -248,7 +265,7 @@ function BidHistoryDialog(props) {
                                     <th className="col">Date</th>
                                 </tr>
                             </thead>
-                            <tbody class="table-group-divider">
+                            <tbody className="table-group-divider">
                                 {bids.map(
                                     (bid, index) => (
                                         <tr key={index}>

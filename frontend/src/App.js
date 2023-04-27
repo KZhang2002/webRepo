@@ -11,7 +11,7 @@ import SignUp from "./pages/SignUp";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import User from "./components/user/User";
-import { ReviewList } from "./components/listing/ReviewList";
+import { ReviewList } from "./components/user/ReviewList";
 import UserReviews from "./pages/UserReviews";
 
 const ProtectedRoute = (props) => {

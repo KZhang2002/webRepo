@@ -44,7 +44,7 @@ export default function ProfileMenu(props) {
                 edge="start"
                 color="inherit"
                 aria-label="menu"
-                style={{height: "2rem", marginTop: "1.2rem", marginRight: "0.5rem"}}
+                style={{height: "2rem", marginTop: "1.2rem", marginRight: "2vw"}}
             >
                 <Person2 />
             </IconButton>

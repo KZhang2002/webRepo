@@ -1,16 +1,17 @@
-import { ReviewList } from "../components/listing/ReviewList";
+import { ReviewList } from "../components/user/ReviewList";
 import styles from "../static/StyleSheet";
 import { Box } from "@mui/material";
 import ListingsToolbar from "../components/browse/ListingsToolbar";
-import UserCard from "../components/user/UserCard";
+import UserCardReviews from "../components/user/UserCardReviews";
 import { ProfileMenu } from "../components/user/ProfileMenu";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { getUser } from "../api/api";
 import { useLocation } from "react-router-dom";
+import { ReviewForm } from "../components/user/ReviewForm";
 
 function UserReviews(props) {
     const location = useLocation()
-    const otherUserEmail = location.pathname.split("/").pop();
+    const otherUserEmail = location.pathname.split("/").at(-2);
     console.log(otherUserEmail)
 
     const reviews = [
@@ -22,10 +23,10 @@ function UserReviews(props) {
     return (
         <div style={styles.page}>
             <div className='card px-4 pt-3 pb-1 col-5' style={{backgroundColor: '#EEEEEE', minWidth: "20rem"}}>
-                <UserCard email={otherUserEmail} />
+                <UserCardReviews email={otherUserEmail} />
             </div>
-            <div id="background" style={{ ...styles.listingPage, height: "100%", width: "100%", overflowY: "scroll" }}>
-                {/* <ReviewList reviews={reviews}/> */}
+            <div id="background" style={{ height: "100vw", width: "100"}}>
+                <ReviewList email={otherUserEmail} reviews={reviews}/>
             </div>
         </div>
     )

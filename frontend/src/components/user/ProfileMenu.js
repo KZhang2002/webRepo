@@ -18,7 +18,7 @@ export const ProfileMenu = (props) => {
     return (
         <>
             <AddListingDialog dialogOpen={dialogOpen} setDialogOpen={setDialogOpen} setLoad={setLoad}></AddListingDialog>
-            <BrowseContent setLoad={setLoad} load={load} isOwn={props.isOwn} handleAddListing={handleAddListing} />
+            <BrowseContent email={props.email} setLoad={setLoad} load={load} isOwn={props.isOwn} handleAddListing={handleAddListing} />
         </>
     );
 };
