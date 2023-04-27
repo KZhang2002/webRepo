@@ -35,10 +35,10 @@ function UserCard(props) {
             <section className="col-6" style={styles.userNameSection}>
                 <h2 style={styles.userName}>{`Peter Wilkinson`}</h2>
                 <p style={styles.userEmail}>{"peter_wilk02@gmail.com"}</p>
-                <div style={styles.listingProfileReview} className="mt-1" id="reviewButton">
+                {/* <div style={styles.listingProfileReview} className="mt-1" id="reviewButton">
                     <IconButton onClick={() => navigate(`/user/${props.email}/reviews`)} sx={{ color: '#3c3c3c' }}><ModeComment /></IconButton>
                     <Link to={`/user/${props.email}/reviews`} style={styles.reviewText}>View Seller Reviews</Link>
-                </div>
+                </div> */}
             </section>
         </div>
     );
