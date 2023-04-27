@@ -273,6 +273,72 @@ app.get('/listings', (req, res) => {
     })
 })
 
+
+//Hi sithindu check this 
+app.get('/listings/:email', (req, res) => {
+    const { query, tags, minPrice, maxPrice, user } = req.query
+    
+    const { email } = req.query
+    let sqlQuery = `
+        SELECT l.id, l.title, l.price as starting_bid_price, b.current_bid_price, l.created, u.email as seller_email, l.item_description, l.imagelink, GROUP_CONCAT(t.tag_name) AS tags 
+        FROM listing l 
+        LEFT JOIN tag t ON l.id = t.listing 
+        LEFT JOIN user u ON l.seller = u.id
+        LEFT JOIN (
+            SELECT listing, MAX(bid) as current_bid_price 
+            FROM bid 
+            GROUP BY listing
+        ) b ON l.id = b.listing
+        WHERE u.email = '${email}'
+    `
+    let conditions = []
+
+    if (query) {
+        const termsArray = query.split(' ')
+        const wildcardPatterns = termsArray.map(term => `%${term}%`)
+        const wildcardList = wildcardPatterns.join(' OR ')
+        conditions.push(`(l.title LIKE '${wildcardList}' OR l.item_description LIKE '${wildcardList}')`)
+    }
+
+    if (tags) {
+        conditions.push(`ID IN (SELECT DISTINCT listing FROM tag WHERE tag_name IN (${tags.split(',').map(tag => `'${tag}'`).join(',')}))`)
+    }
+
+    if (minPrice !== undefined && maxPrice !== undefined) {
+        conditions.push(`l.price BETWEEN ${minPrice} AND ${maxPrice}`)
+    } else if (minPrice !== undefined) {
+        conditions.push(`l.price >= ${minPrice}`)
+    } else if (maxPrice !== undefined) {
+        conditions.push(`l.price <= ${maxPrice}`)
+    }
+
+    if (user) {
+        conditions.push(`u.email = '${user}'`)
+    }
+
+    if (conditions.length > 0) {
+        sqlQuery += ' WHERE ' + conditions.join(' AND ')
+    }
+
+    sqlQuery += ' GROUP BY l.id'
+
+    connection.query(sqlQuery, (err, rows, fields) => {
+        if (err) {
+            res.status(500).send()
+            console.log(err)
+            return
+        }
+
+        rows.forEach(function(r) {
+            if (r['tags']) r['tags'] = r['tags'].split(',')
+            else r['tags'] = []
+        })
+
+        res.status(200)
+        res.send(rows)
+    })
+})
+
 app.get('/listing/:id', (req, res) => {
     const { id } = req.params
     console.log(id)

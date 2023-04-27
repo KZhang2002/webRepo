@@ -25,7 +25,7 @@ function UserReviews(props) {
             <div className='card px-4 pt-3 pb-1 col-5' style={{backgroundColor: '#EEEEEE', minWidth: "20rem"}}>
                 <UserCardReviews email={otherUserEmail} />
             </div>
-            <div id="background" style={{ height: "100vw", width: "100"}}>
+            <div id="background" style={{ height: "100vw", width: "100%"}}>
                 <ReviewList email={otherUserEmail} reviews={reviews}/>
             </div>
         </div>
